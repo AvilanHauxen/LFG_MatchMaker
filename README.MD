@@ -23,7 +23,7 @@ There are no hidden messages or channels, only interpretation of what is being a
 
 ## Searching
 
-When search is activated, a notification will be given when a message matching the dungeon(s) you have selected is announced.
+When search is activated, a notification will be shown when a message matching the dungeon(s) you have selected is announced.
 
 The message that was mached is presented and you have the option to ignore the message and continue the search, or request an invite (LFG) or invite the player (LFM).
 
@@ -45,7 +45,7 @@ Therefore a dialog window with a button to re-broadcast the message will be show
 
 A list of all recent announcements can be viewed and filtered on LFG/LFM as well as which dungeon matches to show.
 
-There is also an "Unknown" filters for messages that could not be categorized.
+There is also an "Unknown" filter for messages that could not be categorized.
 
 Annoucements will only be listed once per player, and will be updated with the most recent message posted by that player.
 
