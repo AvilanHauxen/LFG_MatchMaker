@@ -14,11 +14,15 @@ It is simple to use, and no configuration is required to start using it.
 **It does not require any other players to install the same addon.**
 
 
-## Channel
+## Getting started
 
-LFG MatchMaker only listens to the "LookingForGroup" channel.
+A button to open LFG Matchmaker is available both on the bottom of the quest log window and on the minimap.
 
-There are no hidden messages or channels, only interpretation of what is being announced in "LookingForGroup" channel.
+Additionally it can be opened by using any of the following slash commands:
+
+* /lfgmm
+* /lfgmatchmaker
+* /matchmaker
 
 
 ## Searching
@@ -49,3 +53,9 @@ There is also an "Unknown" filter for messages that could not be categorized.
 
 Annoucements will only be listed once per player, and will be updated with the most recent message posted by that player.
 
+
+## Chat channel
+
+LFG MatchMaker only listens to the "LookingForGroup" channel.
+
+There are no hidden messages or channels, only interpretation of what is being announced in "LookingForGroup" channel.
