@@ -327,7 +327,7 @@ function LFGMM_LfmTab_StartStopSearchButton_OnClick()
 		LFGMM_MainWindowTab1:Hide();
 
 		-- Start broadcast
-		if (LFGMM_DB.SEARCH.LFG.Broadcast) then
+		if (LFGMM_DB.SEARCH.LFM.Broadcast) then
 			LFGMM_BroadcastWindow_StartBroadcast();
 		end
 
