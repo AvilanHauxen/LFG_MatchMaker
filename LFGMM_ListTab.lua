@@ -1,8 +1,8 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0
+	Version: 1.0.2
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
-	Copyright (C) 2019 L.I.R.
+	Copyright (C) 2019-2020 L.I.R.
 
 	This file is part of 'LFG MatchMaker' addon for World of Warcraft.
 
@@ -41,8 +41,6 @@ function LFGMM_ListTab_Initialize()
 	LFGMM_ListTab_MessageInfoWindow_WhoButton:SetScript("OnClick", LFGMM_ListTab_MessageInfoWindow_WhoButton_OnClick);
 	LFGMM_ListTab_MessageInfoWindow_InviteButton:SetScript("OnClick", LFGMM_ListTab_MessageInfoWindow_InviteButton_OnClick);
 	LFGMM_ListTab_MessageInfoWindow_RequestInviteButton:SetScript("OnClick", LFGMM_ListTab_MessageInfoWindow_RequestInviteButton_OnClick);
-
-	LFGMM_ListTab_MessageInfoWindow_MessageText:SetFont("Fonts\\FRIZQT__.TTF", 11);
 end
 
 
@@ -152,8 +150,11 @@ function LFGMM_ListTab_Refresh()
 		if (filteredMessages[index] ~= nil) then
 			local message = filteredMessages[index];
 		
+			-- Class
+			getglobal("LFGMM_ListTab_Entry" .. entryIndex .. "ClassIcon"):SetTexCoord(unpack(message.PlayerClass.IconCoordinates));
+		
 			-- Player
-			getglobal("LFGMM_ListTab_Entry" .. entryIndex .. "PlayerName"):SetText(message.Player);
+			getglobal("LFGMM_ListTab_Entry" .. entryIndex .. "PlayerName"):SetText(message.PlayerClass.Color .. message.Player);
 
 			-- Message
 			local messageText = message.Message;
@@ -597,17 +598,33 @@ function LFGMM_ListTab_MessageInfoWindow_Refresh()
 
 	local message = LFGMM_ListTab_MessageInfoWindow.Message;
 
-	-- Message
-	LFGMM_ListTab_MessageInfoWindow_MessageText:SetText(LFGMM_Utility_GetMessageAsHtml(message));
+	-- Player
+	LFGMM_ListTab_MessageInfoWindow_PlayerText:SetText(message.PlayerClass.Color .. "[" .. message.Player .. "]:");
 
-	-- Player info
-	if (message.PlayerInfo ~= nil) then
+	-- Message
+	LFGMM_ListTab_MessageInfoWindow_MessageText:SetText(message.Message);
+
+	-- Class
+	LFGMM_ListTab_MessageInfoWindow_ClassIcon:SetTexCoord(unpack(message.PlayerClass.IconCoordinates));
+	LFGMM_ListTab_MessageInfoWindow_ClassText:SetText(message.PlayerClass.Color .. message.PlayerClass.LocalizedName);
+	
+	-- Level
+	local level = message.PlayerLevel or "?";
+	LFGMM_ListTab_MessageInfoWindow_LevelText:SetText(message.PlayerClass.Color .. level);
+
+	-- Window size
+	local targetSize = LFGMM_ListTab_MessageInfoWindow_MessageText:GetHeight() + 125;
+	if (targetSize < 200) then
+		targetSize = 200;
+	end
+	LFGMM_ListTab_MessageInfoWindow:SetHeight(targetSize);
+
+	-- Who button
+	if (message.PlayerLevel ~= nil) then
 		LFGMM_ListTab_MessageInfoWindow_WhoButton:Hide();
-		LFGMM_ListTab_MessageInfoWindow_WhoText:SetText(message.PlayerInfo);
-		LFGMM_ListTab_MessageInfoWindow_WhoText:Show();
 	else
 		LFGMM_ListTab_MessageInfoWindow_WhoButton:Show();
-		
+	
 		if (LFGMM_GLOBAL.WHO_COOLDOWN > 0) then
 			LFGMM_ListTab_MessageInfoWindow_WhoButton:SetText("Who? (" .. LFGMM_GLOBAL.WHO_COOLDOWN .. ")");
 			LFGMM_ListTab_MessageInfoWindow_WhoButton:Disable();

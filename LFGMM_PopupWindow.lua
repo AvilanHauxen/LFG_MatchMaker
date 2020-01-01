@@ -1,8 +1,8 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0
+	Version: 1.0.2
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
-	Copyright (C) 2019 L.I.R.
+	Copyright (C) 2019-2020 L.I.R.
 
 	This file is part of 'LFG MatchMaker' addon for World of Warcraft.
 
@@ -38,8 +38,6 @@ function LFGMM_PopupWindow_Initialize()
 	LFGMM_PopupWindow_InviteButton:SetScript("OnClick", LFGMM_PopupWindow_InviteButton_OnClick);
 	LFGMM_PopupWindow_RequestInviteButton:SetScript("OnClick", LFGMM_PopupWindow_RequestInviteButton_OnClick);
 	LFGMM_PopupWindow_SkipWaitButton:SetScript("OnClick", LFGMM_PopupWindow_SkipWaitButton_OnClick);
-
-	LFGMM_PopupWindow_Message:SetFont("Fonts\\FRIZQT__.TTF", 11);
 	
 	LFGMM_PopupWindow.UpdateAgeTimerLock = false;
 	LFGMM_PopupWindow.UpdateWaitCountdownLock = false;
@@ -80,7 +78,6 @@ function LFGMM_PopupWindow_ShowForMatch(message)
 	LFGMM_PopupWindow_WhisperButton:Show();
 
 	-- Hide
-	LFGMM_PopupWindow_WhoText:Hide();
 	LFGMM_PopupWindow_WaitText:Hide();
 	LFGMM_PopupWindow_WaitCountdownText:Hide();
 	LFGMM_PopupWindow_SkipWaitButton:Hide();
@@ -109,7 +106,6 @@ function LFGMM_PopupWindow_ShowForInviteRequested(message)
 	-- Hide
 	LFGMM_PopupWindow_IgnoreButton:Hide();
 	LFGMM_PopupWindow_WhoButton:Hide();
-	LFGMM_PopupWindow_WhoText:Hide();
 	LFGMM_PopupWindow_WhisperButton:Hide();
 	LFGMM_PopupWindow_RequestInviteButton:Hide();
 	LFGMM_PopupWindow_InviteButton:Hide();
@@ -139,7 +135,6 @@ function LFGMM_PopupWindow_ShowForInvited(message)
 
 	-- Hide
 	LFGMM_PopupWindow_IgnoreButton:Hide();
-	LFGMM_PopupWindow_WhoText:Hide();
 	LFGMM_PopupWindow_RequestInviteButton:Hide();
 	LFGMM_PopupWindow_InviteButton:Hide();
 	LFGMM_PopupWindow_WaitText:Hide();
@@ -192,20 +187,31 @@ function LFGMM_PopupWindow_Refresh()
 		return;
 	end
 
-	-- Update message
-	LFGMM_PopupWindow_Message:SetText(LFGMM_Utility_GetMessageAsHtml(LFGMM_PopupWindow.Message));
+	local message = LFGMM_PopupWindow.Message;
+	
+	-- Class
+	LFGMM_PopupWindow_ClassIcon:SetTexCoord(unpack(LFGMM_PopupWindow.Message.PlayerClass.IconCoordinates));
+	LFGMM_PopupWindow_ClassText:SetText(message.PlayerClass.Color .. message.PlayerClass.LocalizedName);
 
-	-- Set player info if present
+	-- Level
+	LFGMM_PopupWindow_LevelText:SetText(message.PlayerClass.Color .. (message.PlayerLevel or "?"));
+	
+	-- Player
+	LFGMM_PopupWindow_PlayerText:SetText(message.PlayerClass.Color .. "[" .. message.Player .. "]:");
+	
+	-- Message
+	LFGMM_PopupWindow_MessageText:SetText(LFGMM_PopupWindow.Message.Message);
+
+	-- Window size
+	LFGMM_PopupWindow:SetHeight(LFGMM_PopupWindow_MessageText:GetHeight() + 115);
+
+	-- Who button
 	if (LFGMM_PopupWindow.Type ~= "REQUEST") then
-		local message = LFGMM_PopupWindow.Message;
-		if (message.PlayerInfo ~= nil) then
+		if (message.PlayerLevel ~= nil) then
 			LFGMM_PopupWindow_WhoButton:Hide();
-			LFGMM_PopupWindow_WhoText:SetText(message.PlayerInfo);
-			LFGMM_PopupWindow_WhoText:Show();
 		else
 			LFGMM_PopupWindow_WhoButton:Show();
-			LFGMM_PopupWindow_WhoText:Hide();
-		
+
 			if (LFGMM_GLOBAL.WHO_COOLDOWN > 0) then
 				LFGMM_PopupWindow_WhoButton:SetText("Who? (" .. LFGMM_GLOBAL.WHO_COOLDOWN .. ")");
 				LFGMM_PopupWindow_WhoButton:Disable();
@@ -215,6 +221,9 @@ function LFGMM_PopupWindow_Refresh()
 			end
 		end
 	end
+	
+	-- Refresh info window
+	LFGMM_ListTab_MessageInfoWindow_Refresh();
 end
 
 

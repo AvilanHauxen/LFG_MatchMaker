@@ -5,9 +5,9 @@
 
 ## How it works
 
-LFG MatchMaker will interpret messages in "LookingForGroup" channel and categorize messages into LFG or LFM and into dungeons mentioned.
+LFG MatchMaker will interpret messages in "LookingForGroup" channel and categorize messages into LFG or LFM and dungeons mentioned.
 
-The addon is configured to match various pronunciations (and mispronunciations) of dungeon names and will find matches for multiple dungeons in a single message.
+The addon will match dungeons on various pronunciations (and mispronunciations) and will find matches for multiple dungeons in a single message.
 
 It is simple to use, and no configuration is required to start using it.
 
@@ -52,6 +52,8 @@ A list of all recent announcements can be viewed and filtered on LFG/LFM as well
 There is also an "Unknown" filter for messages that could not be categorized.
 
 Annoucements will only be listed once per player, and will be updated with the most recent message posted by that player.
+
+When an announcement has not been re-announced for over 30 minutes, the announcement will expire and removed from the list.
 
 
 ## Chat channel

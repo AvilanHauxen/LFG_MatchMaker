@@ -1,8 +1,8 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0
+	Version: 1.0.2
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
-	Copyright (C) 2019 L.I.R.
+	Copyright (C) 2019-2020 L.I.R.
 
 	This file is part of 'LFG MatchMaker' addon for World of Warcraft.
 
@@ -310,6 +310,14 @@ function LFGMM_Core_EventHandler(self, event, ...)
 	if (not LFGMM_GLOBAL.READY and event == "PLAYER_ENTERING_WORLD") then
 		LFGMM_Load();
 		LFGMM_Core_Initialize();
+
+		-- Populate player info
+		LFGMM_GLOBAL.PLAYER_NAME = UnitName("player");
+		LFGMM_GLOBAL.PLAYER_LEVEL = UnitLevel("player");
+		LFGMM_GLOBAL.PLAYER_CLASS = LFGMM_GLOBAL.CLASSES[select(2, UnitClass("player"))];
+		-- LFGMM_GLOBAL.PLAYER_SPEC = LFGMM_Utility_GetPlayerSpec();
+
+		-- Join LFG channel
 		C_Timer.After(5, function()
 			LFGMM_GLOBAL.LFG_CHANNEL_NAME = LFGMM_Utility_GetLfgChannelName();
 			JoinTemporaryChannel(LFGMM_GLOBAL.LFG_CHANNEL_NAME);
@@ -318,8 +326,12 @@ function LFGMM_Core_EventHandler(self, event, ...)
 	-- Return if not ready
 	elseif (not LFGMM_GLOBAL.READY) then
 		return;
-		
-	-- Update player info
+	
+	-- Update spec
+	-- elseif (event == "CHARACTER_POINTS_CHANGED") then
+		-- LFGMM_GLOBAL.PLAYER_SPEC = LFGMM_Utility_GetPlayerSpec();
+	
+	-- Update player level
 	elseif (event == "PLAYER_LEVEL_UP") then
 		LFGMM_GLOBAL.PLAYER_LEVEL = select(1, ...);
 		LFGMM_LfgTab_UpdateBroadcastMessage();
@@ -335,30 +347,14 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			LFGMM_PopupWindow_MoveToPartyInviteDialog();
 		end
 		
-	-- Parse /who response
+	-- Parse /who response for player level
 	elseif (event == "CHAT_MSG_SYSTEM") then
 		local message = select(1, ...);
-		local player, level, race, class = string.match(message, "%[(.+)%]%ph%s?: [^%s]* (%d*) ([^%s]*) ([^%s]*)");
+		local player, level = string.match(message, "%[(.+)%]%ph%s?: [^%s]* (%d*)");
 
-		-- Night Elf workarounds
-		if (race == "Night") then
-			class = string.match(message, "Night Elf ([^%s]*)");
-		elseif (race == "Elfa") then
-			if (class == "de") then
-				class = string.match(message, "Elfa de la noche ([^%s]*)");
-			elseif (class == "Noturna") then
-				class = string.match(message, "Elfa Noturna ([^%s]*)");
-			end
-		elseif (race == "Elfo") then
-			class = string.match(message, "Elfo de la noche ([^%s]*)");
-		elseif (race == "Elfe") then
-			class = string.match(message, "Elfe de la nuit ([^%s]*)");
-		end
-		
-		-- Set player info
 		if (LFGMM_GLOBAL.MESSAGES[player] ~= nil) then
-			LFGMM_GLOBAL.MESSAGES[player].PlayerInfo = level .. " " .. class;
-
+			LFGMM_GLOBAL.MESSAGES[player].PlayerLevel = level;
+			
 			LFGMM_ListTab_MessageInfoWindow_Refresh();
 			LFGMM_PopupWindow_Refresh();
 		end
@@ -409,6 +405,7 @@ function LFGMM_Core_EventHandler(self, event, ...)
 		if (channelName == LFGMM_GLOBAL.LFG_CHANNEL_NAME) then
 			local now = time();
 			local player = select(5, ...);
+			local playerGuid = select(12, ...);
 			local messageOrg = select(1, ...);
 			local message = string.lower(messageOrg);
 	
@@ -617,9 +614,12 @@ function LFGMM_Core_EventHandler(self, event, ...)
 				
 			-- Add new message
 			else
+				local classFile = select(2, GetPlayerInfoByGUID(playerGuid));
+
 				local newMessage = {
 					Player = player,
-					PlayerInfo = nil,
+					PlayerClass = LFGMM_GLOBAL.CLASSES[classFile],
+					PlayerLevel = nil,
 					Timestamp = now,
 					Type = typeMatch,
 					Message = messageOrg,
@@ -676,6 +676,7 @@ LFGMM_MainWindow:RegisterEvent("PLAYER_LEVEL_UP");
 LFGMM_MainWindow:RegisterEvent("GROUP_ROSTER_UPDATE");
 LFGMM_MainWindow:RegisterEvent("CHAT_MSG_SYSTEM");
 LFGMM_MainWindow:RegisterEvent("PARTY_INVITE_REQUEST");
+-- LFGMM_MainWindow:RegisterEvent("CHARACTER_POINTS_CHANGED");
 LFGMM_MainWindow:SetScript("OnEvent", LFGMM_Core_EventHandler);
 
 -- Register slash commands
