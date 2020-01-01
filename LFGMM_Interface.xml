@@ -1,8 +1,8 @@
 <!--
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0
+	Version: 1.0.2
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
-	Copyright (C) 2019 L.I.R.
+	Copyright (C) 2019-2020 L.I.R.
 
 	This file is part of 'LFG MatchMaker' addon for World of Warcraft.
 
@@ -31,10 +31,19 @@
 
 		<Layers>
 			<Layer>
+				<Texture name="$parentClassIcon" file="Interface\TargetingFrame\UI-Classes-Circles">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT" >
+							<Offset x="5" y="-5" />
+						</Anchor>
+					</Anchors>
+
+					<Size x="11" y="11" />
+				</Texture>
 				<FontString name="$parentPlayerName" inherits="GameFontNormal">
 					<Anchors>
 						<Anchor point="TOPLEFT">
-							<Offset x="5" y="-5" />
+							<Offset x="18" y="-5" />
 						</Anchor>
 					</Anchors>
 				</FontString>
@@ -46,7 +55,6 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
-				
 				
 				<FontString name="$parentDungeon" inherits="GameFontHighlightSmall">
 					<Anchors>
@@ -64,8 +72,6 @@
 							<Offset x="-10" />
 						</Anchor>
 					</Anchors>
-
-					<Color a="1" r="0" g="1" b="1" />
 				</FontString>
 			</Layer>
 		</Layers>
@@ -914,21 +920,23 @@
 		<Size x="260" y="270" />
 
 		<Layers>
-			<Layer>
-				<FontString name="LFGMM_ListTab_MessageInfoWindow_TimeText" inherits="GameFontNormalSmall">
+			<Layer level="OVERLAY">
+				<FontString name="LFGMM_ListTab_MessageInfoWindow_PlayerText" inherits="GameFontNormal">
 					<Anchors>
 						<Anchor point="TOP" relativePoint="TOP">
 							<Offset x="0" y="-12" />
 						</Anchor>
 					</Anchors>
 				</FontString>
-
-				<FontString name="LFGMM_ListTab_MessageInfoWindow_WhoText" hidden="true" inherits="GameFontNormal">
+				
+				<FontString name="LFGMM_ListTab_MessageInfoWindow_MessageText" inherits="GameFontHighlight" nonspacewrap="true">
 					<Anchors>
-						<Anchor point="CENTER" relativePoint="BOTTOMLEFT">
-						<Offset x="70" y="27" />
+						<Anchor point="TOP" relativePoint="TOP">
+							<Offset x="0" y="-30" />
 						</Anchor>
 					</Anchors>
+
+					<Size x="230" />
 				</FontString>
 
 				<FontString name="LFGMM_ListTab_MessageInfoWindow_InPartyText" hidden="true" text="In group" inherits="GameFontNormal">
@@ -944,17 +952,69 @@
 		</Layers>
 		
 		<Frames>
-			<SimpleHtml name="LFGMM_ListTab_MessageInfoWindow_MessageText">
+			<Frame name="LFGMM_ListTab_MessageInfoWindow_PlayerInfoFrame" inherits="TooltipBorderedFrameTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset x="15" y="-30" />
+					<Anchor point="BOTTOM" relativePoint="TOP" relativeTo="LFGMM_ListTab_MessageInfoWindow">
+						<Offset x="0" y="-4" />
 					</Anchor>
 				</Anchors>
+				
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="LFGMM_ListTab_MessageInfoWindow_ClassIcon" file="Interface\WorldStateFrame\Icons-Classes">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativePoint="TOPLEFT" >
+									<Offset x="15" y="-11" />
+								</Anchor>
+							</Anchors>
 
-				<Size x="230" y="1" />
-			</SimpleHtml>
+							<Size x="25" y="25" />
+						</Texture>
+						
+						<FontString name="LFGMM_ListTab_MessageInfoWindow_ClassText" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+									<Offset x="-15" y="-24" />
+								</Anchor>
+							</Anchors>
+						</FontString>
 
-			<Button name="LFGMM_ListTab_MessageInfoWindow_WhisperButton" text="Whisper" inherits="UIPanelButtonTemplate">
+						<FontString name="LFGMM_ListTab_MessageInfoWindow_LevelText" text="?" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="BOTTOM" relativePoint="TOP" relativeTo="LFGMM_ListTab_MessageInfoWindow_ClassText">
+									<Offset x="0" y="0" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				
+				<Size x="260" y="48" />
+			</Frame>
+			
+			<Frame name="LFGMM_ListTab_MessageInfoWindow_TimeTextFrame" inherits="TooltipBorderedFrameTemplate">
+				<Anchors>
+					<Anchor point="BOTTOM" relativePoint="TOP" relativeTo="LFGMM_ListTab_MessageInfoWindow_PlayerInfoFrame">
+						<Offset x="0" y="-4" />
+					</Anchor>
+				</Anchors>
+				
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="LFGMM_ListTab_MessageInfoWindow_TimeText" inherits="GameFontNormalSmall">
+						<Anchors>
+							<Anchor point="TOP" relativePoint="TOP">
+								<Offset x="0" y="-9" />
+							</Anchor>
+						</Anchors>
+					</FontString>
+					</Layer>
+				</Layers>
+				
+				<Size x="260" y="28" />
+			</Frame>
+			
+			<Button name="LFGMM_ListTab_MessageInfoWindow_WhoButton" text="Who?" inherits="UIPanelButtonTemplate">
 				<Anchors>
 					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT">
 						<Offset x="15" y="45" />
@@ -964,7 +1024,7 @@
 				<Size x="110" y="25" />
 			</Button>
 			
-			<Button name="LFGMM_ListTab_MessageInfoWindow_WhoButton" text="Who?" inherits="UIPanelButtonTemplate">
+			<Button name="LFGMM_ListTab_MessageInfoWindow_WhisperButton" text="Whisper" inherits="UIPanelButtonTemplate">
 				<Anchors>
 					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT">
 						<Offset x="15" y="15" />
@@ -1031,7 +1091,7 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
-			
+		
 				<FontString text="(Max message length: 255)" inherits="GameFontHighlight">
 					<Anchors>
 						<Anchor point="CENTER" relativePoint="BOTTOM">
@@ -1134,18 +1194,36 @@
 					<Color a="1" r="0" g="1" b="0" />
 				</FontString>
 				
-				<FontString name="LFGMM_PopupWindow_TimeText" inherits="GameFontNormalSmall">
+				<Texture name="LFGMM_PopupWindow_ClassIcon" file="Interface\WorldStateFrame\Icons-Classes">
 					<Anchors>
-						<Anchor point="TOP" relativePoint="TOP">
-							<Offset x="0" y="-22" />
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+							<Offset x="15" y="-15" />
+						</Anchor>
+					</Anchors>
+
+					<Size x="25" y="25" />
+				</Texture>
+				
+				<FontString name="LFGMM_PopupWindow_ClassText" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+							<Offset x="-15" y="-28" />
 						</Anchor>
 					</Anchors>
 				</FontString>
 
-				<FontString name="LFGMM_PopupWindow_WhoText" inherits="GameFontNormal">
+				<FontString name="LFGMM_PopupWindow_LevelText" inherits="GameFontNormal">
 					<Anchors>
-						<Anchor point="CENTER" relativePoint="BOTTOMLEFT">
-							<Offset x="185" y="27" />
+						<Anchor point="BOTTOM" relativePoint="TOP" relativeTo="LFGMM_PopupWindow_ClassText">
+							<Offset x="0" y="0" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				
+				<FontString name="LFGMM_PopupWindow_TimeText" inherits="GameFontNormalSmall">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="TOP">
+							<Offset x="0" y="-22" />
 						</Anchor>
 					</Anchors>
 				</FontString>
@@ -1165,20 +1243,28 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
+
+				<FontString name="LFGMM_PopupWindow_PlayerText" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="TOP">
+							<Offset x="0" y="-40" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString name="LFGMM_PopupWindow_MessageText" inherits="GameFontHighlight" nonspacewrap="true">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="TOP">
+							<Offset x="0" y="-59" />
+						</Anchor>
+					</Anchors>
+					
+					<Size x="460" />
+				</FontString>
 			</Layer>
 		</Layers>
 		
 		<Frames>
-			<SimpleHtml name="LFGMM_PopupWindow_Message">
-				<Anchors>
-					<Anchor point="TOPLEFT">
-						<Offset x="15" y="-35" />
-					</Anchor>
-				</Anchors>
-
-				<Size x="460" y="1" />
-			</SimpleHtml>
-			
 			<Button name="LFGMM_PopupWindow_IgnoreButton" visible="false" text="Ignore" inherits="UIPanelButtonTemplate">
 				<Anchors>
 					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT">

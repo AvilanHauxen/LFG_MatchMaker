@@ -1,8 +1,8 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0
+	Version: 1.0.2
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
-	Copyright (C) 2019 L.I.R.
+	Copyright (C) 2019-2020 L.I.R.
 
 	This file is part of 'LFG MatchMaker' addon for World of Warcraft.
 
@@ -460,15 +460,6 @@ function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator,
 end
 
 
-function LFGMM_Utility_GetMessageAsHtml(message)
-	local escapedMessage = string.gsub(message.Message, "&", "&amp;");
-	escapedMessage = string.gsub(escapedMessage, "<", "");
-	escapedMessage = string.gsub(escapedMessage, ">", "");
-	
-	return "<html><body><p align='center'>|cffee4400[" .. message.Player .. "]:|r</p><p align='center'>" .. escapedMessage .. "</p></body></html>";
-end
-
-
 function LFGMM_Utility_GetAgeText(timestamp)
 	local age = time() - timestamp;
 	local ageSeconds = age % 60;
@@ -491,33 +482,26 @@ function LFGMM_Utility_GetAgeText(timestamp)
 end
 
 
-function LFGMM_Utility_GetPlayerClass()
-	local classEnglish;
-	local classLocalized, _, classId = UnitClass("player");
+function LFGMM_Utility_GetPlayerSpec()
+	local talentTree = {};
+	for tabIndex=1, GetNumTalentTabs() do
+		local name, _, pointsSpent = GetTalentTabInfo(tabIndex);
+		local talentTab = { Name = name, Points = pointsSpent };
+		table.insert(talentTree, talentTab);
+	end
 
-	if (classId == 1) then
-		classEnglish = "Warrior";
-	elseif (classId == 2) then
-		classEnglish = "Paladin";
-	elseif (classId == 3) then
-		classEnglish = "Hunter";
-	elseif (classId == 4) then
-		classEnglish = "Rogue";
-	elseif (classId == 5) then
-		classEnglish = "Priest";
-	elseif (classId == 7) then
-		classEnglish = "Shaman";
-	elseif (classId == 8) then
-		classEnglish = "Mage";
-	elseif (classId == 9) then
-		classEnglish = "Warlock";
-	elseif (classId == 11) then
-		classEnglish = "Druid";
-	else
-		classEnglish = classLocalized;
+	table.sort(talentTree, function(a, b) return a.Points > b.Points; end);
+
+	local spec = "";
+	if (talentTree[1] ~= nil and talentTree[1].Points > 0) then
+		if (talentTree[1].Points == talentTree[2].Points) then
+			spec = talentTree[1].Name .. "/" .. talentTree[2].Name;
+		else
+			spec = talentTree[1].Name;
+		end
 	end
 	
-	return classEnglish, classLocalized;
+	return spec;
 end
 
 

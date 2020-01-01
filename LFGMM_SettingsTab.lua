@@ -1,8 +1,8 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0
+	Version: 1.0.2
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
-	Copyright (C) 2019 L.I.R.
+	Copyright (C) 2019-2020 L.I.R.
 
 	This file is part of 'LFG MatchMaker' addon for World of Warcraft.
 
@@ -154,8 +154,8 @@ function LFGMM_SettingsTab_UpdateRequestInviteMessage()
 
 	-- Generate message
 	message = string.gsub(message, "{[Ll]}", LFGMM_GLOBAL.PLAYER_LEVEL);
-	message = string.gsub(message, "{[Cc]}", LFGMM_GLOBAL.PLAYER_CLASS);
-	message = string.gsub(message, "{[Xx]}", LFGMM_GLOBAL.PLAYER_CLASS_LOCALIZED);
+	message = string.gsub(message, "{[Cc]}", LFGMM_GLOBAL.PLAYER_CLASS.Name);
+	message = string.gsub(message, "{[Xx]}", LFGMM_GLOBAL.PLAYER_CLASS.LocalizedName);
 	message = string.gsub(message, "{.*}", "");
 	message = string.sub(message, 1, 255);
 
