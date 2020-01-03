@@ -680,7 +680,6 @@ end
 -- Register events
 LFGMM_MainWindow:RegisterEvent("PLAYER_ENTERING_WORLD");
 LFGMM_MainWindow:RegisterEvent("CHAT_MSG_CHANNEL");
-LFGMM_MainWindow:RegisterEvent("CHAT_MSG_WHISPER");
 LFGMM_MainWindow:RegisterEvent("PLAYER_LEVEL_UP");
 LFGMM_MainWindow:RegisterEvent("GROUP_ROSTER_UPDATE");
 LFGMM_MainWindow:RegisterEvent("CHAT_MSG_SYSTEM");
