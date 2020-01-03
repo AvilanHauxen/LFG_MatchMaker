@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.2
+	Version: 1.0.3
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -308,14 +308,15 @@ local number = 0;
 function LFGMM_Core_EventHandler(self, event, ...)
 	-- Initialize
 	if (not LFGMM_GLOBAL.READY and event == "PLAYER_ENTERING_WORLD") then
-		LFGMM_Load();
-		LFGMM_Core_Initialize();
-
-		-- Populate player info
+		-- Get player info
 		LFGMM_GLOBAL.PLAYER_NAME = UnitName("player");
 		LFGMM_GLOBAL.PLAYER_LEVEL = UnitLevel("player");
 		LFGMM_GLOBAL.PLAYER_CLASS = LFGMM_GLOBAL.CLASSES[select(2, UnitClass("player"))];
 		-- LFGMM_GLOBAL.PLAYER_SPEC = LFGMM_Utility_GetPlayerSpec();
+
+		-- Load
+		LFGMM_Load();
+		LFGMM_Core_Initialize();
 
 		-- Join LFG channel
 		C_Timer.After(5, function()
@@ -587,14 +588,21 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			-- Remove icons from message
 			messageOrg = string.gsub(messageOrg, "{[rR][tT][%d]}", "");
 			messageOrg = string.gsub(messageOrg, "{[sS][tT][aA][rR]}", "");
+			messageOrg = string.gsub(messageOrg, "{[yY][eE][lL][lL][oO][wW]}", "");
 			messageOrg = string.gsub(messageOrg, "{[cC][iI][rR][cC][lL][eE]}", "");
+			messageOrg = string.gsub(messageOrg, "{[oO][rR][aA][nN][gG][eE]}", "");
 			messageOrg = string.gsub(messageOrg, "{[dD][iI][aA][mM][oO][nN][dD]}", "");
+			messageOrg = string.gsub(messageOrg, "{[pP][uU][rR][pP][lL][eE]}", "");
 			messageOrg = string.gsub(messageOrg, "{[tT][rR][iI][aA][nN][gG][lL][eE]}", "");
+			messageOrg = string.gsub(messageOrg, "{[gG][rR][eE][eE][nN]}", "");
 			messageOrg = string.gsub(messageOrg, "{[mM][oO][oO][nN]}", "");
 			messageOrg = string.gsub(messageOrg, "{[sS][qQ][uU][aA][rR][eE]}", "");
+			messageOrg = string.gsub(messageOrg, "{[bB][lL][uU][eE]}", "");
 			messageOrg = string.gsub(messageOrg, "{[cC][rR][oO][sS][sS]}", "");
 			messageOrg = string.gsub(messageOrg, "{[xX]}", "");
+			messageOrg = string.gsub(messageOrg, "{[rR][eE][dD]}", "");
 			messageOrg = string.gsub(messageOrg, "{[sS][kK][uU][lL][lL]}", "");
+			messageOrg = string.gsub(messageOrg, "{[wW][hH][iI][tT][eE]}", "");
 
 			-- Update existing message
 			if (LFGMM_GLOBAL.MESSAGES[player] ~= nil) then
