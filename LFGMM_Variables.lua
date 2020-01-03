@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.2
+	Version: 1.0.3
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -101,10 +101,10 @@ LFGMM_GLOBAL = {
 	SEARCH_LOCK = false,
 	BROADCAST_LOCK = false,
 	WHO_COOLDOWN = 0,
-	PLAYER_NAME = nil,
-	PLAYER_LEVEL = nil,
-	PLAYER_CLASS = nil,
-	PLAYER_SPEC = nil,
+	PLAYER_NAME = "",
+	PLAYER_LEVEL = 0,
+	PLAYER_CLASS = "",
+	PLAYER_SPEC = "",
 	LFG_CHANNEL_NAME = "LookingForGroup",
 	GROUP_MEMBERS = {},
 	MESSAGES = {},
@@ -362,7 +362,7 @@ LFGMM_GLOBAL = {
 			Abbreviation = "RFD",
 			Identifiers = {
 				"razo[rn]?[%W]*fen[%W]*downs",
-				"rfd"
+				"rfd",
 			},
 			Size = 5,
 			MinLevel = 40,
@@ -374,7 +374,7 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Uldaman",
 			Identifiers = {
 				"uldaman",
-				"uld[a]?"
+				"uld[a]?",
 			},
 			Size = 5,
 			MinLevel = 42,
@@ -386,7 +386,8 @@ LFGMM_GLOBAL = {
 			Abbreviation = "ZF",
 			Identifiers = {
 				"zul[%W]*far[r]?ak[k]?",
-				"zf"
+				"zfk",
+				"zf",
 			},
 			Size = 5,
 			MinLevel = 44,
@@ -398,7 +399,7 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Mara",
 			Identifiers = {
 				"ma[u]?ra[u]?don",
-				"mara"
+				"mara",
 			},
 			SubDungeons = { 18, 19, 20 },
 			Size = 5,
@@ -478,6 +479,9 @@ LFGMM_GLOBAL = {
 				"sunk[t]?en[%W]*temple",
 				"sunken",
 				"st",
+			},
+			NotIdentifiers = {
+				"[%d][%d][%W]*[%d][%d][%W]*st"
 			},
 			Size = 5,
 			MinLevel = 50,
@@ -1205,6 +1209,13 @@ LFGMM_GLOBAL = {
 				"any[%W]*dungeon[s]?",
 			}
 		},
+		{
+			Dungeons = { 45, 46 },
+			Identifiers = {
+				"pvp",
+				"premade",
+			}
+		}
 	}
 }
 
