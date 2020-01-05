@@ -175,7 +175,7 @@ function LFGMM_ListTab_Refresh()
 				dungeonsLabel:SetText("?");
 				dungeonsLabel:SetTextColor(1, 0, 0);
 			else
-				local _,dungeonsText = LFGMM_Utility_GetDungeonMessageText(message.Dungeons, ", ", ", ", true);
+				local _,dungeonsText = LFGMM_Utility_GetDungeonMessageText(message.Dungeons, ", ", ", ");
 				dungeonsLabel:SetText(dungeonsText);
 				dungeonsLabel:SetTextColor(0, 1, 0);
 				

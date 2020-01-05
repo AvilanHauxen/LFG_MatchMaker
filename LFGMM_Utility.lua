@@ -276,7 +276,7 @@ function LFGMM_Utility_IsDungeonAvailable(dungeon)
 end
 
 
-function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator, showAllAsAny)
+function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator)
 	local dungeonNames = {};
 	local dungeonAbbreviations = {}
 

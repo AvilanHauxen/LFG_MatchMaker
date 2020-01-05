@@ -508,7 +508,7 @@ function LFGMM_LfgTab_UpdateBroadcastMessage()
 		for _,searchDungeonIndex in ipairs(LFGMM_DB.SEARCH.LFG.Dungeons) do
 			table.insert(selectedDungeons, LFGMM_GLOBAL.DUNGEONS[searchDungeonIndex]);
 		end
-		dungeonsText,abbreviationsText = LFGMM_Utility_GetDungeonMessageText(selectedDungeons, ", ", " or ", false)
+		dungeonsText,abbreviationsText = LFGMM_Utility_GetDungeonMessageText(selectedDungeons, ", ", " or ");
 	end
 
 	-- Generate message
