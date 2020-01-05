@@ -652,7 +652,7 @@ function LFGMM_Core_EventHandler(self, event, ...)
 
 			-- Trim spaces and remove double spaces in message
 			while (string.find(messageOrg, "%s%s") ~= nil) do
-				messageOrg = string.gsub(messageOrg, "%s%s", "%s");
+				messageOrg = string.gsub(messageOrg, "%s%s", " ");
 			end
 			messageOrg = string.gsub(messageOrg, "^%s", "");
 			messageOrg = string.gsub(messageOrg, "%s$", "");
