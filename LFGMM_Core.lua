@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.3
+	Version: 1.0.4
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -363,6 +363,8 @@ function LFGMM_Core_EventHandler(self, event, ...)
 	-- Update group members
 	elseif (event == "GROUP_ROSTER_UPDATE") then
 		LFGMM_Core_GetGroupMembers();
+
+		LFGMM_Core_Refresh();
 		LFGMM_LfmTab_UpdateBroadcastMessage();
 		LFGMM_ListTab_MessageInfoWindow_Refresh();
 		
@@ -484,8 +486,34 @@ function LFGMM_Core_EventHandler(self, event, ...)
 				end
 			end
 
+			-- Remove Deadmines or Dire Maul if both are matched by the "DM" identifier and another dungeon is mentioned, based on level of the other dungeon.
+			if (uniqueDungeonMatches.List[3] ~= nil and 
+				uniqueDungeonMatches.List[39] ~= nil and
+				uniqueDungeonMatches.List[40] == nil and 
+				uniqueDungeonMatches.List[41] == nil and 
+				uniqueDungeonMatches.List[42] == nil and 
+				uniqueDungeonMatches.List[43] == nil) 
+			then
+				for _,dungeon in ipairs(uniqueDungeonMatches:GetDungeonList()) do
+					-- Remove Dire Maul as match if low level dungeon is mentioned
+					if (dungeon.Index ~= 3 and dungeon.MinLevel <= 30) then
+						uniqueDungeonMatches:Remove(LFGMM_GLOBAL.DUNGEONS[39]);
+						break;
+					end
+
+					-- Remove Deadmines as match if high level dungeon is mentioned
+					if (dungeon.Index ~= 39 and dungeon.MinLevel >= 50) then
+						uniqueDungeonMatches:Remove(LFGMM_GLOBAL.DUNGEONS[3]);
+						break;
+					end
+				end
+			end
+			
+			-- "Any dungeon" match
+			local isAnyDungeonMatch = LFGMM_Utility_ArrayContainsAll(uniqueDungeonMatches:GetIndexList(), LFGMM_GLOBAL.DUNGEONS_FALLBACK[3].Dungeons);
+
 			-- Convert to indexed list
-			local dungeonMatches = uniqueDungeonMatches:ToIndexedList();
+			local dungeonMatches = uniqueDungeonMatches:GetDungeonList();
 			
 			-- Find type of message (LFG / LFM / UNKNOWN)
 			local typeMatch = nil;
@@ -503,9 +531,9 @@ function LFGMM_Core_EventHandler(self, event, ...)
 				string.find(message, "druid[%W]*lf"                        ) ~= nil or
 				string.find(message, "pri[e]?st[%W]*looking[%W]*for"       ) ~= nil or
 				string.find(message, "warr[i]?[o]?[r]?[%W]*looking[%W]*for") ~= nil or
-				string.find(message, "mage[ ]*looking[%W]*for"             ) ~= nil or
+				string.find(message, "mage[%W]*looking[%W]*for"            ) ~= nil or
 				string.find(message, "[w]?[a]?[r]?lock[%W]*looking[%W]*for") ~= nil or
-				string.find(message, "shaman[ ]*looking[%W]*for"           ) ~= nil or
+				string.find(message, "shaman[%W]*looking[%W]*for"          ) ~= nil or
 				string.find(message, "pala[d]?[i]?[n]?[%W]*looking[%W]*for") ~= nil or
 				string.find(message, "hunt[e]?[r]?[%W]*looking[%W]*for"    ) ~= nil or
 				string.find(message, "ro[u]?g[u]?e[%W]*looking[%W]*for"    ) ~= nil or
@@ -524,9 +552,17 @@ function LFGMM_Core_EventHandler(self, event, ...)
 					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*heal"                         ) ~= nil or
 					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*dps"                          ) ~= nil or
 					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*tank"                         ) ~= nil or
+					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*dd"                           ) ~= nil or
+					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*caster"                       ) ~= nil or
+					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*mele[e]?"                     ) ~= nil or
+					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*range[d]?[r]?"                ) ~= nil or
 					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*heal"            ) ~= nil or
 					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*dps"             ) ~= nil or
 					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*tank"            ) ~= nil or
+					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*dd"              ) ~= nil or
+					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*caster"          ) ~= nil or
+					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*mele[e]?"        ) ~= nil or
+					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*range[d]?[r]?"   ) ~= nil or
 					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*pri[e]?st"                    ) ~= nil or
 					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*warr"                         ) ~= nil or
 					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*mage"                         ) ~= nil or
@@ -550,8 +586,18 @@ function LFGMM_Core_EventHandler(self, event, ...)
 					string.find(message, "need[%W]*[%d]*[%W]*heal"                               ) ~= nil or
 					string.find(message, "need[%W]*[%d]*[%W]*dps"                                ) ~= nil or
 					string.find(message, "need[%W]*[%d]*[%W]*tank"                               ) ~= nil or
+					string.find(message, "need[%W]*[%d]*[%W]*dd"                                 ) ~= nil or
+					string.find(message, "need[%W]*[%d]*[%W]*caster"                             ) ~= nil or
+					string.find(message, "need[%W]*[%d]*[%W]*mele[e]?"                           ) ~= nil or
+					string.find(message, "need[%W]*[%d]*[%W]*range[d]?[r]?"                      ) ~= nil or
 					string.find(message, "last[%W]*spot"                                         ) ~= nil)
 			then
+				typeMatch = "LFM";
+			
+			elseif (table.getn(dungeonMatches) > 0 and string.find(message, "boost") and string.find(message, "wtb") ~= nil) then
+				typeMatch = "LFG";
+
+			elseif (table.getn(dungeonMatches) > 0 and string.find(message, "boost") and string.find(message, "wts") ~= nil) then
 				typeMatch = "LFM";
 				
 			else
@@ -570,7 +616,7 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			if (table.getn(dungeonMatches) == 0) then
 				messageSortIndex = -1;
 				
-			elseif (table.getn(dungeonMatches) == table.getn(LFGMM_GLOBAL.DUNGEONS)) then
+			elseif (isAnyDungeonMatch) then
 				messageSortIndex = 0;
 			
 			else
@@ -603,6 +649,13 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			messageOrg = string.gsub(messageOrg, "{[rR][eE][dD]}", "");
 			messageOrg = string.gsub(messageOrg, "{[sS][kK][uU][lL][lL]}", "");
 			messageOrg = string.gsub(messageOrg, "{[wW][hH][iI][tT][eE]}", "");
+
+			-- Trim spaces and remove double spaces in message
+			while (string.find(messageOrg, "%s%s") ~= nil) do
+				messageOrg = string.gsub(messageOrg, "%s%s", "%s");
+			end
+			messageOrg = string.gsub(messageOrg, "^%s", "");
+			messageOrg = string.gsub(messageOrg, "%s$", "");
 
 			-- Update existing message
 			if (LFGMM_GLOBAL.MESSAGES[player] ~= nil) then

@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.3
+	Version: 1.0.4
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -115,12 +115,19 @@ function LFGMM_Utility_CreateUniqueDungeonsList()
 				self.Count = self.Count - 1;
 			end
 		end,
-		ToIndexedList = function (self)
-			local indexedList = {};
+		GetDungeonList = function (self)
+			local dungeonList = {};
 			for _,v in pairs(self.List) do
-				table.insert(indexedList, v);
+				table.insert(dungeonList, v);
 			end
-			return indexedList;
+			return dungeonList;
+		end,
+		GetIndexList = function (self)
+			local indexList = {};
+			for i,_ in pairs(self.List) do
+				table.insert(indexList, i);
+			end
+			return indexList;
 		end
 	}
 end
@@ -190,6 +197,26 @@ function LFGMM_Utility_ArrayContainsAny(array1, array2)
 end
 
 
+function LFGMM_Utility_ArrayContainsAll(array1, array2)
+	for _,arrayValue2 in ipairs(array2) do
+		local valueFound = false;
+
+		for _,arrayValue1 in ipairs(array1) do
+			if (arrayValue1 == arrayValue2) then
+				valueFound = true;
+				break;
+			end
+		end
+		
+		if (not valueFound) then
+			return false;
+		end
+	end
+
+	return true;
+end
+
+
 function LFGMM_Utility_GetAvailableDungeonsAndRaidsSorted()
 	local dungeonsList = {};
 	local raidsList = {};
@@ -252,7 +279,7 @@ end
 function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator, showAllAsAny)
 	local dungeonNames = {};
 	local dungeonAbbreviations = {}
-	
+
 	local smDungeons = {};
 	local maraDungeons = {};
 	local brdDungeons = {};
@@ -265,42 +292,55 @@ function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator,
 	local otherDungeons5 = {};
 	local otherDungeons6 = {};
 
-	if (showAllAsAny and table.getn(dungeons) == table.getn(LFGMM_GLOBAL.DUNGEONS)) then
-		return "Any Dungeon", "Any";
+	local allDungeonIndexes = {};
+	for _,dungeon in ipairs(dungeons) do
+		table.insert(allDungeonIndexes, dungeon.Index);
+	end
+
+	local isAnyDungeonsMatch = false;
+
+	if (LFGMM_Utility_ArrayContainsAll(allDungeonIndexes, LFGMM_GLOBAL.DUNGEONS_FALLBACK[3].Dungeons)) then
+		table.insert(dungeonNames, "Any dungeon");
+		table.insert(dungeonAbbreviations, "Any dungeon");
+		isAnyDungeonsMatch = true;
 	end
 
 	table.sort(dungeons, function(left, right) return left.Index < right.Index; end);
 
 	-- Sort
 	for _,dungeon in ipairs(dungeons) do
-		-- Scarlet Monastery
-		if (dungeon.Index == 8 or dungeon.Index == 9 or dungeon.Index == 10 or dungeon.Index == 11) then
-			table.insert(smDungeons, dungeon);
-		-- Maraudon
-		elseif (dungeon.Index == 18 or dungeon.Index == 19 or dungeon.Index == 20) then
-			table.insert(maraDungeons, dungeon);
-		-- Blackrock depths
-		elseif (dungeon.Index == 23 or dungeon.Index == 24 or dungeon.Index == 25 or dungeon.Index == 26 or dungeon.Index == 27 or dungeon.Index == 28 or dungeon.Index == 29 or dungeon.Index == 30 or dungeon.Index == 31) then
-			table.insert(brdDungeons, dungeon);
-		-- Stratholme
-		elseif (dungeon.Index == 36 or dungeon.Index == 37) then
-			table.insert(stratDungeons, dungeon);
-		-- Dire Maul
-		elseif (dungeon.Index == 39 or dungeon.Index == 40 or dungeon.Index == 41 or dungeon.Index == 42) then
-			table.insert(dmDungeons, dungeon);
-		-- Other dungeons
-		elseif (dungeon.Index < 8) then
-			table.insert(otherDungeons1, dungeon);
-		elseif (dungeon.Index > 11 and dungeon.Index < 18) then
-			table.insert(otherDungeons2, dungeon);
-		elseif (dungeon.Index > 20 and dungeon.Index < 23) then
-			table.insert(otherDungeons3, dungeon);
-		elseif (dungeon.Index > 31 and dungeon.Index < 36) then
-			table.insert(otherDungeons4, dungeon);
-		elseif (dungeon.Index > 37 and dungeon.Index < 39) then
-			table.insert(otherDungeons5, dungeon);
+		if (isAnyDungeonsMatch and dungeon.Index <= 43) then
+			-- Skip
 		else
-			table.insert(otherDungeons6, dungeon);
+			-- Scarlet Monastery
+			if (dungeon.Index == 8 or dungeon.Index == 9 or dungeon.Index == 10 or dungeon.Index == 11) then
+				table.insert(smDungeons, dungeon);
+			-- Maraudon
+			elseif (dungeon.Index == 18 or dungeon.Index == 19 or dungeon.Index == 20) then
+				table.insert(maraDungeons, dungeon);
+			-- Blackrock depths
+			elseif (dungeon.Index == 23 or dungeon.Index == 24 or dungeon.Index == 25 or dungeon.Index == 26 or dungeon.Index == 27 or dungeon.Index == 28 or dungeon.Index == 29 or dungeon.Index == 30 or dungeon.Index == 31 or dungeon.Index == 32) then
+				table.insert(brdDungeons, dungeon);
+			-- Stratholme
+			elseif (dungeon.Index == 37 or dungeon.Index == 38) then
+				table.insert(stratDungeons, dungeon);
+			-- Dire Maul
+			elseif (dungeon.Index == 40 or dungeon.Index == 41 or dungeon.Index == 42 or dungeon.Index == 43) then
+				table.insert(dmDungeons, dungeon);
+			-- Other dungeons
+			elseif (dungeon.Index < 8) then
+				table.insert(otherDungeons1, dungeon);
+			elseif (dungeon.Index > 11 and dungeon.Index < 18) then
+				table.insert(otherDungeons2, dungeon);
+			elseif (dungeon.Index > 20 and dungeon.Index < 23) then
+				table.insert(otherDungeons3, dungeon);
+			elseif (dungeon.Index > 32 and dungeon.Index < 37) then
+				table.insert(otherDungeons4, dungeon);
+			elseif (dungeon.Index > 38 and dungeon.Index < 40) then
+				table.insert(otherDungeons5, dungeon);
+			else
+				table.insert(otherDungeons6, dungeon);
+			end
 		end
 	end
 
@@ -319,9 +359,9 @@ function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator,
 				-- Skip
 			elseif (brdDungeonsCount > 0 and dungeon.Index == 22) then
 				-- Skip
-			elseif (stratDungeonsCount > 0 and dungeon.Index == 35) then
+			elseif (stratDungeonsCount > 0 and dungeon.Index == 36) then
 				-- Skip
-			elseif (dmDungeonsCount > 0 and dungeon.Index == 38) then
+			elseif (dmDungeonsCount > 0 and dungeon.Index == 39) then
 				-- Skip
 			else
 				table.insert(dungeonNames, dungeon.Name);
@@ -348,6 +388,10 @@ function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator,
 		
 		table.insert(dungeonNames, smNamesText);
 		table.insert(dungeonAbbreviations, smAbbreviationsText);
+	
+	elseif (smDungeonsCount == 4) then
+		table.insert(dungeonNames, LFGMM_GLOBAL.DUNGEONS[7].Name);
+		table.insert(dungeonAbbreviations, LFGMM_GLOBAL.DUNGEONS[7].Abbreviation);
 	end
 	
 	addNames(otherDungeons2, dungeonNames, dungeonAbbreviations);
@@ -368,12 +412,16 @@ function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator,
 		
 		table.insert(dungeonNames, maraNamesText);
 		table.insert(dungeonAbbreviations, maraAbbreviationsText);
+		
+	elseif (maraDungeonsCount == 3) then
+		table.insert(dungeonNames, LFGMM_GLOBAL.DUNGEONS[17].Name);
+		table.insert(dungeonAbbreviations, LFGMM_GLOBAL.DUNGEONS[17].Abbreviation);
 	end
 	
 	addNames(otherDungeons3, dungeonNames, dungeonAbbreviations);
 
 	-- BRD
-	if (brdDungeonsCount > 0 and brdDungeonsCount ~= 9) then
+	if (brdDungeonsCount > 0 and brdDungeonsCount ~= 10) then
 		local brdNamesText = "";
 		local brdAbbreviationsText = "";
 		for index,dungeon in ipairs(brdDungeons) do
@@ -388,7 +436,12 @@ function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator,
 		
 		table.insert(dungeonNames, brdNamesText .. " Run");
 		table.insert(dungeonAbbreviations, brdAbbreviationsText .. " Run");
+
+	elseif (brdDungeonsCount == 10) then
+		table.insert(dungeonNames, LFGMM_GLOBAL.DUNGEONS[22].Name);
+		table.insert(dungeonAbbreviations, LFGMM_GLOBAL.DUNGEONS[22].Abbreviation);
 	end
+
 
 	addNames(otherDungeons4, dungeonNames, dungeonAbbreviations);
 		
@@ -408,6 +461,10 @@ function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator,
 		
 		table.insert(dungeonNames, stratNamesText);
 		table.insert(dungeonAbbreviations, stratAbbreviationsText);
+		
+	elseif (stratDungeonsCount == 2) then
+		table.insert(dungeonNames, LFGMM_GLOBAL.DUNGEONS[36].Name);
+		table.insert(dungeonAbbreviations, LFGMM_GLOBAL.DUNGEONS[36].Abbreviation);
 	end
 
 	addNames(otherDungeons5, dungeonNames, dungeonAbbreviations);
@@ -428,6 +485,10 @@ function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator,
 
 		table.insert(dungeonNames, dmNamesText);
 		table.insert(dungeonAbbreviations, dmAbbreviationsText);
+
+	elseif (dmDungeonsCount == 4) then
+		table.insert(dungeonNames, LFGMM_GLOBAL.DUNGEONS[39].Name);
+		table.insert(dungeonAbbreviations, LFGMM_GLOBAL.DUNGEONS[39].Abbreviation);
 	end
 	
 	addNames(otherDungeons6, dungeonNames, dungeonAbbreviations);
