@@ -171,7 +171,8 @@ LFGMM_GLOBAL = {
 			Abbreviation = "RFC",
 			Identifiers = {
 				"rage[%W]*fire[%W]*c[h]?asm",
-				"rfc"
+				"rfc",
+				"rf"
 			},
 			Size = 5,
 			MinLevel = 13,
@@ -183,7 +184,8 @@ LFGMM_GLOBAL = {
 			Abbreviation = "WC",
 			Identifiers = { 
 				"wa[i]?ling[%W]*cavern[s]?",
-				"wc"
+				"wc",
+				"hdw"
 			},
 			Size = 5,
 			MinLevel = 15,
@@ -211,7 +213,8 @@ LFGMM_GLOBAL = {
 			Identifiers = { 
 				"shadow[%W]*fang[%W]*keep",
 				"sfk",
-				"sk" 
+				"sk",
+				"bsf"
 			},
 			Size = 5,
 			MinLevel = 22,
@@ -248,7 +251,8 @@ LFGMM_GLOBAL = {
 			Abbreviation = "SM",
 			Identifiers = {
 				"scarlet[%W]*mon[e]?[a]?st[e]?[a]?ry",
-				"sm"
+				"sm",
+				"kloster"
 			},
 			SubDungeons = { 8, 9, 10, 11 },
 			Size = 5,
@@ -269,7 +273,9 @@ LFGMM_GLOBAL = {
 				"cat[h]?[e]?[d]?[r]?[a]?[l]?[%W]*[o]?[r]?[%W]*g[r]?[a]?[v]?[e]?y[a]?[r]?[d]?",
 				"g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?[%W]*[o]?[r]?[%W]*lib[r]?[a]?[r]?[y]?",
 				"g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?[%W]*[o]?[r]?[%W]*arm[s]?[o]?[u]?[r]?[y]?",
-				"g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?[%W]*[o]?[r]?[%W]*cat[h]?[e]?[d]?[r]?[a]?[l]?"
+				"g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?[%W]*[o]?[r]?[%W]*cat[h]?[e]?[d]?[r]?[a]?[l]?",
+				"fh",
+				"friedhof"
 			},
 			ParentDungeon = 7,
 			Size = 5,
@@ -291,6 +297,7 @@ LFGMM_GLOBAL = {
 				"lib[r]?[a]?[r]?[y]?[%W]*[o]?[r]?[%W]*g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 				"lib[r]?[a]?[r]?[y]?[%W]*[o]?[r]?[%W]*arm[s]?[o]?[u]?[r]?[y]?",
 				"lib[r]?[a]?[r]?[y]?[%W]*[o]?[r]?[%W]*cat[h]?[e]?[d]?[r]?[a]?[l]?",
+				"bibl"
 			},
 			ParentDungeon = 7,
 			Size = 5,
@@ -312,6 +319,7 @@ LFGMM_GLOBAL = {
 				"arm[s]?[o]?[u]?[r]?[y]?[%W]*[o]?[r]?[%W]*g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 				"arm[s]?[o]?[u]?[r]?[y]?[%W]*[o]?[r]?[%W]*lib[r]?[a]?[r]?[y]?",
 				"arm[s]?[o]?[u]?[r]?[y]?[%W]*[o]?[r]?[%W]*cat[h]?[e]?[d]?[r]?[a]?[l]?",
+				"wk"
 			},
 			ParentDungeon = 7,
 			Size = 5,
@@ -333,6 +341,7 @@ LFGMM_GLOBAL = {
 				"cat[h]?[e]?[d]?[r]?[a]?[l]?[%W]*[o]?[r]?[%W]*g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 				"cat[h]?[e]?[d]?[r]?[a]?[l]?[%W]*[o]?[r]?[%W]*lib[r]?[a]?[r]?[y]?",
 				"cat[h]?[e]?[d]?[r]?[a]?[l]?[%W]*[o]?[r]?[%W]*arm[s]?[o]?[u]?[r]?[y]?",
+				"kathe"
 			},
 			ParentDungeon = 7,
 			Size = 5,
@@ -357,7 +366,8 @@ LFGMM_GLOBAL = {
 			Abbreviation = "RFK",
 			Identifiers = {
 				"razo[rn]?[%W]*fen[%W]*kraul",
-				"rfk"
+				"rfk",
+				"kral"
 			},
 			Size = 5,
 			MinLevel = 30,
@@ -370,6 +380,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				"razo[rn]?[%W]*fen[%W]*down[s]?",
 				"rfd",
+				"hügel"
 			},
 			Size = 5,
 			MinLevel = 40,
