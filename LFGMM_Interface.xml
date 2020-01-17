@@ -1,6 +1,6 @@
 <!--
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.4
+	Version: 1.0.5
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -597,6 +597,14 @@
 
 				<Layers>
 					<Layer level="ARTWORK">
+						<FontString text="Identifier languages" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="RIGHT" relativePoint="TOPRIGHT">
+									<Offset x="-55" y="-110" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						
 						<FontString text="Max message age" inherits="GameFontNormal">
 							<Anchors>
 								<Anchor point="LEFT" relativePoint="TOPLEFT">
@@ -666,8 +674,8 @@
 				<Frames>
 					<CheckButton name="LFGMM_SettingsTab_ShowMinimapButtonCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
-							<Anchor point="LEFT" relativePoint="TOPLEFT">
-								<Offset x="20" y="-50" />
+							<Anchor point="RIGHT" relativePoint="TOPRIGHT">
+								<Offset x="-170" y="-50" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
@@ -675,7 +683,7 @@
 					<CheckButton name="LFGMM_SettingsTab_ShowQuestLogButtonCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
 							<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-								<Offset x="-170" y="-50" />
+								<Offset x="-170" y="-75" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
@@ -683,15 +691,15 @@
 					<CheckButton name="LFGMM_SettingsTab_HideLowLevelCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
 							<Anchor point="LEFT" relativePoint="TOPLEFT">
-								<Offset x="20" y="-100" />
+								<Offset x="20" y="-50" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
 
 					<CheckButton name="LFGMM_SettingsTab_HideHighLevelCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
-							<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-								<Offset x="-170" y="-100" />
+							<Anchor point="LEFT" relativePoint="TOPLEFT">
+								<Offset x="20" y="-75" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
@@ -699,18 +707,26 @@
 					<CheckButton name="LFGMM_SettingsTab_HidePvpCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
 							<Anchor point="LEFT" relativePoint="TOPLEFT">
-								<Offset x="20" y="-130" />
+								<Offset x="20" y="-100" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
 
 					<CheckButton name="LFGMM_SettingsTab_HideRaidsCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
-							<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-								<Offset x="-170" y="-130" />
+							<Anchor point="LEFT" relativePoint="TOPLEFT">
+								<Offset x="20" y="-125" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
+					
+					<Frame name="LFGMM_SettingsTab_IdentifierLanguagesDropDown" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="TOPRIGHT">
+								<Offset x="-18" y="-135" />
+							</Anchor>
+						</Anchors>
+					</Frame>
 					
 					<Slider name="LFGMM_SettingsTab_MaxMessageAgeSlider" inherits="OptionsSliderTemplate">
 						<Anchors>

@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.4
+	Version: 1.0.5
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -35,6 +35,7 @@ function LFGMM_SettingsTab_Initialize()
 	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_HidePvpCheckBox, "Hide PvP", "Hide PvP from dungeon selectors", LFGMM_DB.SETTINGS.HidePvp, LFGMM_SettingsTab_HidePvpCheckBox_OnClick);
 	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_HideRaidsCheckBox, "Hide raids", "Hide raids from dungeon selectors", LFGMM_DB.SETTINGS.HideRaids, LFGMM_SettingsTab_HideRaidsCheckBox_OnClick);
 
+	LFGMM_Utility_InitializeDropDown(LFGMM_SettingsTab_IdentifierLanguagesDropDown, 140, LFGMM_SettingsTab_IdentifierLanguagesDropDown_OnInitialize);
 
 	LFGMM_SettingsTab_MaxMessageAgeSlider:SetScript("OnValueChanged", LFGMM_SettingsTab_MaxMessageAgeSlider_OnValueChanged);
 	LFGMM_SettingsTab_MaxMessageAgeSlider:SetMinMaxValues(5, 30);
@@ -78,6 +79,48 @@ function LFGMM_SettingsTab_Show()
 	LFGMM_MainWindowTab2:SetPoint ("CENTER", "LFGMM_MainWindow", "BOTTOMLEFT",   135, -14);
 	LFGMM_MainWindowTab3:SetPoint ("CENTER", "LFGMM_MainWindow", "BOTTOMRIGHT", -140, -14);
 	LFGMM_MainWindowTab4:SetPoint ("CENTER", "LFGMM_MainWindow", "BOTTOMRIGHT",  -60, -17);
+end
+
+
+function LFGMM_SettingsTab_IdentifierLanguagesDropDown_OnInitialize(self, level)
+	for languageCode,languageName in pairs(LFGMM_GLOBAL.LANGUAGES) do
+		local item = UIDropDownMenu_CreateInfo();
+		item.keepShownOnClick = true;
+		item.isNotRadio = true;
+		item.text = languageName;
+		
+		if (languageCode == "EN") then
+			item.text = item.text .. " (Common)";
+			item.checked = true;
+			item.disabled = true;
+		else
+			item.checked = LFGMM_Utility_ArrayContains(LFGMM_DB.SETTINGS.IdentifierLanguages, languageCode);
+			item.func = function(self, dungeonIndex)
+				if (self.checked) then
+					table.insert(LFGMM_DB.SETTINGS.IdentifierLanguages, languageCode);
+				else
+					LFGMM_Utility_ArrayRemove(LFGMM_DB.SETTINGS.IdentifierLanguages, languageCode);
+				end
+				
+				LFGMM_SettingsTab_IdentifierLanguagesDropDown_UpdateText();
+			end
+		end
+		
+		UIDropDownMenu_AddButton(item, 1);
+	end
+	
+	LFGMM_SettingsTab_IdentifierLanguagesDropDown_UpdateText();
+end
+
+
+function LFGMM_SettingsTab_IdentifierLanguagesDropDown_UpdateText()
+	local text = "";
+	for _,languageCode in ipairs(LFGMM_DB.SETTINGS.IdentifierLanguages) do
+		text = text .. languageCode .. ", ";
+	end
+	text = string.gsub(text, ",%s$", "");
+
+	UIDropDownMenu_SetText(LFGMM_SettingsTab_IdentifierLanguagesDropDown, text);
 end
 
 

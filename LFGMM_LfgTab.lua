@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.4
+	Version: 1.0.5
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -196,7 +196,7 @@ function LFGMM_LfgTab_DungeonsDropDown_OnInitialize(self, level)
 		item.keepShownOnClick = true;
 		item.isNotRadio = not LFGMM_Utility_ArrayContainsAny(LFGMM_DB.SEARCH.LFG.Dungeons, availableSubDungeons);
 		item.checked = LFGMM_Utility_ArrayContains(LFGMM_DB.SEARCH.LFG.Dungeons, dungeon.Index) or LFGMM_Utility_ArrayContainsAny(LFGMM_DB.SEARCH.LFG.Dungeons, availableSubDungeons);
-		item.value = { DungeonIndexes = availableSubDungeons, HasUnavailableSubDungeons = hasUnavailableSubDungeons, ParentDungeonIndex = dungeon.Index, ParentMenuItem = _G["DropDownList1Button" .. buttonIndex] };
+		item.value = { DungeonIndexes = availableSubDungeons, HasUnavailableSubDungeons = hasUnavailableSubDungeons, ParentDungeonIndex = dungeon.Index };
 		item.func = function(self, dungeonIndex)
 			if (self.checked) then
 				updateMenuItem(self, true, false);
@@ -222,6 +222,9 @@ function LFGMM_LfgTab_DungeonsDropDown_OnInitialize(self, level)
 		
 		-- Set initial isNotRadio value
 		_G["DropDownList1Button" .. buttonIndex].isNotRadio = item.isNotRadio;
+
+		-- Set parent menu item
+		item.value.ParentMenuItem = _G["DropDownList1Button" .. buttonIndex];
 	end
 	
 	local createSubDungeonItem = function(dungeonIndex, entry)
