@@ -7,7 +7,7 @@
 
 LFG MatchMaker will interpret messages in "LookingForGroup" channel and categorize messages into LFG or LFM and dungeons mentioned.
 
-The addon will match dungeons on various pronunciations (and mispronunciations) and will find matches for multiple dungeons in a single message.
+The addon will match dungeons on various pronunciations (and mispronunciations), in multiple languages, and will find matches for multiple dungeons in a single message.
 
 It is simple to use, and no configuration is required to start using it.
 
@@ -61,3 +61,17 @@ When an announcement has not been re-announced for over 30 minutes, the announce
 LFG MatchMaker only listens to the "LookingForGroup" channel.
 
 There are no hidden messages or channels, only interpretation of what is being announced in "LookingForGroup" channel.
+
+
+## Dungeon identifiers
+
+Dungeons are primarly identified by english names, but support for localized dungeon names can be enabled for the following languages:
+
+* German
+* French
+* Spanish
+
+Any assistance in making the identifiers as accurate as possible is appricated.
+
+If you notice a message that is incorrectly identified please let me know by creating an issue on GitHub.
+

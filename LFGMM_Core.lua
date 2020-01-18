@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.4
+	Version: 1.0.5
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -417,71 +417,145 @@ function LFGMM_Core_EventHandler(self, event, ...)
 				return;
 			end
 
+			-- Replace special characters in message to simplify pattern requirements
+			message = string.gsub(message, "á", "a");
+			message = string.gsub(message, "à", "a");
+			message = string.gsub(message, "ä", "a");
+			message = string.gsub(message, "â", "a");
+			message = string.gsub(message, "ã", "a");
+			message = string.gsub(message, "é", "e");
+			message = string.gsub(message, "è", "e");
+			message = string.gsub(message, "ë", "e");
+			message = string.gsub(message, "ê", "e");
+			message = string.gsub(message, "í", "i");
+			message = string.gsub(message, "ì", "i");
+			message = string.gsub(message, "ï", "i");
+			message = string.gsub(message, "î", "i");
+			message = string.gsub(message, "ñ", "n");
+			message = string.gsub(message, "ó", "o");
+			message = string.gsub(message, "ò", "o");
+			message = string.gsub(message, "ö", "o");
+			message = string.gsub(message, "ô", "o");
+			message = string.gsub(message, "õ", "o");
+			message = string.gsub(message, "ú", "u");
+			message = string.gsub(message, "ù", "u");
+			message = string.gsub(message, "ü", "u");
+			message = string.gsub(message, "û", "u");
+			message = string.gsub(message, "ß", "ss");
+			message = string.gsub(message, "œ", "oe");
+			message = string.gsub(message, "ç", "c");
+
+			-- Remove "/w me" from message before parsing to avoid false positive match for DM - West
+			for _,languageCode in ipairs(LFGMM_DB.SETTINGS.IdentifierLanguages) do
+				if (languageCode == "EN") then
+					message = string.gsub(message, "/w[%W]+me", " ");
+				elseif (languageCode == "DE") then
+					message = string.gsub(message, "/w[%W]+mir", " ");
+					message = string.gsub(message, "/w[%W]+bei[%W]*interes[s]?e", " ");
+				elseif (languageCode == "FR") then
+					message = string.gsub(message, "/w[%W]+moi", " ");
+				elseif (languageCode == "ES") then
+					message = string.gsub(message, "/w[%W]+yo", " ");
+				end
+			end
+
 			local uniqueDungeonMatches = LFGMM_Utility_CreateUniqueDungeonsList();
 
 			-- Find dungeon matches
 			for _,dungeon in ipairs(LFGMM_GLOBAL.DUNGEONS) do
-				for _,identifier in ipairs(dungeon.Identifiers) do
-					if (string.find(message, "^"     .. identifier .. "[%W]+") ~= nil or
-						string.find(message, "^"     .. identifier .. "$"    ) ~= nil or
-						string.find(message, "[%W]+" .. identifier .. "[%W]+") ~= nil or
-						string.find(message, "[%W]+" .. identifier .. "$"    ) ~= nil)
-					then
-						local notIdentifierMatched = false;
-						if (dungeon.NotIdentifiers ~= nil) then
-							for _,notIdentifier in ipairs(dungeon.NotIdentifiers) do
+				local matched = false;
+
+				for _,languageCode in ipairs(LFGMM_DB.SETTINGS.IdentifierLanguages) do
+					if (dungeon.Identifiers[languageCode] ~= nil) then
+						for _,identifier in ipairs(dungeon.Identifiers[languageCode]) do
+							if (string.find(message, "^"     .. identifier .. "[%W]+") ~= nil or
+								string.find(message, "^"     .. identifier .. "$"    ) ~= nil or
+								string.find(message, "[%W]+" .. identifier .. "[%W]+") ~= nil or
+								string.find(message, "[%W]+" .. identifier .. "$"    ) ~= nil)
+							then
+								matched = true;
+								break;
+							end
+						end
+					end
+					
+					if (matched) then
+						break;
+					end
+				end
+
+				if (matched and dungeon.NotIdentifiers ~= nil) then
+					for _,languageCode in ipairs(LFGMM_DB.SETTINGS.IdentifierLanguages) do
+						if (dungeon.NotIdentifiers[languageCode] ~= nil) then
+							for _,notIdentifier in ipairs(dungeon.NotIdentifiers[languageCode]) do
 								if (string.find(message, "^"     .. notIdentifier .. "[%W]+") ~= nil or
 									string.find(message, "^"     .. notIdentifier .. "$"    ) ~= nil or
 									string.find(message, "[%W]+" .. notIdentifier .. "[%W]+") ~= nil or
 									string.find(message, "[%W]+" .. notIdentifier .. "$"    ) ~= nil)
 								then
-									notIdentifierMatched = true;
+									matched = false;
 									break;
 								end
 							end
 						end
-					
-						if (not notIdentifierMatched) then
-							uniqueDungeonMatches:Add(dungeon);
 
-							if (dungeon.ParentDungeon ~= nil) then
-								uniqueDungeonMatches:Add(LFGMM_GLOBAL.DUNGEONS[dungeon.ParentDungeon]);
-							end
+						if (not matched) then
+							break;
 						end
-						
-						break;
+					end
+				end
+
+				if (matched) then
+					uniqueDungeonMatches:Add(dungeon);
+					
+					if (dungeon.ParentDungeon ~= nil) then
+						uniqueDungeonMatches:Add(LFGMM_GLOBAL.DUNGEONS[dungeon.ParentDungeon]);
 					end
 				end
 			end
 			
 			-- Find dungeon fallback matches
 			for _,dungeonsFallback in ipairs(LFGMM_GLOBAL.DUNGEONS_FALLBACK) do
-				for _,identifier in ipairs(dungeonsFallback.Identifiers) do
-					if (string.find(message, "^"     .. identifier .. "[%W]+") ~= nil or
-						string.find(message, "^"     .. identifier .. "$"    ) ~= nil or
-						string.find(message, "[%W]+" .. identifier .. "[%W]+") ~= nil or
-						string.find(message, "[%W]+" .. identifier .. "$"    ) ~= nil)
-					then
-						local singleInCollectionMatched = false;
-						for _,dungeonIndex in ipairs(dungeonsFallback.Dungeons) do
-							if (uniqueDungeonMatches.List[dungeonIndex] ~= nil) then
-								singleInCollectionMatched = true;
+				local matched = false;
+				
+				for _,languageCode in ipairs(LFGMM_DB.SETTINGS.IdentifierLanguages) do
+					if (dungeonsFallback.Identifiers[languageCode] ~= nil) then
+						for _,identifier in ipairs(dungeonsFallback.Identifiers[languageCode]) do
+							if (string.find(message, "^"     .. identifier .. "[%W]+") ~= nil or
+								string.find(message, "^"     .. identifier .. "$"    ) ~= nil or
+								string.find(message, "[%W]+" .. identifier .. "[%W]+") ~= nil or
+								string.find(message, "[%W]+" .. identifier .. "$"    ) ~= nil)
+							then
+								matched = true;
 								break;
 							end
 						end
+					end
 					
-						if (not singleInCollectionMatched) then
-							for _,dungeonIndex in ipairs(dungeonsFallback.Dungeons) do
-								local dungeon = LFGMM_GLOBAL.DUNGEONS[dungeonIndex];
-								uniqueDungeonMatches:Add(dungeon);
-								
-								if (dungeon.ParentDungeon ~= nil) then
-									uniqueDungeonMatches:Add(LFGMM_GLOBAL.DUNGEONS[dungeon.ParentDungeon]);
-								end
+					if (matched) then
+						break;
+					end
+				end
+				
+				if (matched) then
+					local singleInFallbackMatched = false;
+					
+					for _,dungeonIndex in ipairs(dungeonsFallback.Dungeons) do
+						if (uniqueDungeonMatches.List[dungeonIndex] ~= nil) then
+							singleInFallbackMatched = true;
+							break;
+						end
+					end
+
+					if (not singleInFallbackMatched) then
+						for _,dungeonIndex in ipairs(dungeonsFallback.Dungeons) do
+							local dungeon = LFGMM_GLOBAL.DUNGEONS[dungeonIndex];
+							uniqueDungeonMatches:Add(dungeon);
+							
+							if (dungeon.ParentDungeon ~= nil) then
+								uniqueDungeonMatches:Add(LFGMM_GLOBAL.DUNGEONS[dungeon.ParentDungeon]);
 							end
 						end
-					
-						break;
 					end
 				end
 			end
@@ -590,16 +664,22 @@ function LFGMM_Core_EventHandler(self, event, ...)
 					string.find(message, "need[%W]*[%d]*[%W]*caster"                             ) ~= nil or
 					string.find(message, "need[%W]*[%d]*[%W]*mele[e]?"                           ) ~= nil or
 					string.find(message, "need[%W]*[%d]*[%W]*range[d]?[r]?"                      ) ~= nil or
-					string.find(message, "last[%W]*spot"                                         ) ~= nil)
+					string.find(message, "last[%W]*spot"                                         ) ~= nil or 
+					string.find(message, "last[%W]*heal"                                         ) ~= nil or
+					string.find(message, "last[%W]*dps"                                          ) ~= nil or
+					string.find(message, "last[%W]*tank"                                         ) ~= nil)
 			then
 				typeMatch = "LFM";
 			
-			elseif (table.getn(dungeonMatches) > 0 and string.find(message, "boost") and string.find(message, "wtb") ~= nil) then
+			elseif (table.getn(dungeonMatches) > 0 and string.find(message, "wtb.-boost") ~= nil) then
 				typeMatch = "LFG";
 
-			elseif (table.getn(dungeonMatches) > 0 and string.find(message, "boost") and string.find(message, "wts") ~= nil) then
+			elseif (table.getn(dungeonMatches) > 0 and string.find(message, "wts.-boost") ~= nil) then
 				typeMatch = "LFM";
-				
+			
+			elseif (table.getn(dungeonMatches) > 0 and (string.find(message, "heal[i]?[n]?[g]?[%W]*service[s]?") ~= nil or string.find(message, "tank[i]?[n]?[g]?[%W]*service[s]?") ~= nil)) then
+				typeMatch = "LFG";
+			
 			else
 				typeMatch = "UNKNOWN";
 			end
