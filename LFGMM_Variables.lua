@@ -636,8 +636,8 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Gnomeregan",
 			Identifiers = {
 				EN = {
-					"gnom[e]?[r]?[e]?[a]?g[e]?[r]?an",
-					"gnome[r]?",
+					"g[e]?nom[e]?[r]?[e]?[a]?g[e]?[r]?an",
+					"g[e]?nome[r]?",
 				},
 				DE = {},
 				FR = {},
