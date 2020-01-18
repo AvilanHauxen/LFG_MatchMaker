@@ -83,23 +83,23 @@ end
 
 
 function LFGMM_SettingsTab_IdentifierLanguagesDropDown_OnInitialize(self, level)
-	for languageCode,languageName in pairs(LFGMM_GLOBAL.LANGUAGES) do
+	for _,language in ipairs(LFGMM_GLOBAL.LANGUAGES) do
 		local item = UIDropDownMenu_CreateInfo();
 		item.keepShownOnClick = true;
 		item.isNotRadio = true;
-		item.text = languageName;
+		item.text = language.Name;
 		
-		if (languageCode == "EN") then
+		if (language.Code == "EN") then
 			item.text = item.text .. " (Common)";
 			item.checked = true;
 			item.disabled = true;
 		else
-			item.checked = LFGMM_Utility_ArrayContains(LFGMM_DB.SETTINGS.IdentifierLanguages, languageCode);
+			item.checked = LFGMM_Utility_ArrayContains(LFGMM_DB.SETTINGS.IdentifierLanguages, language.Code);
 			item.func = function(self, dungeonIndex)
 				if (self.checked) then
-					table.insert(LFGMM_DB.SETTINGS.IdentifierLanguages, languageCode);
+					table.insert(LFGMM_DB.SETTINGS.IdentifierLanguages, language.Code);
 				else
-					LFGMM_Utility_ArrayRemove(LFGMM_DB.SETTINGS.IdentifierLanguages, languageCode);
+					LFGMM_Utility_ArrayRemove(LFGMM_DB.SETTINGS.IdentifierLanguages, language.Code);
 				end
 				
 				LFGMM_SettingsTab_IdentifierLanguagesDropDown_UpdateText();
