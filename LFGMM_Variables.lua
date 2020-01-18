@@ -218,11 +218,13 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Gouffre de Ragefeu
+					"gouf[f]?re[%W]*[d]?[e]?[%W]*ragefeu",
 					"ragefeu",
 					"rf",
 				},
 				ES = {
 					-- Sima Ígnea
+					"sima[%W]*ignea",
 					"sima",
 				},
 				RU = {},
@@ -242,17 +244,16 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					-- Die Höhlen des Wehklagens
-					"höhlen[%W]*[d]?[e]?[s]?[%W]*wehklagens",
-					"ho[e]?hlen[%W]*[d]?[e]?[s]?[%W]*wehklagens",
+					"ho[e]?hlen[%W]*[d]?[e]?[s]?[%W]*we[h]?klagen[s]?",
 					"hdw",
 				},
 				FR = {
 					-- Cavernes des lamentations
-					"cavern[e]?[s]?[%W]*[d]?[e]?[s]?[%W]*lamentations",
+					"cavern[e]?[s]?[%W]*[d]?[e]?[s]?[%W]*lamentation[s]?",
 				},
 				ES = {
 					-- Cuevas de los Lamentos
-					"cueva[s]?[%W]*[d]?[e]?[%W]*[l]?[o]?[s]?[%W]*lamentos",
+					"cueva[s]?[%W]*[d]?[e]?[%W]*[l]?[o]?[s]?[%W]*lamento[s]?",
 				},
 				RU = {},
 			},
@@ -310,10 +311,12 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Donjon d'Ombrecroc
+					"donjon[%W]*[d]?[%W]*ombrecroc",
 					"ombrecroc",
 				},
 				ES = {
 					-- Castillo de colmillo oscuro
+					"castillo[%W]*[d]?[e]?[%W]*colmil[l]?o[%W]*oscuro",
 					"colmil[l]?o[%W]*oscuro",
 				},
 				RU = {},
@@ -344,6 +347,7 @@ LFGMM_GLOBAL = {
 				},
 				ES = {
 					-- Cavernas de Brazanegra
+					"caverna[s]?[%W]*[d]?[e]?[%W]*brazanegra",
 					"brazanegra",
 				},
 				RU = {},
@@ -363,8 +367,7 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					-- Das Verlies
-					"verlies",
-					"verleis",
+					"verl[e]?i[e]?s",
 				},
 				FR = {
 					-- La Prison
@@ -395,11 +398,12 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Monastère Écarlate
-					"mona[s]?[t]?è[r]?[e]?",
+					"monastere[%W*]ecarlate",
 					"mona[s]?[t]?[e]?[r]?[e]?",
 				},
 				ES = {
 					-- Monasterio Escarlata
+					"monasterio[%W]*escarlata",
 					"monasterio",
 					"escarlata",
 				},
@@ -436,13 +440,8 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Cimetière
-					"smcim[e]?[t]?[i]?è[r]?[e]?",
-					"smcim[e]?[t]?[i]?è[r]?[e]?",
-					"mona[s]?[t]?è[r]?[e]?cim[e]?[t]?[i]?[e]?[r]?[e]?",
-					"mona[s]?[t]?è[r]?[e]?cim[e]?[t]?[i]?[e]?[r]?[e]?",
+					"smcim[e]?[t]?[i]?[e]?[r]?[e]?",
 					"mona[s]?[t]?[e]?[r]?[e]?cim[e]?[t]?[i]?[e]?[r]?[e]?",
-					"mona[s]?[t]?[e]?[r]?[e]?cim[e]?[t]?[i]?[e]?[r]?[e]?",
-					"cim[e]?[t]?[i]?è[r]?[e]?",
 					"cim[e]?[t]?[i]?[e]?[r]?[e]?",
 				},
 				ES = {
@@ -472,17 +471,11 @@ LFGMM_GLOBAL = {
 					"zf.-[%W]+f[r]?[i]?[e]?[d]?h[o]?[f]?",
 				},
 				FR = {
-					"zul[%W]*far[r]?ak[k]?cim[e]?[t]?[i]?è[r]?[e]?",
 					"zul[%W]*far[r]?ak[k]?cim[e]?[t]?[i]?[e]?[r]?[e]?",
-					"zfkcim[e]?[t]?[i]?è[r]?[e]?",
 					"zfkcim[e]?[t]?[i]?[e]?[r]?[e]?",
-					"zfcim[e]?[t]?[i]?è[r]?[e]?",
 					"zfcim[e]?[t]?[i]?[e]?[r]?[e]?",
-					"zul[%W]*far[r]?ak[k]?.-[%W]+cim[e]?[t]?[i]?è[r]?[e]?",
 					"zul[%W]*far[r]?ak[k]?.-[%W]+cim[e]?[t]?[i]?[e]?[r]?[e]?",
-					"zfk.-[%W]+cim[e]?[t]?[i]?è[r]?[e]?",
 					"zfk.-[%W]+cim[e]?[t]?[i]?[e]?[r]?[e]?",
-					"zf.-[%W]+cim[e]?[t]?[i]?è[r]?[e]?",
 					"zf.-[%W]+cim[e]?[t]?[i]?[e]?[r]?[e]?",
 				},
 				ES = {
@@ -516,13 +509,8 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Bibliothèque
-					"smb[l]?ibli[o]?[t]?[h]?è[q]?[u]?[e]?",
 					"smb[l]?ibli[o]?[t]?[h]?[e]?[q]?[u]?[e]?",
-					"mona[s]?[t]?è[r]?[e]?b[l]?ibli[o]?[t]?[h]?è[q]?[u]?[e]?",
-					"mona[s]?[t]?è[r]?[e]?b[l]?ibli[o]?[t]?[h]?[e]?[q]?[u]?[e]?",
-					"mona[s]?[t]?[e]?[r]?[e]?b[l]?ibli[o]?[t]?[h]?è[q]?[u]?[e]?",
 					"mona[s]?[t]?[e]?[r]?[e]?b[l]?ibli[o]?[t]?[h]?[e]?[q]?[u]?[e]?",
-					"b[l]?ibli[o]?[t]?[h]?è[q]?[u]?[e]?",
 					"b[l]?ibli[o]?[t]?[h]?[e]?[q]?[u]?[e]?",
 				},
 				ES = {
@@ -549,8 +537,8 @@ LFGMM_GLOBAL = {
 			Abbreviation = "SM ARM",
 			Identifiers = {
 				EN = {
-					"smarm[o]?[u]?[r]?[y]?",
-					"arm[o]?[u]?[r]?[y]?",
+					"smarm[s]?[o]?[u]?[r]?[y]?",
+					"arm[s]?[o]?[u]?[r]?[y]?",
 				},
 				DE = {
 					-- Waffenkammer
@@ -561,7 +549,6 @@ LFGMM_GLOBAL = {
 				FR = {
 					-- Armurerie
 					"smarmu[r]?[e]?[r]?[i]?[e]?",
-					"mona[s]?[t]?è[r]?[e]?armu[r]?[e]?[r]?[i]?[e]?",
 					"mona[s]?[t]?[e]?[r]?[e]?armu[r]?[e]?[r]?[i]?[e]?",
 					"armu[r]?[e]?[r]?[i]?[e]?",
 				},
@@ -597,13 +584,8 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Cathédrale
-					"smcathé[d]?[r]?[a]?[l]?[e]?",
 					"smcathe[d]?[r]?[a]?[l]?[e]?",
-					"mona[s]?[t]?è[r]?[e]?cathé[d]?[r]?[a]?[l]?[e]?",
-					"mona[s]?[t]?è[r]?[e]?cathe[d]?[r]?[a]?[l]?[e]?",
-					"mona[s]?[t]?[e]?[r]?[e]?cathé[d]?[r]?[a]?[l]?[e]?",
 					"mona[s]?[t]?[e]?[r]?[e]?cathe[d]?[r]?[a]?[l]?[e]?",
-					"cathé[d]?[r]?[a]?[l]?[e]?",
 					"cathe[d]?[r]?[a]?[l]?[e]?",
 				},
 				ES = {
@@ -687,7 +669,6 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					-- Hügel der Klingenhauer / Die Hügel von Razorfen
-					"hügel",
 					"hu[e]?gel",
 				},
 				FR = {
@@ -696,7 +677,6 @@ LFGMM_GLOBAL = {
 				},
 				ES = {
 					-- Zahúrda Rojocieno
-					"zahúrda",
 					"zahurda",
 					"rfsd",
 				},
@@ -807,7 +787,6 @@ LFGMM_GLOBAL = {
 				},
 				ES = {
 					-- Púrpura
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+púrpura",
 					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+purpura",
 				},
 				RU = {},
@@ -834,7 +813,7 @@ LFGMM_GLOBAL = {
 				FR = {
 					-- Princesse / Chutes de Chanteterre
 					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?e",
-					"chutes[%W]*[d]?[e]?[%W]*chanteterre",
+					"chutes[%W]*[d]?[e]?[%W]*chanteter[r]?e",
 				},
 				ES = {
 					-- Princesa / ?
@@ -963,6 +942,7 @@ LFGMM_GLOBAL = {
 				EN = {
 					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+at[t]?un[e]?ment",
 					"brd.-[%W]+at[t]?un[e]?ment",
+					"brd.-[%W]+win[d]?sor",
 					"at[t]?un[e]?ment.-quest[s]?",
 					"at[t]?un[e]?ment.-arena",
 					"at[t]?un[e]?ment.-anger[f]?[g]?[o]?[r]?[g]?[e]?",
@@ -1043,9 +1023,7 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Arène
-					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+arène",
 					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+arene",
-					"brd.-[%W]+arène",
 					"brd.-[%W]+arene",
 				},
 				ES = {
@@ -1587,7 +1565,6 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					-- Düsterbruch
-					"düsterbruch",
 					"du[e]?sterbruch",
 					"db",
 				},
@@ -1628,10 +1605,6 @@ LFGMM_GLOBAL = {
 					"db.-[%W]+e",
 					"db.-[%W]+ost",
 					"db.-[%W]+east",
-					"düsterbruch.-[%W]+o",
-					"düsterbruch.-[%W]+e",
-					"düsterbruch.-[%W]+ost",
-					"düsterbruch.-[%W]+east",
 					"du[e]?sterbruch.-[%W]+o",
 					"du[e]?sterbruch.-[%W]+e",
 					"du[e]?sterbruch.-[%W]+ost",
@@ -1686,8 +1659,6 @@ LFGMM_GLOBAL = {
 					"dbw",
 					"db.-[%W]+w",
 					"db.-[%W]+west",
-					"düsterbruch.-[%W]+w",
-					"düsterbruch.-[%W]+west",
 					"du[e]?sterbruch.-[%W]+w",
 					"du[e]?sterbruch.-[%W]+west",
 				},
@@ -1745,9 +1716,6 @@ LFGMM_GLOBAL = {
 					"db.-[%W]+n",
 					"db.-[%W]+nord",
 					"db.-[%W]+north",
-					"düsterbruch.-[%W]+n",
-					"düsterbruch.-[%W]+nord",
-					"düsterbruch.-[%W]+north",
 					"du[e]?sterbruch.-[%W]+n",
 					"du[e]?sterbruch.-[%W]+nord",
 					"du[e]?sterbruch.-[%W]+north",
@@ -1786,6 +1754,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"d[i]?mt",
+					"d[i]?mtrib[u]?[t]?[e]?[r]?[u]?[n]?",
 					"d[i]?m.-[%W]+t",
 					"d[i]?m.-[%W]+trib[u]?[t]?[e]?[r]?[u]?[n]?",
 					"dire[%W]*maul.-[%W]+t",
@@ -1794,16 +1763,16 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					"dbt",
+					"dbtrib[u]?[t]?[e]?[r]?[u]?[n]?",
 					"db.-[%W]+t",
 					"db.-[%W]+trib[u]?[t]?[e]?[r]?[u]?[n]?",
-					"düsterbruch.-[%W]+t",
-					"düsterbruch.-[%W]+trib[u]?[t]?[e]?[r]?[u]?[n]?",
 					"du[e]?sterbruch.-[%W]+t",
 					"du[e]?sterbruch.-[%W]+trib[u]?[t]?[e]?[r]?[u]?[n]?",
 					"tribut[e]?[r]?[u]?[n]?",
 				},
 				FR = {
 					"htt",
+					"httrib[u]?[t]?[e]?[r]?[u]?[n]?",
 					"ht.-[%W]+t",
 					"ht.-[%W]+trib[u]?[t]?[e]?[r]?[u]?[n]?",
 					"hache[%W]*tripes.-[%W]+t",
@@ -1844,7 +1813,7 @@ LFGMM_GLOBAL = {
 				EN = {
 					"molten[%W]*core",
 					"mc",
-					"mc[%W]*[%d]*[%W]*[%d]*[%W]*",
+					"mc[%d]*",
 				},
 				DE = {
 					-- Geschmolzener Kern
@@ -1852,12 +1821,10 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Cœur du Magma
-					"cœur[%W]*[d]?[u]?[%W]*magma",
 					"coeur[%W]*[d]?[u]?[%W]*magma",
 				},
 				ES = {
 					-- Núcleo de magma
-					"núcleo[%W]*[d]?[e]?[%W]*magma",
 					"nucleo[%W]*[d]?[e]?[%W]*magma",
 				},
 				RU = {},
@@ -2006,6 +1973,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"war[%W]*song[%W]*gulch",
+					"war[%W]*song[%W]*premade",
 					"wsg",
 				},
 				DE = {
@@ -2034,6 +2002,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"alterac[%W]*val[l]?ey",
+					"alterac[%W]*premade",
 					"av",
 				},
 				DE = {
@@ -2042,7 +2011,6 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Vallée d'Alterac
-					"vallée[%W]*[d]?[%W]*alterac",
 					"vallee[%W]*[d]?[%W]*alterac",
 				},
 				ES = {

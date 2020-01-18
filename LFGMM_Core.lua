@@ -417,6 +417,34 @@ function LFGMM_Core_EventHandler(self, event, ...)
 				return;
 			end
 
+			-- Replace special characters in message to simplify pattern requirements
+			message = string.gsub(message, "á", "a");
+			message = string.gsub(message, "à", "a");
+			message = string.gsub(message, "ä", "a");
+			message = string.gsub(message, "â", "a");
+			message = string.gsub(message, "ã", "a");
+			message = string.gsub(message, "é", "e");
+			message = string.gsub(message, "è", "e");
+			message = string.gsub(message, "ë", "e");
+			message = string.gsub(message, "ê", "e");
+			message = string.gsub(message, "í", "i");
+			message = string.gsub(message, "ì", "i");
+			message = string.gsub(message, "ï", "i");
+			message = string.gsub(message, "î", "i");
+			message = string.gsub(message, "ñ", "n");
+			message = string.gsub(message, "ó", "o");
+			message = string.gsub(message, "ò", "o");
+			message = string.gsub(message, "ö", "o");
+			message = string.gsub(message, "ô", "o");
+			message = string.gsub(message, "õ", "o");
+			message = string.gsub(message, "ú", "u");
+			message = string.gsub(message, "ù", "u");
+			message = string.gsub(message, "ü", "u");
+			message = string.gsub(message, "û", "u");
+			message = string.gsub(message, "ß", "ss");
+			message = string.gsub(message, "œ", "oe");
+			message = string.gsub(message, "ç", "c");
+
 			-- Remove "/w me" from message before parsing to avoid false positive match for DM - West
 			for _,languageCode in ipairs(LFGMM_DB.SETTINGS.IdentifierLanguages) do
 				if (languageCode == "EN") then
