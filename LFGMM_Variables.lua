@@ -214,6 +214,7 @@ LFGMM_GLOBAL = {
 					-- Der Flammenschlund / Ragefireabgrund
 					"rage[%W]*fire[%W]*abgrund",
 					"flammen[%W]*schlund",
+					"rfa",
 					"rf",
 				},
 				FR = {
@@ -250,6 +251,7 @@ LFGMM_GLOBAL = {
 				FR = {
 					-- Cavernes des lamentations
 					"cavern[e]?[s]?[%W]*[d]?[e]?[s]?[%W]*lamentation[s]?",
+					"lam[s]?",
 				},
 				ES = {
 					-- Cuevas de los Lamentos
@@ -280,6 +282,7 @@ LFGMM_GLOBAL = {
 				FR = {
 					-- Les Mortemines
 					"morte[%W]*mine[s]?",
+					"mm",
 				},
 				ES = {
 					-- Las Minas de la Muerte
@@ -343,7 +346,8 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Profondeurs de Brassenoire
-					"profondeurs[%W]*[d]?[e]?[%W]*brassenoire",
+					"profondeurs[%W]*[d]?[e]?[%W]*bras[s]?[e]?noir[e]?",
+					"bras[s]?[e]?noir[e]?"
 				},
 				ES = {
 					-- Cavernas de Brazanegra
@@ -455,34 +459,34 @@ LFGMM_GLOBAL = {
 			},
 			NotIdentifiers = {
 				EN = {
-					"zul[%W]*far[r]?ak[k]?g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
+					"zulg[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 					"zfkg[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 					"zfg[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
-					"zul[%W]*far[r]?ak[k]?.-[%W]+g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
+					"zul.-[%W]+g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 					"zfk.-[%W]+g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 					"zf.-[%W]+g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 				},
 				DE = {
-					"zul[%W]*far[r]?ak[k]?f[r]?[i]?[e]?[d]?h[o]?[f]?",
+					"zulf[r]?[i]?[e]?[d]?h[o]?[f]?",
 					"zfkf[r]?[i]?[e]?[d]?h[o]?[f]?",
 					"zff[r]?[i]?[e]?[d]?h[o]?[f]?",
-					"zul[%W]*far[r]?ak[k]?.-[%W]+f[r]?[i]?[e]?[d]?h[o]?[f]?",
+					"zul.-[%W]+f[r]?[i]?[e]?[d]?h[o]?[f]?",
 					"zfk.-[%W]+f[r]?[i]?[e]?[d]?h[o]?[f]?",
 					"zf.-[%W]+f[r]?[i]?[e]?[d]?h[o]?[f]?",
 				},
 				FR = {
-					"zul[%W]*far[r]?ak[k]?cim[e]?[t]?[i]?[e]?[r]?[e]?",
+					"zulcim[e]?[t]?[i]?[e]?[r]?[e]?",
 					"zfkcim[e]?[t]?[i]?[e]?[r]?[e]?",
 					"zfcim[e]?[t]?[i]?[e]?[r]?[e]?",
-					"zul[%W]*far[r]?ak[k]?.-[%W]+cim[e]?[t]?[i]?[e]?[r]?[e]?",
+					"zul.-[%W]+cim[e]?[t]?[i]?[e]?[r]?[e]?",
 					"zfk.-[%W]+cim[e]?[t]?[i]?[e]?[r]?[e]?",
 					"zf.-[%W]+cim[e]?[t]?[i]?[e]?[r]?[e]?",
 				},
 				ES = {
-					"zul[%W]*far[r]?ak[k]?[%W]*cementerio",
-					"zfk[%W]*cementerio",
-					"zf[%W]*cementerio",
-					"zul[%W]*far[r]?ak[k]?.-[%W]+cementerio",
+					"zulcementerio",
+					"zfkcementerio",
+					"zfcementerio",
+					"zul.-[%W]+cementerio",
 					"zfk.-[%W]+cementerio",
 					"zf.-[%W]+cementerio",
 				},
@@ -609,22 +613,11 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"gnom[e]?[r]?[e]?[a]?g[e]?[r]?an",
-					"gnomer",
-					"gnom",
-					"lfg[%W]*gnome",
-					"lf[%d]*m[%W]*gnome",
-					"for[%W]*gnome",
+					"gnome[r]?",
 				},
-				DE = {
-					"für[%W]*gnome",
-					"fu[e]?r[%W]*gnome",
-				},
-				FR = {
-					"pour[%W]*gnome",
-				},
-				ES = {
-					"para[%W]*gnome",
-				},
+				DE = {},
+				FR = {},
+				ES = {},
 				RU = {},
 			},
 			Size = 5,
@@ -642,11 +635,11 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					-- Kral der Klingenhauer / Der Kral von Razorfen
-					"kral",
+					"kra[a]?l",
 				},
 				FR = {
 					-- Kraal de Tranchebauge
-					"kra[a]?l",
+					"kra[a]?[lk]",
 				},
 				ES = {
 					-- Horado Rajacieno
@@ -673,7 +666,7 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Souilles de Tranchebauge
-					"souilles",
+					"souil[l]?es",
 				},
 				ES = {
 					-- Zahúrda Rojocieno
@@ -711,6 +704,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"zul[%W]*far[r]?ak[k]?",
+					"zul",
 					"zfk",
 					"zf",
 				},
@@ -1025,6 +1019,7 @@ LFGMM_GLOBAL = {
 					-- Arène
 					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+arene",
 					"brd.-[%W]+arene",
+					"arene.-[%W]+brd",
 				},
 				ES = {
 					-- Arenas
@@ -1075,9 +1070,17 @@ LFGMM_GLOBAL = {
 					"brt.-[%W]+anger[f]?[g]?[o]?[r]?[g]?[e]?",
 					"schwarz[%W]*fels[%W]*tiefe[n]?.-[%W]+general",
 					"black[%W]*rock[%W]*tiefe[n]?.-[%W]+general",
-					"brt.-general",
+					"brt.-[%W]+general",
 				},
-				FR = {},
+				FR = {
+					-- Forgehargne / General
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+forge[h]?[a]?[r]?[g]?[n]?[e]?",
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+general",
+					"brd.-[%W]+forge[h]?[a]?[r]?[g]?[n]?[e]?",
+					"brd.-[%W]*general",
+					"forge[h]?[a]?[r]?[g]?[n]?[e]?.-[%W]+brd",
+					"general.-[%W]+brd",
+				},
 				ES = {},
 				RU = {},
 			},
@@ -1294,18 +1297,21 @@ LFGMM_GLOBAL = {
 					"black[%W]*rock[%W]*tiefe[n]?.-[%W]+[ie]mp[e]?[r]?[a]?[t]?[o]?[r]?",
 					"brt.-[%W]+[ie]mp[e]?[r]?[a]?[t]?[o]?[r]?",
 					"[ie]mp[e]?[r]?[a]?[t]?[o]?[r]?[%W]*run[s]?",
+					"kill[i]?[n]?[g]?[%W]*[d]?[a]?[s]?[%W]*prinzes[s]?[i]?[n]?[n]?[e]?[n]?",
 				},
 				FR = {
 					-- Empereur
 					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+emp[e]?[r]?[e]?[u]?[r]?",
 					"brd.-[%W]+emp[e]?[r]?[e]?[u]?[r]?",
 					"emp[e]?[r]?[e]?[u]?[r]?[%W]*run[s]?",
+					"kill[i]?[n]?[g]?[%W]*[l]?[a]?[%W]*princes[s]?e",
 				},
 				ES = {
 					-- Emperador
 					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+emp[e]?[r]?[a]?[d]?[o]?[r]?",
 					"brd.-[%W]+emp[e]?[r]?[a]?[d]?[o]?[r]?",
 					"emp[e]?[r]?[a]?[d]?[o]?[r]?[%W]*run[s]?",
+					"kill[i]?[n]?[g]?[%W]*[l]?[a]?[%W]*princesa",
 				},
 				RU = {},
 			},
@@ -1365,6 +1371,15 @@ LFGMM_GLOBAL = {
 				EN = {
 					"kill[i]?[n]?[g]?[%W]*[t]?[h]?[e]?[%W]*princes[s]?",
 				},
+				DE = {
+					"kill[i]?[n]?[g]?[%W]*[d]?[a]?[s]?[%W]*prinzes[s]?[i]?[n]?[n]?[e]?[n]?",
+				},
+				FR = {
+					"kill[i]?[n]?[g]?[%W]*[l]?[a]?[%W]*princes[s]?e",
+				},
+				ES = {
+					"kill[i]?[n]?[g]?[%W]*[l]?[a]?[%W]*princesa",
+				},
 			},
 			ParentDungeon = 22,
 			Size = 5,
@@ -1380,6 +1395,7 @@ LFGMM_GLOBAL = {
 					"lower[%W]*black[%W]*rock[%W]*spire",
 					"lower[%W]*brs",
 					"lb[r]?s",
+					"lrbs",
 				},
 				DE = {
 					-- Untere Schwarzfelsspitze / Untere Blackrockspitze
@@ -1410,6 +1426,7 @@ LFGMM_GLOBAL = {
 					"upper[%W]*black[%W]*rock[%W]*spire",
 					"upper[%W]*brs",
 					"ub[r]?s",
+					"urbs",
 					"rend[%W]*run[s]?",
 					"jed[%W]*run[s]?",
 					"jed[%W]*rend",
@@ -1420,6 +1437,7 @@ LFGMM_GLOBAL = {
 					"obere[%W]*schwarzfel[s]?[%W]*spitze",
 					"obere[%W]*black[%W]*rock[%W]*spitze",
 					"obere[%W]*brs",
+					"obrs",
 				},
 				FR = {
 					-- Sommet du Pic de Rochenoire
@@ -1497,7 +1515,19 @@ LFGMM_GLOBAL = {
 					"start[%W]*kloster[%W]*[t]?[e]?[i]?[l]?",
 					"stra[%W]*kloster[%W]*[t]?[e]?[i]?[l]?",
 				},
-				FR = {},
+				FR = {
+					-- Écarlate / Croisés
+					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+eca[r]?[l]?[a]?[t]?[e]?",
+					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+croises",
+					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+eca[r]?[l]?[a]?[t]?[e]?",
+					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+croises",
+					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+eca[r]?[l]?[a]?[t]?[e]?",
+					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+croises",
+					"start[%W]*eca[r]?[l]?[a]?[t]?[e]?",
+					"start[%W]*croises",
+					"stra[%W]*eca[r]?[l]?[a]?[t]?[e]?",
+					"stra[%W]*croises",
+				},
 				ES = {},
 				RU = {},
 			},
@@ -1514,28 +1544,28 @@ LFGMM_GLOBAL = {
 				EN = {
 					"st[a]?rat[h]?[o]?[l]?[m]?[e]?u[n]?d[e]?[a]?[d]?",
 					"st[a]?rat[h]?[o]?[l]?[m]?[e]?dead",
-					"st[a]?rat[h]?[o]?[l]?[m]?[e]?baron",
+					"st[a]?rat[h]?[o]?[l]?[m]?[e]?bar[r]?on",
 					"sta[r]?th[o]?[l]?[m]?[e]?u[n]?d[e]?[a]?[d]?",
 					"sta[r]?th[o]?[l]?[m]?[e]?dead",
-					"sta[r]?th[o]?[l]?[m]?[e]?baron",
+					"sta[r]?th[o]?[l]?[m]?[e]?bar[r]?on",
 					"straht[h]?[o]?[l]?[m]?[e]?u[n]?d[e]?[a]?[d]?",
 					"straht[h]?[o]?[l]?[m]?[e]?dead",
-					"straht[h]?[o]?[l]?[m]?[e]?baron",
+					"straht[h]?[o]?[l]?[m]?[e]?bar[r]?on",
 					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+u[n]?d[e]?[a]?[d]?",
 					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+dead",
-					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+baron",
+					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+bar[r]?on",
 					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+u[n]?d[e]?[a]?[d]?",
 					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+dead",
-					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+baron",
+					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+bar[r]?on",
 					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+u[n]?d[e]?[a]?[d]?",
 					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+dead",
-					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+baron",
+					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+bar[r]?on",
 					"start[%W]*u[n]?d[e]?[a]?[d]?",
 					"start[%W]*dead",
-					"start[%W]*baron",
+					"start[%W]*bar[r]?on",
 					"stra[%W]*u[n]?d[e]?[a]?[d]?",
 					"stra[%W]*dead",
-					"stra[%W]*baron",
+					"stra[%W]*bar[r]?on",
 				},
 				DE = {
 					-- Untotenteil
@@ -1545,7 +1575,14 @@ LFGMM_GLOBAL = {
 					"start[%W]*untot[e]?[n]?[%W]*[t]?[e]?[i]?[l]?",
 					"stra[%W]*untot[e]?[n]?[%W]*[t]?[e]?[i]?[l]?",
 				},
-				FR = {},
+				FR = {
+					-- Fléau
+					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+fleau",
+					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+fleau",
+					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+fleau",
+					"start[%W]*fleau",
+					"stra[%W]*fleau",
+				},
 				ES = {},
 				RU = {},
 			},
@@ -1570,7 +1607,7 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Hache Tripes
-					"hache[%W]*tripes",
+					"hache[%W]*tripe[s]?",
 					"ht",
 				},
 				ES = {
@@ -1591,6 +1628,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"d[i]?me",
+					"d[i]?meast",
 					"d[i]?m.-[%W]+e",
 					"d[i]?m.-[%W]+east",
 					"dire[%W]*maul.-[%W]+e",
@@ -1601,6 +1639,8 @@ LFGMM_GLOBAL = {
 					-- Ost
 					"dbo",
 					"dbe",
+					"dbost",
+					"dbeast",
 					"db.-[%W]+o",
 					"db.-[%W]+e",
 					"db.-[%W]+ost",
@@ -1610,6 +1650,7 @@ LFGMM_GLOBAL = {
 					"du[e]?sterbruch.-[%W]+ost",
 					"du[e]?sterbruch.-[%W]+east",
 					"d[i]?mo",
+					"d[i]?most",
 					"d[i]?m.-[%W]+o",
 					"d[i]?m.-[%W]+ost",
 					"dire[%W]*maul.-[%W]+o",
@@ -1618,12 +1659,13 @@ LFGMM_GLOBAL = {
 				FR = {
 					-- Est
 					"hte",
+					"hteast",
 					"ht.-[%W]+e",
 					"ht.-[%W]+est",
 					"ht.-[%W]+east",
-					"hache[%W]*tripes.-[%W]+e",
-					"hache[%W]*tripes.-[%W]+est",
-					"hache[%W]*tripes.-[%W]+east",
+					"hache[%W]*tripe[s]?.-[%W]+e",
+					"hache[%W]*tripe[s]?.-[%W]+est",
+					"hache[%W]*tripe[s]?.-[%W]+east",
 					"d[i]?m.-[%W]+est",
 					"dire[%W]*maul.-[%W]+est",
 				},
@@ -1649,6 +1691,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"d[i]?mw",
+					"d[i]?mwest",
 					"d[i]?m.-[%W]+w",
 					"d[i]?m.-[%W]+west",
 					"dire[%W]*maul.-[%W]+w",
@@ -1657,6 +1700,7 @@ LFGMM_GLOBAL = {
 				DE = {
 					-- West
 					"dbw",
+					"dbwest",
 					"db.-[%W]+w",
 					"db.-[%W]+west",
 					"du[e]?sterbruch.-[%W]+w",
@@ -1666,15 +1710,18 @@ LFGMM_GLOBAL = {
 					-- Ouest
 					"hto",
 					"htw",
+					"htouest",
+					"htwest",
 					"ht.-[%W]+o",
 					"ht.-[%W]+w",
 					"ht.-[%W]+ouest",
 					"ht.-[%W]+west",
-					"hache[%W]*tripes.-[%W]+o",
-					"hache[%W]*tripes.-[%W]+w",
-					"hache[%W]*tripes.-[%W]+ouest",
-					"hache[%W]*tripes.-[%W]+west",
+					"hache[%W]*tripe[s]?.-[%W]+o",
+					"hache[%W]*tripe[s]?.-[%W]+w",
+					"hache[%W]*tripe[s]?.-[%W]+ouest",
+					"hache[%W]*tripe[s]?.-[%W]+west",
 					"d[i]?mo",
+					"d[i]?mouest",
 					"d[i]?m.-[%W]+o",
 					"d[i]?m.-[%W]+ouest",
 					"dire[%W]*maul.-[%W]+ouest",
@@ -1686,6 +1733,7 @@ LFGMM_GLOBAL = {
 					"masacre.-[%W]+oeste",
 					"masacre.-[%W]+west",
 					"d[i]?mo",
+					"d[i]?moeste",
 					"d[i]?m.-[%W]+oeste",
 					"dire[%W]*maul.-[%W]+oeste",
 				},
@@ -1703,6 +1751,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"d[i]?mn",
+					"d[i]?mnorth",
 					"d[i]?m.-[%W]+n",
 					"d[i]?m.-[%W]+north",
 					"dire[%W]*maul.-[%W]+n",
@@ -1710,9 +1759,11 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					-- Nord
+					"d[i]?mnord",
 					"d[i]?m.-[%W]+nord",
 					"dire[%W]*maul.-[%W]+nord",
 					"dbn",
+					"dbnord",
 					"db.-[%W]+n",
 					"db.-[%W]+nord",
 					"db.-[%W]+north",
@@ -1722,18 +1773,22 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Nord
+					"d[i]?mnord",
 					"d[i]?m.-[%W]+nord",
 					"dire[%W]*maul.-[%W]+nord",
 					"htn",
+					"htnord",
+					"htnorth",
 					"ht.-[%W]+n",
 					"ht.-[%W]+nord",
 					"ht.-[%W]+north",
-					"hache[%W]*tripes.-[%W]+n",
-					"hache[%W]*tripes.-[%W]+nord",
-					"hache[%W]*tripes.-[%W]+north",
+					"hache[%W]*tripe[s]?.-[%W]+n",
+					"hache[%W]*tripe[s]?.-[%W]+nord",
+					"hache[%W]*tripe[s]?.-[%W]+north",
 				},
 				ES = {
 					-- Norte
+					"d[i]?mnorte",
 					"d[i]?m.-[%W]+norte",
 					"dire[%W]*maul.-[%W]+norte",
 					"masacre.-[%W]+n",
@@ -1775,8 +1830,8 @@ LFGMM_GLOBAL = {
 					"httrib[u]?[t]?[e]?[r]?[u]?[n]?",
 					"ht.-[%W]+t",
 					"ht.-[%W]+trib[u]?[t]?[e]?[r]?[u]?[n]?",
-					"hache[%W]*tripes.-[%W]+t",
-					"hache[%W]*tripes.-[%W]+trib[u]?[t]?[e]?[r]?[u]?[n]?",
+					"hache[%W]*tripe[s]?.-[%W]+t",
+					"hache[%W]*tripe[s]?.-[%W]+trib[u]?[t]?[e]?[r]?[u]?[n]?",
 					"tribut[e]?[r]?[u]?[n]?",
 				},
 				ES = {
@@ -1860,6 +1915,9 @@ LFGMM_GLOBAL = {
 					"ony[iy]?[x]?[iy]?[e]?[a]?[%W]*q[u]?[e]?[s]?[t]?[s]?",
 					"ony[iy]?[x]?[iy]?[e]?[a]?[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
 				},
+				FR = {
+					"quete[%W]*ony[iy]?[x]?[iy]?[e]?[a]?",
+				}
 			},
 			Size = 40,
 			MinLevel = 60,

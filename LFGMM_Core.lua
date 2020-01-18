@@ -448,13 +448,14 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			-- Remove "/w me" from message before parsing to avoid false positive match for DM - West
 			for _,languageCode in ipairs(LFGMM_DB.SETTINGS.IdentifierLanguages) do
 				if (languageCode == "EN") then
-					message = string.gsub(message, "[%W]*w[%W]*me", " ");
+					message = string.gsub(message, "/w[%W]+me", " ");
 				elseif (languageCode == "DE") then
-					message = string.gsub(message, "[%W]*w[%W]*mir", " ");
+					message = string.gsub(message, "/w[%W]+mir", " ");
+					message = string.gsub(message, "/w[%W]+bei[%W]*interes[s]?e", " ");
 				elseif (languageCode == "FR") then
-					message = string.gsub(message, "[%W]*w[%W]*moi", " ");
+					message = string.gsub(message, "/w[%W]+moi", " ");
 				elseif (languageCode == "ES") then
-					message = string.gsub(message, "[%W]*w[%W]*yo", " ");
+					message = string.gsub(message, "/w[%W]+yo", " ");
 				end
 			end
 
