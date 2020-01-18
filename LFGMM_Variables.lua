@@ -287,6 +287,7 @@ LFGMM_GLOBAL = {
 				ES = {
 					-- Las Minas de la Muerte
 					"mina[s]?[%W]*[d]?[e]?[%W]*[l]?[a]?[%W]*muerte",
+					"minas",
 				},
 				RU = {},
 			},
@@ -300,16 +301,16 @@ LFGMM_GLOBAL = {
 			Abbreviation = "SFK",
 			Identifiers = {
 				EN = { 
-					"shadow[%W]*fang[%W]*keep",
+					"shadow[%W]*fang[%W]*ke[e]?p",
 					"shadow[%W]*fang",
 					"sfk",
 					"sk",
 				},
 				DE = {
 					-- Burg Schattenfang / Burg Shadowfang
-					"burg[%W]*schatten[%W]*fang",
+					"burg[%W]*schat[t]?en[%W]*fang",
 					"burg[%W]*shadow[%W]*fang",
-					"schatten[%W]*fang",
+					"schat[t]?en[%W]*fang",
 					"bsf",
 				},
 				FR = {
@@ -319,7 +320,7 @@ LFGMM_GLOBAL = {
 				},
 				ES = {
 					-- Castillo de colmillo oscuro
-					"castillo[%W]*[d]?[e]?[%W]*colmil[l]?o[%W]*oscuro",
+					"castil[l]?o[%W]*[d]?[e]?[%W]*colmil[l]?o[%W]*oscuro",
 					"colmil[l]?o[%W]*oscuro",
 				},
 				RU = {},
@@ -340,7 +341,7 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					-- Tiefschwarze Grotte / Die Blackfathomtiefen
-					"tiefschwarze[%W]*grotte",
+					"tiefschwarze[%W]*grot[t]?e",
 					"blackfathom[%W]*tiefe[n]?",
 					"bft[d]?",
 				},
@@ -379,7 +380,7 @@ LFGMM_GLOBAL = {
 				},
 				ES = {
 					-- Las Mazmorras
-					"mazmorras",
+					"mazmor[r]?as",
 				},
 				RU = {},
 			},
@@ -459,7 +460,7 @@ LFGMM_GLOBAL = {
 			},
 			NotIdentifiers = {
 				EN = {
-					"zulg[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
+					"zul[l]?g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 					"zfkg[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 					"zfg[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 					"zul.-[%W]+g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
@@ -467,7 +468,7 @@ LFGMM_GLOBAL = {
 					"zf.-[%W]+g[r]?[a]?[v]?[e]?y[e]?[a]?[r]?[d]?",
 				},
 				DE = {
-					"zulf[r]?[i]?[e]?[d]?h[o]?[f]?",
+					"zul[l]?f[r]?[i]?[e]?[d]?h[o]?[f]?",
 					"zfkf[r]?[i]?[e]?[d]?h[o]?[f]?",
 					"zff[r]?[i]?[e]?[d]?h[o]?[f]?",
 					"zul.-[%W]+f[r]?[i]?[e]?[d]?h[o]?[f]?",
@@ -475,7 +476,7 @@ LFGMM_GLOBAL = {
 					"zf.-[%W]+f[r]?[i]?[e]?[d]?h[o]?[f]?",
 				},
 				FR = {
-					"zulcim[e]?[t]?[i]?[e]?[r]?[e]?",
+					"zul[l]?cim[e]?[t]?[i]?[e]?[r]?[e]?",
 					"zfkcim[e]?[t]?[i]?[e]?[r]?[e]?",
 					"zfcim[e]?[t]?[i]?[e]?[r]?[e]?",
 					"zul.-[%W]+cim[e]?[t]?[i]?[e]?[r]?[e]?",
@@ -483,7 +484,7 @@ LFGMM_GLOBAL = {
 					"zf.-[%W]+cim[e]?[t]?[i]?[e]?[r]?[e]?",
 				},
 				ES = {
-					"zulcementerio",
+					"zul[l]?cementerio",
 					"zfkcementerio",
 					"zfcementerio",
 					"zul.-[%W]+cementerio",
@@ -541,8 +542,12 @@ LFGMM_GLOBAL = {
 			Abbreviation = "SM ARM",
 			Identifiers = {
 				EN = {
-					"smarm[s]?[o]?[u]?[r]?[y]?",
-					"arm[s]?[o]?[u]?[r]?[y]?",
+					"smarmo[u]?ry",
+					"smarm[o]?ury",
+					"smarm[s]?",
+					"armo[u]?ry",
+					"arm[o]?ury",
+					"arm[s]?",
 				},
 				DE = {
 					-- Waffenkammer
@@ -557,11 +562,15 @@ LFGMM_GLOBAL = {
 					"armu[r]?[e]?[r]?[i]?[e]?",
 				},
 				ES = {
-					-- Arsenal
+					-- Arsenal / Armeria
 					"smarsenal",
+					"smarmeria",
 					"monasterioarsenal",
+					"monasterioarmeria",
 					"escarlataarsenal",
+					"escarlataarmeria",
 					"arsenal",
+					"armeria",
 				},
 				RU = {},
 			},
@@ -703,8 +712,8 @@ LFGMM_GLOBAL = {
 			Abbreviation = "ZF",
 			Identifiers = {
 				EN = {
-					"zul[%W]*far[r]?ak[k]?",
-					"zul",
+					"zul[l]?[%W]*far[r]?ak[k]?",
+					"zul[l]?",
 					"zfk",
 					"zf",
 				},
@@ -773,7 +782,7 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					-- Violette
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+violette",
+					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+violet[t]?e",
 				},
 				FR = {
 					-- Violet
@@ -798,20 +807,20 @@ LFGMM_GLOBAL = {
 				EN = {
 					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+inner",
 					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?",
-					"earth[%W]*song[%W]*falls",
+					"earth[%W]*song[%W]*fal[l]?s",
 				},
 				DE = {
 					-- Prinzessinnen / ?
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+prinzes[s]?[i]?[n]?[n]?[e]?[n]?",
+					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
 				},
 				FR = {
 					-- Princesse / Chutes de Chanteterre
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?e",
+					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?[e]?",
 					"chutes[%W]*[d]?[e]?[%W]*chanteter[r]?e",
 				},
 				ES = {
 					-- Princesa / ?
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princesa",
+					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?[a]?",
 				},
 				RU = {},
 			},
@@ -877,6 +886,7 @@ LFGMM_GLOBAL = {
 				FR = {
 					-- Profondeurs de Blackrock
 					"profondeurs[%W]*[d]?[e]?[%W]*blackrock",
+					"brd[%d]*",
 				},
 				ES = {
 					-- Profundidades de Roca Negra
@@ -957,10 +967,13 @@ LFGMM_GLOBAL = {
 					"princes[s]?.-at[t]?un[e]?ment",
 					"mar[r]?shal[l]?[%W]*win[d]?sor",
 					"jail[%W]*br[e]?[a]?k[e]?",
-					"attunement[%W]*to[%W]*the[%W]*core",
+					"at[t]?unement[%W]*to[%W]*the[%W]*core",
 					"ony[i]?[x]?[iy]?[e]?[a]?[%W]*at[t]?un[e]?ment",
 					"ony[i]?[x]?[iy]?[e]?[a]?[%W]*q[u]?[e]?[s]?[t]?[s]?",
 					"ony[i]?[x]?[iy]?[e]?[a]?[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
+					"onix[iy][e]?[a]?[%W]*at[t]?un[e]?ment",
+					"onix[iy][e]?[a]?[%W]*q[u]?[e]?[s]?[t]?[s]?",
+					"onix[iy][e]?[a]?[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
 					"molten[%W]*core[%W]*at[t]?un[e]?ment",
 					"mc[%W]*at[t]?un[e]?ment",
 					"molten[%W]*core[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
@@ -1025,6 +1038,7 @@ LFGMM_GLOBAL = {
 					-- Arenas
 					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+arenas",
 					"brd.-[%W]+arenas",
+					"arena[s]?.-[%W]+brd",
 				},
 				RU = {},
 			},
@@ -1081,7 +1095,12 @@ LFGMM_GLOBAL = {
 					"forge[h]?[a]?[r]?[g]?[n]?[e]?.-[%W]+brd",
 					"general.-[%W]+brd",
 				},
-				ES = {},
+				ES = {
+					-- General
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+general",
+					"brd.-[%W]*general",
+					"general.-[%W]*brd",
+				},
 				RU = {},
 			},
 			ParentDungeon = 22,
@@ -1297,7 +1316,7 @@ LFGMM_GLOBAL = {
 					"black[%W]*rock[%W]*tiefe[n]?.-[%W]+[ie]mp[e]?[r]?[a]?[t]?[o]?[r]?",
 					"brt.-[%W]+[ie]mp[e]?[r]?[a]?[t]?[o]?[r]?",
 					"[ie]mp[e]?[r]?[a]?[t]?[o]?[r]?[%W]*run[s]?",
-					"kill[i]?[n]?[g]?[%W]*[d]?[a]?[s]?[%W]*prinzes[s]?[i]?[n]?[n]?[e]?[n]?",
+					"kill[i]?[n]?[g]?[%W]*[d]?[a]?[s]?[%W]*prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
 				},
 				FR = {
 					-- Empereur
@@ -1310,8 +1329,10 @@ LFGMM_GLOBAL = {
 					-- Emperador
 					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+emp[e]?[r]?[a]?[d]?[o]?[r]?",
 					"brd.-[%W]+emp[e]?[r]?[a]?[d]?[o]?[r]?",
+					"emp[e]?[r]?[a]?[d]?[o]?[r]?.-[%W]+brd",
 					"emp[e]?[r]?[a]?[d]?[o]?[r]?[%W]*run[s]?",
-					"kill[i]?[n]?[g]?[%W]*[l]?[a]?[%W]*princesa",
+					"kill[i]?[n]?[g]?[%W]*[l]?[a]?[%W]*princes[s]?[a]?",
+					"matar[%W]*[l]?[a]?[%W]*princes[s]?[a]?",
 				},
 				RU = {},
 			},
@@ -1349,21 +1370,23 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					-- Prinzessinnen
-					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+prinzes[s]?[i]?[n]?[n]?[e]?[n]?",
-					"brd.-[%W]+prinzes[s]?[i]?[n]?[n]?[e]?[n]?",
-					"schwarz[%W]*fels[%W]*tiefe[n]?.-[%W]+prinzes[s]?[i]?[n]?[n]?[e]?[n]?",
-					"black[%W]*rock[%W]*tiefe[n]?.-[%W]+prinzes[s]?[i]?[n]?[n]?[e]?[n]?",
-					"brt.-prinzes[s]?[i]?[n]?[n]?[e]?[n]?",
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
+					"brd.-[%W]+prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
+					"schwarz[%W]*fels[%W]*tiefe[n]?.-[%W]+prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
+					"black[%W]*rock[%W]*tiefe[n]?.-[%W]+prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
+					"brt.-prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
 				},
 				FR = {
 					-- Princesse
-					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+princes[s]?e",
-					"brd.-[%W]+princes[s]?e",
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+princes[s]?[e]?",
+					"brd.-[%W]+princes[s]?[e]?",
+					"princes[s]?[e]?.-[%W]+brd",
 				},
 				ES = {
 					-- Princesa
-					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+princesa",
-					"brd.-[%W]+princesa",
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+princes[s]?[a]?",
+					"brd.-[%W]+princes[s]?[a]?",
+					"princes[s]?[a]?.-[%W]+brd",
 				},
 				RU = {},
 			},
@@ -1372,13 +1395,14 @@ LFGMM_GLOBAL = {
 					"kill[i]?[n]?[g]?[%W]*[t]?[h]?[e]?[%W]*princes[s]?",
 				},
 				DE = {
-					"kill[i]?[n]?[g]?[%W]*[d]?[a]?[s]?[%W]*prinzes[s]?[i]?[n]?[n]?[e]?[n]?",
+					"kill[i]?[n]?[g]?[%W]*[d]?[a]?[s]?[%W]*prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
 				},
 				FR = {
 					"kill[i]?[n]?[g]?[%W]*[l]?[a]?[%W]*princes[s]?e",
 				},
 				ES = {
-					"kill[i]?[n]?[g]?[%W]*[l]?[a]?[%W]*princesa",
+					"kill[i]?[n]?[g]?[%W]*[l]?[a]?[%W]*princes[s]?[a]?",
+					"matar[%W]*[l]?[a]?[%W]*princes[s]?[a]?",
 				},
 			},
 			ParentDungeon = 22,
@@ -1410,6 +1434,8 @@ LFGMM_GLOBAL = {
 				ES = {
 					-- Cumbres de Roca Negra inferior
 					"cumbre[s]?[%W]*[d]?[e]?[%W]*roca[%W]*negra[%W]*inferior",
+					"montando[%W]*lower",
+					"lbrd",
 				},
 				RU = {},
 			},
@@ -1423,8 +1449,8 @@ LFGMM_GLOBAL = {
 			Abbreviation = "UBRS",
 			Identifiers = {
 				EN = {
-					"upper[%W]*black[%W]*rock[%W]*spire",
-					"upper[%W]*brs",
+					"up[p]?er[%W]*black[%W]*rock[%W]*spire",
+					"up[p]?er[%W]*brs",
 					"ub[r]?s",
 					"urbs",
 					"rend[%W]*run[s]?",
@@ -1446,6 +1472,8 @@ LFGMM_GLOBAL = {
 				ES = {
 					-- Cumbres de Roca Negra superior
 					"cumbre[s]?[%W]*[d]?[e]?[%W]*roca[%W]*negra[%W]*superior",
+					"montando[%W]*up[p]?er",
+					"ubrd",
 				},
 				RU = {},
 			},
@@ -1528,7 +1556,14 @@ LFGMM_GLOBAL = {
 					"stra[%W]*eca[r]?[l]?[a]?[t]?[e]?",
 					"stra[%W]*croises",
 				},
-				ES = {},
+				ES = {
+					-- Viva
+					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+viva",
+					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+viva",
+					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+viva",
+					"start[%W]*viva",
+					"stra[%W]*viva",
+				},
 				RU = {},
 			},
 			ParentDungeon = 36,
@@ -1583,7 +1618,14 @@ LFGMM_GLOBAL = {
 					"start[%W]*fleau",
 					"stra[%W]*fleau",
 				},
-				ES = {},
+				ES = {
+					-- Muerta
+					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+muerta",
+					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+muerta",
+					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+muerta",
+					"start[%W]*muerta",
+					"stra[%W]*muerta",
+				},
 				RU = {},
 			},
 			ParentDungeon = 36,
@@ -1903,6 +1945,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"ony[i]?[x]?[iy]?[e]?[a]?",
+					"onix[iy][e]?[a]?",
 				},
 				DE = {},
 				FR = {},
@@ -1914,10 +1957,20 @@ LFGMM_GLOBAL = {
 					"ony[i]?[x]?[iy]?[e]?[a]?[%W]*at[t]?un[e]?ment",
 					"ony[i]?[x]?[iy]?[e]?[a]?[%W]*q[u]?[e]?[s]?[t]?[s]?",
 					"ony[i]?[x]?[iy]?[e]?[a]?[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
+					"onix[iy][e]?[a]?[%W]*at[t]?un[e]?ment",
+					"onix[iy][e]?[a]?[%W]*q[u]?[e]?[s]?[t]?[s]?",
+					"onix[iy][e]?[a]?[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
 				},
 				FR = {
 					"quete[%W]*ony[i]?[x]?[iy]?[e]?[a]?",
-				}
+					"quete[%W]*onix[iy][e]?[a]?",
+				},
+				ES = {
+					"pre[%W]*quest[%W]*[d]?[e]?[%W]*ony[i]?[x]?[iy]?[e]?[a]?",
+					"pre[%W]*quest[%W]*[d]?[e]?[%W]*onix[iy][e]?[a]?",
+					"pre[%W]*[d]?[e]?[%W]*ony[i]?[x]?[iy]?[e]?[a]?",
+					"pre[%W]*[d]?[e]?[%W]*onix[iy][e]?[a]?",
+				},
 			},
 			Size = 40,
 			MinLevel = 60,
@@ -2044,7 +2097,7 @@ LFGMM_GLOBAL = {
 				},
 				ES = {
 					-- Garganta Grito de Guerra
-					"garganta[%W]*grito[%W]*[d]?[e]?[%W]*guerra",
+					"garganta[%W]*grito[%W]*[d]?[e]?[%W]*guer[r]?a",
 				},
 				RU = {},
 			},
@@ -2069,11 +2122,11 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Vallée d'Alterac
-					"vallee[%W]*[d]?[%W]*alterac",
+					"val[l]?e[e]?[%W]*[d]?[%W]*alterac",
 				},
 				ES = {
 					-- Valle de Alterac
-					"valle[%W]*[d]?[e]?[%W]*alterac",
+					"val[l]?e[%W]*[d]?[e]?[%W]*alterac",
 				},
 				RU = {},
 			},
@@ -2123,15 +2176,15 @@ LFGMM_GLOBAL = {
 				},
 				DE = {
 					-- Prinzessinen
-					"prinzes[s]?[i]?[n]?[n]?[e]?[n]?[%W]*run[s]?"
+					"prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?[%W]*run[s]?"
 				},
 				FR = {
 					-- Princesse
-					"princes[s]?e[%W]*run[s]?"
+					"princes[s]?[e]?[%W]*run[s]?"
 				},
 				ES = {
 					-- Princesa
-					"princesa[%W]*run[s]?"
+					"princes[s]?[a]?[%W]*run[s]?"
 				},
 				RU = {},
 			},
