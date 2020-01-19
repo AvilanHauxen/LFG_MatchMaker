@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.5
+	Version: 1.0.6
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -747,8 +747,7 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Mara",
 			Identifiers = {
 				EN = {
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?",
-					"mara",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?",
 				},
 				DE = {},
 				FR = {},
@@ -766,19 +765,19 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Mara Orange",
 			Identifiers = {
 				EN = {
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+orange",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+orange",
 				},
 				DE = {
 					-- Orangene
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+orangene",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+orangene",
 				},
 				FR = {
 					-- Oranges
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+oranges",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+oranges",
 				},
 				ES = {
 					-- Naranja
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+naranja",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+naranja",
 				},
 				RU = {},
 			},
@@ -793,19 +792,19 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Mara Purple",
 			Identifiers = {
 				EN = {
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+purple",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+purple",
 				},
 				DE = {
 					-- Violette
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+violet[t]?e",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+violet[t]?e",
 				},
 				FR = {
 					-- Violet
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+violet",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+violet",
 				},
 				ES = {
 					-- Púrpura
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+purpura",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+purpura",
 				},
 				RU = {},
 			},
@@ -820,22 +819,22 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Mara Inner",
 			Identifiers = {
 				EN = {
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+inner",
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+inner",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?",
 					"earth[%W]*song[%W]*fal[l]?s",
 				},
 				DE = {
 					-- Prinzessinnen / ?
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
 				},
 				FR = {
 					-- Princesse / Chutes de Chanteterre
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?[e]?",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?[e]?",
 					"chutes[%W]*[d]?[e]?[%W]*chanteter[r]?e",
 				},
 				ES = {
 					-- Princesa / ?
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?[a]?",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?[a]?",
 				},
 				RU = {},
 			},
@@ -1129,32 +1128,30 @@ LFGMM_GLOBAL = {
 			Abbreviation = "BRD Golem Run",
 			Identifiers = {
 				EN = {
-					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+golem",
-					"brd.-[%W]+golem",
-					"golem[%W]*run[s]?",
-					"golem.-quest[s]?",
-					"golem.-at[t]?un[e]?ment",
-					"golem.-anger[f]?[g]?[o]?[r]?[g]?[e]?",
-					"golem.-arena",
-					"golem.-prison",
-					"golem.-vault",
-					"golem.-lava",
-					"golem.-emp[r]?[e]?[r]?[o]?[r]?",
-					"golem.-princes[s]?",
-					"quest[s]?.-golem",
-					"at[t]?un[e]?ment.-golem",
-					"arena.-golem",
-					"anger[f]?[g]?[o]?[r]?[g]?[e]?.-golem",
-					"prison.-golem",
-					"vault.-golem",
-					"lava.-golem",
-					"emp[r]?[e]?[r]?[o]?[r]?.-golem",
-					"princes[s]?.-golem",
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+golem[l]?[o]?[r]?[d]?",
+					"brd.-[%W]+golem[l]?[o]?[r]?[d]?",
+					"golem[l]?[o]?[r]?[d]?[%W]*run[s]?",
+					"golem[l]?[o]?[r]?[d]?.-quest[s]?",
+					"golem[l]?[o]?[r]?[d]?.-at[t]?un[e]?ment",
+					"golem[l]?[o]?[r]?[d]?.-anger[f]?[g]?[o]?[r]?[g]?[e]?",
+					"golem[l]?[o]?[r]?[d]?.-arena",
+					"golem[l]?[o]?[r]?[d]?.-prison",
+					"golem[l]?[o]?[r]?[d]?.-vault",
+					"golem[l]?[o]?[r]?[d]?.-lava",
+					"golem[l]?[o]?[r]?[d]?.-emp[r]?[e]?[r]?[o]?[r]?",
+					"golem[l]?[o]?[r]?[d]?.-princes[s]?",
+					"quest[s]?.-golem[l]?[o]?[r]?[d]?",
+					"at[t]?un[e]?ment.-golem[l]?[o]?[r]?[d]?",
+					"arena.-golem[l]?[o]?[r]?[d]?",
+					"anger[f]?[g]?[o]?[r]?[g]?[e]?.-golem[l]?[o]?[r]?[d]?",
+					"prison.-golem[l]?[o]?[r]?[d]?",
+					"vault.-golem[l]?[o]?[r]?[d]?",
+					"lava.-golem[l]?[o]?[r]?[d]?",
+					"emp[r]?[e]?[r]?[o]?[r]?.-golem[l]?[o]?[r]?[d]?",
+					"princes[s]?.-golem[l]?[o]?[r]?[d]?",
 				},
 				DE = {
 					-- Golemlord
-					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+golem[l]?[o]?[r]?[d]?",
-					"brd.-[%W]+golem[l]?[o]?[r]?[d]?",
 					"schwarz[%W]*fels[%W]*tiefe[n]?.-[%W]+golem[l]?[o]?[r]?[d]?",
 					"black[%W]*rock[%W]*tiefe[n]?.-[%W]+golem[l]?[o]?[r]?[d]?",
 					"brt.-[%W]+golem[l]?[o]?[r]?[d]?",
@@ -1947,6 +1944,7 @@ LFGMM_GLOBAL = {
 					"mc[%W]*at[t]?un[e]?ment",
 					"molten[%W]*core[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
 					"mc[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
+					"mc[%W]*geared",
 				},
 			},
 			Size = 40,

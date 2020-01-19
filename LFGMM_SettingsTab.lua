@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.5
+	Version: 1.0.6
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -95,7 +95,7 @@ function LFGMM_SettingsTab_IdentifierLanguagesDropDown_OnInitialize(self, level)
 			item.disabled = true;
 		else
 			item.checked = LFGMM_Utility_ArrayContains(LFGMM_DB.SETTINGS.IdentifierLanguages, language.Code);
-			item.func = function(self, dungeonIndex)
+			item.func = function(self)
 				if (self.checked) then
 					table.insert(LFGMM_DB.SETTINGS.IdentifierLanguages, language.Code);
 				else
