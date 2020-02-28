@@ -312,7 +312,6 @@ function LFGMM_Core_EventHandler(self, event, ...)
 		LFGMM_GLOBAL.PLAYER_NAME = UnitName("player");
 		LFGMM_GLOBAL.PLAYER_LEVEL = UnitLevel("player");
 		LFGMM_GLOBAL.PLAYER_CLASS = LFGMM_GLOBAL.CLASSES[select(2, UnitClass("player"))];
-		-- LFGMM_GLOBAL.PLAYER_SPEC = LFGMM_Utility_GetPlayerSpec();
 
 		-- Load
 		LFGMM_Load();
@@ -327,10 +326,6 @@ function LFGMM_Core_EventHandler(self, event, ...)
 	-- Return if not ready
 	elseif (not LFGMM_GLOBAL.READY) then
 		return;
-	
-	-- Update spec
-	-- elseif (event == "CHARACTER_POINTS_CHANGED") then
-		-- LFGMM_GLOBAL.PLAYER_SPEC = LFGMM_Utility_GetPlayerSpec();
 	
 	-- Update player level
 	elseif (event == "PLAYER_LEVEL_UP") then
@@ -762,7 +757,6 @@ LFGMM_MainWindow:RegisterEvent("PLAYER_LEVEL_UP");
 LFGMM_MainWindow:RegisterEvent("GROUP_ROSTER_UPDATE");
 LFGMM_MainWindow:RegisterEvent("CHAT_MSG_SYSTEM");
 LFGMM_MainWindow:RegisterEvent("PARTY_INVITE_REQUEST");
--- LFGMM_MainWindow:RegisterEvent("CHARACTER_POINTS_CHANGED");
 LFGMM_MainWindow:SetScript("OnEvent", LFGMM_Core_EventHandler);
 
 -- Register slash commands

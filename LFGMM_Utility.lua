@@ -543,29 +543,6 @@ function LFGMM_Utility_GetAgeText(timestamp)
 end
 
 
-function LFGMM_Utility_GetPlayerSpec()
-	local talentTree = {};
-	for tabIndex=1, GetNumTalentTabs() do
-		local name, _, pointsSpent = GetTalentTabInfo(tabIndex);
-		local talentTab = { Name = name, Points = pointsSpent };
-		table.insert(talentTree, talentTab);
-	end
-
-	table.sort(talentTree, function(a, b) return a.Points > b.Points; end);
-
-	local spec = "";
-	if (talentTree[1] ~= nil and talentTree[1].Points > 0) then
-		if (talentTree[1].Points == talentTree[2].Points) then
-			spec = talentTree[1].Name .. "/" .. talentTree[2].Name;
-		else
-			spec = talentTree[1].Name;
-		end
-	end
-	
-	return spec;
-end
-
-
 function LFGMM_Utility_GetLfgChannelName()
 	local lfgChannelName = "LookingForGroup";
 	
