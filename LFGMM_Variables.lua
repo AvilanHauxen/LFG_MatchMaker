@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.5
+	Version: 1.0.6
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -122,7 +122,6 @@ end
 -- GLOBAL VARIABLES
 ------------------------------------------------------------------------------------------------------------------------
 
-
 LFGMM_GLOBAL = {
 	READY = false,
 	LIST_SCROLL_INDEX = 1,
@@ -214,6 +213,223 @@ LFGMM_GLOBAL = {
 			Color = "|cFFFF7D0A",
 		},
 	},
+	MESSAGETYPE_IDENTIFIERS = {
+		EN = {
+			{
+				Type = "LFG",
+				Identifiers = {
+					"lfg",
+					"lf[%W]*group",
+					"looking[%W]*for[%W]*group",
+					"dps[%W]*lf",
+					"tank[%W]*lf",
+					"heal[e]?[r]?[%W]*lf",
+					"dps[%W]*looking[%W]*for",
+					"tank[%W]*looking[%W]*for",
+					"heal[e]?[r]?[%W]*looking[%W]*for",
+					"pri[e]?st[%W]*lf",
+					"warr[i]?[o]?[r]?[%W]*lf",
+					"mage[%W]*lf",
+					"[w]?[a]?[r]?lock[%W]*lf",
+					"shaman[%W]*lf",
+					"pala[d]?[i]?[n]?[%W]*lf",
+					"hunt[e]?[r]?[%W]*lf",
+					"ro[u]?g[u]?e[%W]*lf",
+					"druid[%W]*lf",
+					"pri[e]?st[%W]*looking[%W]*for",
+					"warr[i]?[o]?[r]?[%W]*looking[%W]*for",
+					"mage[%W]*looking[%W]*for",
+					"[w]?[a]?[r]?lock[%W]*looking[%W]*for",
+					"shaman[%W]*looking[%W]*for",
+					"pala[d]?[i]?[n]?[%W]*looking[%W]*for",
+					"hunt[e]?[r]?[%W]*looking[%W]*for",
+					"ro[u]?g[u]?e[%W]*looking[%W]*for",
+					"druid[%W]*looking[%W]*for",
+				}
+			},
+			{
+				Type = "LFM",
+				Identifiers = {
+					"lf[%W]*[%d]+",
+					"lf[%W]*[%d]*[%W]*m",
+					"lf[%W]*[%d]*[ax]?[%W]*dps",
+					"lf[%W]*[%d]*[ax]?[%W]*tank",
+					"lf[%W]*[%d]*[ax]?[%W]*heal",
+					"lf[%W]*[%d]*[ax]?[%W]*dd",
+					"lf[%W]*[%d]*[ax]?[%W]*caster",
+					"lf[%W]*[%d]*[ax]?[%W]*mele",
+					"lf[%W]*[%d]*[ax]?[%W]*range",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*dps",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*tank",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*heal",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*dd",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*caster",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*mele",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*range",
+					"lf[%W]*[%d]*[ax]?[%W]*pri[e]?st",
+					"lf[%W]*[%d]*[ax]?[%W]*warr",
+					"lf[%W]*[%d]*[ax]?[%W]*mage",
+					"lf[%W]*[%d]*[ax]?[%W]*[w]?[a]?[r]?lock",
+					"lf[%W]*[%d]*[ax]?[%W]*shaman",
+					"lf[%W]*[%d]*[ax]?[%W]*pala",
+					"lf[%W]*[%d]*[ax]?[%W]*hunt",
+					"lf[%W]*[%d]*[ax]?[%W]*ro[u]?g[u]?e",
+					"lf[%W]*[%d]*[ax]?[%W]*druid",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*pri[e]?st",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*warr",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*mage",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*[w]?[a]?[r]?lock",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*shaman",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*pala",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*hunt",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*ro[u]?g[u]?e",
+					"looking[%W]*for[%W]*[%d]*[ax]?[%W]*druid",
+					"need[%W]*one[%W]*more",
+					"need[%W]*[%d]+[%W]*more",
+					"need[%W]*[%d]*[%W]*dps",
+					"need[%W]*[%d]*[%W]*tank",
+					"need[%W]*[%d]*[%W]*heal",
+					"need[%W]*[%d]*[%W]*dd",
+					"need[%W]*[%d]*[%W]*caster",
+					"need[%W]*[%d]*[%W]*mele",
+					"need[%W]*[%d]*[%W]*range",
+					"seek[%W]*one[%W]*more",
+					"seek[%W]*[%d]+[%W]*more",
+					"seek[%W]*[%d]+[%W]*more",
+					"seek[%W]*[%d]*[%W]*dps",
+					"seek[%W]*[%d]*[%W]*tank",
+					"seek[%W]*[%d]*[%W]*heal",
+					"seek[%W]*[%d]*[%W]*dd",
+					"seek[%W]*[%d]*[%W]*caster",
+					"seek[%W]*[%d]*[%W]*mele",
+					"seek[%W]*[%d]*[%W]*range",
+					"last[%W]*dps",
+					"last[%W]*tank",
+					"last[%W]*heal",
+					"last[%W]*spot",
+				}
+			}
+		},
+		-- DE = {},
+		FR = {
+			{
+				Type = "LFG",
+				Identifiers = {
+					"[%d][%d][%W]*dispo[n]?[i]?[b]?[l]?[e]?",
+					"[%d][%d][%W]*cherch[e]?[o]?[n]?[s]?",
+					"[%d][%d][%W]*up[%W]*pour",
+					"[%d][%d][%W]*dps[%W]*pour",
+					"[%d][%d][%W]*tank[%W]*pour",
+					"[%d][%d][%W]*heal[e]?[r]?[%W]*pour",
+					"[%d][%d][%W]*soigneur[%W]*pour",
+					"cherch[e]?[o]?[n]?[s]?[%W]*[d]?[%W]*[u]?[n]?[%d]*[%W]*g[r]?oupe",
+					"cherch[e]?[o]?[n]?[s]?[%W]*[d]?[%W]*[u]?[n]?[%d]*[%W]*grp",
+				}
+			},
+			{
+				Type = "LFM",
+				Identifiers = {
+					"un[%W]*dps[%W]*[d]?[e]?[%W]*dispo[n]?[i]?[b]?[l]?[e]?[%W]*pour",
+					"un[%W]*tank[%W]*[d]?[e]?[%W]*dispo[n]?[i]?[b]?[l]?[e]?[%W]*pour",
+					"un[%W]*heal[e]?[r]?[%W]*[d]?[e]?[%W]*dispo[n]?[i]?[b]?[l]?[e]?[%W]*pour",
+					"un[%W]*soigneur[%W]*[d]?[e]?[%W]*dispo[n]?[i]?[b]?[l]?[e]?[%W]*pour",
+					"un[%W]*dps[%W]*up[%W]*pour",
+					"un[%W]*tank[%W]*up[%W]*pour",
+					"un[%W]*heal[e]?[r]?[%W]*up[%W]*pour",
+					"un[%W]*soigneur[%W]*up[%W]*pour",
+					"un[%W]*dps[%W]*pour",
+					"un[%W]*tank[%W]*pour",
+					"un[%W]*heal[e]?[r]?[%W]*pour",
+					"un[%W]*soigneur[%W]*pour",
+					"un[%W]*dps[%W]*et",
+					"un[%W]*tank[%W]*et",
+					"un[%W]*heal[e]?[r]?[%W]*et",
+					"un[%W]*soigneur[%W]*et",
+					"un[%W]*dps[%W]*ou",
+					"un[%W]*tank[%W]*ou",
+					"un[%W]*heal[e]?[r]?[%W]*ou",
+					"un[%W]*soigneur[%W]*ou",
+					"un[%W]*dps[%W]*un",
+					"un[%W]*tank[%W]*un",
+					"un[%W]*heal[e]?[r]?[%W]*un",
+					"un[%W]*soigneur[%W]*un",
+					"un[%W]*petit[%W]*dps",
+					"un[%W]*petit[%W]*tank",
+					"un[%W]*petit[%W]*heal",
+					"un[%W]*petit[%W]*soigneur",
+					"deux[%W]*dps[%W]*pour",
+					"deux[%W]*dps[%W]*et",
+					"deux[%W]*dps[%W]*ou",
+					"deux[%W]*petit[%W]*dps",
+					"[%d][%W]*petit[%W]*dps",
+					"[%d][%W]*petit[%W]*tank",
+					"[%d][%W]*petit[%W]*heal",
+					"[%d][%W]*petit[%W]*soigneur",
+					"[%d][%W]*dps[%W]*pour",
+					"[%d][%W]*tank[%W]*pour",
+					"[%d][%W]*heal[e]?[r]?[%W]*pour",
+					"[%d][%W]*soigneur[%W]*pour",
+					"[%d][%W]*dps[%W]*et",
+					"[%d][%W]*tank[%W]*et",
+					"[%d][%W]*heal[e]?[r]?[%W]*et",
+					"[%d][%W]*soigneur[%W]*et",
+					"[%d][%W]*dps[%W]*ou",
+					"[%d][%W]*tank[%W]*ou",
+					"[%d][%W]*heal[e]?[r]?[%W]*ou",
+					"[%d][%W]*soigneur[%W]*ou",
+					"besoin[%W]*[d]?[%W]*[u]?[n]?[%d]*[%W]*dps",
+					"besoin[%W]*[d]?[%W]*[u]?[n]?[%d]*[%W]*tank",
+					"besoin[%W]*[d]?[%W]*[u]?[n]?[%d]*[%W]*heal",
+					"besoin[%W]*[d]?[%W]*[u]?[n]?[%d]*[%W]*soigneur",
+					"cherch[e]?[o]?[n]?[s]?[%W]*[d]?[%W]*[u]?[n]?[%d]*[%W]*dps",
+					"cherch[e]?[o]?[n]?[s]?[%W]*[d]?[%W]*[u]?[n]?[%d]*[%W]*tank",
+					"cherch[e]?[o]?[n]?[s]?[%W]*[d]?[%W]*[u]?[n]?[%d]*[%W]*heal",
+					"cherch[e]?[o]?[n]?[s]?[%W]*[d]?[%W]*[u]?[n]?[%d]*[%W]*soigneur",
+					"encore[%W]*un[%W]*dps",
+					"encore[%W]*un[%W]*tank",
+					"encore[%W]*un[%W]*heal",
+					"encore[%W]*un[%W]*soigneur",
+					"encore[%W]*un[%W]*place",
+					"dernier[e]?[%W]*dps",
+					"dernier[e]?[%W]*tank",
+					"dernier[e]?[%W]*heal",
+					"dernier[e]?[%W]*soigneur",
+					"dernier[e]?[%W]*place",
+					"dernier[e]?[%W]*person",
+					"manque[%W]*[u]?[n]?[%d]*[%W]*dps",
+					"manque[%W]*[u]?[n]?[%d]*[%W]*tank",
+					"manque[%W]*[u]?[n]?[%d]*[%W]*heal",
+					"manque[%W]*[u]?[n]?[%d]*[%W]*soigneur",
+					"manque[%W]*[u]?[n]?[%d]*[%W]*person",
+					"dps[%W]*demande",
+					"tank[%W]*demande",
+					"heal[%W]*demande",
+					"soigneur[%W]*demande",
+					"reste[%W]*[%d]+[%W]*place[s]?[%W]*pour",
+					"de[%W]*tout[%W]*pour",
+					"last[%W]*pour",
+					"recrute[%W]*pour",
+					"monte[%W]*g[r]?oupe",
+					"monte[%W]*grp",
+					"[%W]+et[t]?[%W]*go[%W]+",
+					"[%W]+et[t]?[%W]*go$",
+				}
+			},
+			{
+				Type = "LFG",
+				Identifiers = {
+					"dps[%W]*up[%W]*pour",
+					"tank[%W]*up[%W]*pour",
+					"heal[e]?[r]?[%W]*up[%W]*pour",
+					"soigneur[%W]*up[%W]*pour",
+					"dispo[n]?[i]?[b]?[l]?[e]?[%W]+",
+					"dispo[n]?[i]?[b]?[l]?[e]?$",
+				}
+			},
+		},
+		-- ES = {},
+		-- RU = {},
+	},
 	DUNGEONS = {
 		{
 			Index = 1,
@@ -265,7 +481,7 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Cavernes des lamentations
-					"cavern[e]?[s]?[%W]*[d]?[e]?[s]?[%W]*lamentation[s]?",
+					"lamentation[s]?",
 					"lam[s]?",
 				},
 				ES = {
@@ -391,7 +607,7 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- La Prison
-					"prison",
+					"prison[s]?",
 				},
 				ES = {
 					-- Las Mazmorras
@@ -636,7 +852,7 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Gnomeregan",
 			Identifiers = {
 				EN = {
-					"g[e]?nom[e]?[r]?[e]?[a]?g[e]?[r]?an",
+					"g[e]?no[r]?m[e]?[r]?[e]?[a]?g[e]?[r]?an",
 					"g[e]?nome[r]?",
 				},
 				DE = {},
@@ -664,6 +880,7 @@ LFGMM_GLOBAL = {
 				FR = {
 					-- Kraal de Tranchebauge
 					"kra[a]?[lk]",
+					"krall",
 				},
 				ES = {
 					-- Horado Rajacieno
@@ -690,7 +907,7 @@ LFGMM_GLOBAL = {
 				},
 				FR = {
 					-- Souilles de Tranchebauge
-					"souil[l]?es",
+					"souil[l]?e[s]?",
 				},
 				ES = {
 					-- Zahúrda Rojocieno
@@ -728,7 +945,6 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"zul[l]?[%W]*far[r]?ak[k]?",
-					"zul[l]?",
 					"zfk",
 					"zf",
 				},
@@ -747,8 +963,7 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Mara",
 			Identifiers = {
 				EN = {
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?",
-					"mara",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?",
 				},
 				DE = {},
 				FR = {},
@@ -766,19 +981,19 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Mara Orange",
 			Identifiers = {
 				EN = {
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+orange",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+orange",
 				},
 				DE = {
 					-- Orangene
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+orangene",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+orangene",
 				},
 				FR = {
 					-- Oranges
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+oranges",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+oranges",
 				},
 				ES = {
 					-- Naranja
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+naranja",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+naranja",
 				},
 				RU = {},
 			},
@@ -793,19 +1008,19 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Mara Purple",
 			Identifiers = {
 				EN = {
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+purple",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+purple",
 				},
 				DE = {
 					-- Violette
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+violet[t]?e",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+violet[t]?e",
 				},
 				FR = {
 					-- Violet
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+violet",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+violet",
 				},
 				ES = {
 					-- Púrpura
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+purpura",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+purpura",
 				},
 				RU = {},
 			},
@@ -820,24 +1035,30 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Mara Inner",
 			Identifiers = {
 				EN = {
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+inner",
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+inner",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?",
 					"earth[%W]*song[%W]*fal[l]?s",
 				},
 				DE = {
 					-- Prinzessinnen / ?
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
 				},
 				FR = {
 					-- Princesse / Chutes de Chanteterre
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?[e]?",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?[e]?",
 					"chutes[%W]*[d]?[e]?[%W]*chanteter[r]?e",
 				},
 				ES = {
 					-- Princesa / ?
-					"ma[r]?[u]?ra[u]?[d]?[o]?[n]?.-[%W]+princes[s]?[a]?",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?[a]?",
 				},
 				RU = {},
+			},
+			NotIdentifiers = {
+				EN = {
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+princes[s]?",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+brd.-[%W]+princes[s]?",
+				}
 			},
 			ParentDungeon = 17,
 			Size = 5,
@@ -864,6 +1085,7 @@ LFGMM_GLOBAL = {
 					-- Le Temple'd Atal'Hakkar / Le Temple englouti
 					"englouti",
 					"temple",
+					"templs",
 				},
 				ES = {
 					-- El Templo de Atal'hakkar / Templo sumergido
@@ -901,7 +1123,7 @@ LFGMM_GLOBAL = {
 				FR = {
 					-- Profondeurs de Blackrock
 					"profondeurs[%W]*[d]?[e]?[%W]*blackrock",
-					"brd[%d]*",
+					"brd[x]?[%d]",
 				},
 				ES = {
 					-- Profundidades de Roca Negra
@@ -1047,7 +1269,7 @@ LFGMM_GLOBAL = {
 					-- Arène
 					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+arene",
 					"brd.-[%W]+arene",
-					"arene.-[%W]+brd",
+					"arene.-[%W]+brd[x]?[%d]?",
 				},
 				ES = {
 					-- Arenas
@@ -1129,32 +1351,30 @@ LFGMM_GLOBAL = {
 			Abbreviation = "BRD Golem Run",
 			Identifiers = {
 				EN = {
-					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+golem",
-					"brd.-[%W]+golem",
-					"golem[%W]*run[s]?",
-					"golem.-quest[s]?",
-					"golem.-at[t]?un[e]?ment",
-					"golem.-anger[f]?[g]?[o]?[r]?[g]?[e]?",
-					"golem.-arena",
-					"golem.-prison",
-					"golem.-vault",
-					"golem.-lava",
-					"golem.-emp[r]?[e]?[r]?[o]?[r]?",
-					"golem.-princes[s]?",
-					"quest[s]?.-golem",
-					"at[t]?un[e]?ment.-golem",
-					"arena.-golem",
-					"anger[f]?[g]?[o]?[r]?[g]?[e]?.-golem",
-					"prison.-golem",
-					"vault.-golem",
-					"lava.-golem",
-					"emp[r]?[e]?[r]?[o]?[r]?.-golem",
-					"princes[s]?.-golem",
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+golem[l]?[o]?[r]?[d]?",
+					"brd.-[%W]+golem[l]?[o]?[r]?[d]?",
+					"golem[l]?[o]?[r]?[d]?[%W]*run[s]?",
+					"golem[l]?[o]?[r]?[d]?.-quest[s]?",
+					"golem[l]?[o]?[r]?[d]?.-at[t]?un[e]?ment",
+					"golem[l]?[o]?[r]?[d]?.-anger[f]?[g]?[o]?[r]?[g]?[e]?",
+					"golem[l]?[o]?[r]?[d]?.-arena",
+					"golem[l]?[o]?[r]?[d]?.-prison",
+					"golem[l]?[o]?[r]?[d]?.-vault",
+					"golem[l]?[o]?[r]?[d]?.-lava",
+					"golem[l]?[o]?[r]?[d]?.-emp[r]?[e]?[r]?[o]?[r]?",
+					"golem[l]?[o]?[r]?[d]?.-princes[s]?",
+					"quest[s]?.-golem[l]?[o]?[r]?[d]?",
+					"at[t]?un[e]?ment.-golem[l]?[o]?[r]?[d]?",
+					"arena.-golem[l]?[o]?[r]?[d]?",
+					"anger[f]?[g]?[o]?[r]?[g]?[e]?.-golem[l]?[o]?[r]?[d]?",
+					"prison.-golem[l]?[o]?[r]?[d]?",
+					"vault.-golem[l]?[o]?[r]?[d]?",
+					"lava.-golem[l]?[o]?[r]?[d]?",
+					"emp[r]?[e]?[r]?[o]?[r]?.-golem[l]?[o]?[r]?[d]?",
+					"princes[s]?.-golem[l]?[o]?[r]?[d]?",
 				},
 				DE = {
 					-- Golemlord
-					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+golem[l]?[o]?[r]?[d]?",
-					"brd.-[%W]+golem[l]?[o]?[r]?[d]?",
 					"schwarz[%W]*fels[%W]*tiefe[n]?.-[%W]+golem[l]?[o]?[r]?[d]?",
 					"black[%W]*rock[%W]*tiefe[n]?.-[%W]+golem[l]?[o]?[r]?[d]?",
 					"brt.-[%W]+golem[l]?[o]?[r]?[d]?",
@@ -1408,6 +1628,8 @@ LFGMM_GLOBAL = {
 			NotIdentifiers = {
 				EN = {
 					"kill[i]?[n]?[g]?[%W]*[t]?[h]?[e]?[%W]*princes[s]?",
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?",
+					"brd.-[%W]+ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?",
 				},
 				DE = {
 					"kill[i]?[n]?[g]?[%W]*[d]?[a]?[s]?[%W]*prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
@@ -1561,15 +1783,15 @@ LFGMM_GLOBAL = {
 				FR = {
 					-- Écarlate / Croisés
 					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+eca[r]?[l]?[a]?[t]?[e]?",
-					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+croises",
+					"st[a]?rat[h]?[o]?[l]?[m]?[e]?.-[%W]+croise[s]?",
 					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+eca[r]?[l]?[a]?[t]?[e]?",
-					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+croises",
+					"sta[r]?th[o]?[l]?[m]?[e]?.-[%W]+croise[s]?",
 					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+eca[r]?[l]?[a]?[t]?[e]?",
-					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+croises",
+					"straht[h]?[o]?[l]?[m]?[e]?.-[%W]+croise[s]?",
 					"sta[r]?t[%W]*eca[r]?[l]?[a]?[t]?[e]?",
-					"sta[r]?t[%W]*croises",
+					"sta[r]?t[%W]*croise[s]?",
 					"stra[%W]*eca[r]?[l]?[a]?[t]?[e]?",
-					"stra[%W]*croises",
+					"stra[%W]*croise[s]?",
 				},
 				ES = {
 					-- Viva
@@ -1808,11 +2030,11 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"d[i]?mn",
-					"d[i]?mnorth",
+					"d[i]?mnort[h]?",
 					"d[i]?m.-[%W]+n",
-					"d[i]?m.-[%W]+north",
+					"d[i]?m.-[%W]+nort[h]?",
 					"dire[%W]*maul.-[%W]+n",
-					"dire[%W]*maul.-[%W]+north",
+					"dire[%W]*maul.-[%W]+nort[h]?",
 				},
 				DE = {
 					-- Nord
@@ -1823,10 +2045,10 @@ LFGMM_GLOBAL = {
 					"dbnord",
 					"db.-[%W]+n",
 					"db.-[%W]+nord",
-					"db.-[%W]+north",
+					"db.-[%W]+nort[h]?",
 					"du[e]?sterbruch.-[%W]+n",
 					"du[e]?sterbruch.-[%W]+nord",
-					"du[e]?sterbruch.-[%W]+north",
+					"du[e]?sterbruch.-[%W]+nort[h]?",
 				},
 				FR = {
 					-- Nord
@@ -1835,13 +2057,13 @@ LFGMM_GLOBAL = {
 					"dire[%W]*maul.-[%W]+nord",
 					"htn",
 					"htnord",
-					"htnorth",
+					"htnort[h]?",
 					"ht.-[%W]+n",
 					"ht.-[%W]+nord",
-					"ht.-[%W]+north",
+					"ht.-[%W]+nort[h]?",
 					"hache[%W]*tripe[s]?.-[%W]+n",
 					"hache[%W]*tripe[s]?.-[%W]+nord",
-					"hache[%W]*tripe[s]?.-[%W]+north",
+					"hache[%W]*tripe[s]?.-[%W]+nort[h]?",
 				},
 				ES = {
 					-- Norte
@@ -1850,7 +2072,7 @@ LFGMM_GLOBAL = {
 					"dire[%W]*maul.-[%W]+norte",
 					"masacre.-[%W]+n",
 					"masacre.-[%W]+norte",
-					"masacre.-[%W]+north",
+					"masacre.-[%W]+nort[h]?",
 				},
 				RU = {},
 			},
@@ -1947,6 +2169,7 @@ LFGMM_GLOBAL = {
 					"mc[%W]*at[t]?un[e]?ment",
 					"molten[%W]*core[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
 					"mc[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
+					"mc[%W]*geared",
 				},
 			},
 			Size = 40,
@@ -1991,109 +2214,115 @@ LFGMM_GLOBAL = {
 			MinLevel = 60,
 			MaxLevel = 60,
 		},
-		-- {
-			-- Index = 46,
-			-- Name = "Blackwing Lair",
-			-- Abbreviation = "BWL",
-			-- Identifiers = {
-				-- EN = {
-					-- "blackwing[%W]*lair",
-					-- "bwl"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 40,
-			-- MinLevel = 60,
-			-- MaxLevel = 60,
-			-- Hide = true,
-		-- },
-		-- {
-			-- Index = 47,
-			-- Name = "Zul'Gurub",
-			-- Abbreviation = "ZG",
-			-- Identifiers = {
-				-- EN = {
-					-- "zul[%W]*g[u]?rub",
-					-- "zg"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 20,
-			-- MinLevel = 60,
-			-- MaxLevel = 60,
-			-- Hide = true,
-		-- },
-		-- {
-			-- Index = 48,
-			-- Name = "Ruins of Ahn'Qiraj",
-			-- Abbreviation = "AQ20",
-			-- Identifiers = {
-				-- EN = {
-					-- "ruin[s]?[%W]*[o]?[f]?[%W]*ahn[%W]*qiraj",
-					-- "ahn[%W]*qiraj[%W]*ruin[s]?",
-					-- "aq[%W]*ruin[s]?",
-					-- "aq[%W]*20",
-					-- "raq"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 20,
-			-- MinLevel = 60,
-			-- MaxLevel = 60,
-			-- Hide = true,
-		-- },
-		-- {
-			-- Index = 49,
-			-- Name = "Temple of Ahn'Qiraj",
-			-- Abbreviation = "AQ40",
-			-- Identifiers = {
-				-- EN = {
-					-- "temple[%W]*[o]?[f]?[%W]*ahn[%W]*qiraj",
-					-- "ahn[%W]*qiraj[%W]*temple",
-					-- "aq[%W]*temple",
-					-- "aq[%W]*40",
-					-- "taq"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 40,
-			-- MinLevel = 60,
-			-- MaxLevel = 60,
-			-- Hide = true,
-		-- },
-		-- {
-			-- Index = 50,
-			-- Name = "Naxxramas",
-			-- Abbreviation = "Naxx",
-			-- Identifiers = {
-				-- EN = {
-					-- "naxx[a]?ramas",
-					-- "naxx"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 40,
-			-- MinLevel = 60,
-			-- MaxLevel = 60,
-			-- Hide = true,
-		-- },
 		{
 			Index = 46,
+			Name = "Blackwing Lair",
+			Abbreviation = "BWL",
+			Identifiers = {
+				EN = {
+					"blackwing[%W]*lair",
+					"bwl",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			NotIdentifiers = {
+				EN = {
+					"bwl[%W]*at[t]?un[e]?ment",
+					"bwl[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
+				},
+			},
+			Size = 40,
+			MinLevel = 60,
+			MaxLevel = 60,
+			Hide = true,
+		},
+		{
+			Index = 47,
+			Name = "Zul'Gurub",
+			Abbreviation = "ZG",
+			Identifiers = {
+				EN = {
+					"zul[l]?[%W]*g[u]?rub",
+					"zg",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			Size = 20,
+			MinLevel = 60,
+			MaxLevel = 60,
+			Hide = true,
+		},
+		{
+			Index = 48,
+			Name = "Ruins of Ahn'Qiraj",
+			Abbreviation = "AQ20",
+			Identifiers = {
+				EN = {
+					"ruin[s]?[%W]*[o]?[f]?[%W]*ahn[%W]*qiraj",
+					"ahn[%W]*qiraj[%W]*ruin[s]?",
+					"aq[%W]*ruin[s]?",
+					"aq[%W]*20",
+					"raq",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			Size = 20,
+			MinLevel = 60,
+			MaxLevel = 60,
+			Hide = true,
+		},
+		{
+			Index = 49,
+			Name = "Temple of Ahn'Qiraj",
+			Abbreviation = "AQ40",
+			Identifiers = {
+				EN = {
+					"temple[%W]*[o]?[f]?[%W]*ahn[%W]*qiraj",
+					"ahn[%W]*qiraj[%W]*temple",
+					"aq[%W]*temple",
+					"aq[%W]*40",
+					"taq",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			Size = 40,
+			MinLevel = 60,
+			MaxLevel = 60,
+			Hide = true,
+		},
+		{
+			Index = 50,
+			Name = "Naxxramas",
+			Abbreviation = "Naxx",
+			Identifiers = {
+				EN = {
+					"naxx[a]?ramas",
+					"naxx",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			Size = 40,
+			MinLevel = 60,
+			MaxLevel = 60,
+			Hide = true,
+		},
+		{
+			Index = 51,
 			Name = "Warsong Gulch",
 			Abbreviation = "WSG",
 			Identifiers = {
@@ -2122,7 +2351,7 @@ LFGMM_GLOBAL = {
 			Pvp = true
 		},
 		{
-			Index = 47,
+			Index = 52,
 			Name = "Alterac Valley",
 			Abbreviation = "AV",
 			Identifiers = {
@@ -2150,25 +2379,25 @@ LFGMM_GLOBAL = {
 			MaxLevel = 60,
 			Pvp = true
 		},
-		-- {
-			-- Index = 53,
-			-- Name = "Arathi Basin",
-			-- Abbreviation = "AB",
-			-- Identifiers = {
-				-- EN = {
-					-- "arat[h]?i[%W]*basin",
-					-- "ab"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 15,
-			-- MinLevel = 20,
-			-- MaxLevel = 60,
-			-- Pvp = true
-		-- },
+		{
+			Index = 53,
+			Name = "Arathi Basin",
+			Abbreviation = "AB",
+			Identifiers = {
+				EN = {
+					"arat[h]?i[%W]*basin",
+					"ab",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			Size = 15,
+			MinLevel = 20,
+			MaxLevel = 60,
+			Pvp = true
+		},
 	},
 	DUNGEONS_FALLBACK = {
 		{
@@ -2204,18 +2433,18 @@ LFGMM_GLOBAL = {
 				RU = {},
 			},
 		},
-		-- {
-			-- Dungeons = { 47, 48 },
-			-- Identifiers = {
-				-- EN = {
-					-- "aq",
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- }
-		-- },
+		{
+			Dungeons = { 48, 49 },
+			Identifiers = {
+				EN = {
+					"aq",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			}
+		},
 		{
 			Dungeons = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43 },
 			Identifiers = {
@@ -2225,13 +2454,20 @@ LFGMM_GLOBAL = {
 					"lfg[%W]*dungeon[s]?",
 				},
 				DE = {},
-				FR = {},
+				FR = {
+					"dispo[n]?[i]?[b]?[l]?[e]?[%W]*dj",
+					"dispo[n]?[i]?[b]?[l]?[e]?[%W]*donjon[s]?",
+					"dispo[n]?[i]?[b]?[l]?[e]?[%W]*instance[s]?",
+					"dispo[n]?[i]?[b]?[l]?[e]?[%W]*pour[%W]*dj",
+					"dispo[n]?[i]?[b]?[l]?[e]?[%W]*pour[%W]*donjon[s]?",
+					"dispo[n]?[i]?[b]?[l]?[e]?[%W]*pour[%W]*instance[s]?",
+				},
 				ES = {},
 				RU = {},
 			},
 		},
 		{
-			Dungeons = { 44, 45 },
+			Dungeons = { 44, 45, 46, 47, 48, 49, 50 },
 			Identifiers = {
 				EN = {
 					"any[%W]*raid[s]?",
@@ -2245,7 +2481,7 @@ LFGMM_GLOBAL = {
 			},
 		},
 		{
-			Dungeons = { 46, 47 },
+			Dungeons = { 51, 52, 53 },
 			Identifiers = {
 				EN = {
 					"pvp",
@@ -2259,4 +2495,3 @@ LFGMM_GLOBAL = {
 		}
 	}
 }
-

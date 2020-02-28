@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.5
+	Version: 1.0.6
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -312,7 +312,6 @@ function LFGMM_Core_EventHandler(self, event, ...)
 		LFGMM_GLOBAL.PLAYER_NAME = UnitName("player");
 		LFGMM_GLOBAL.PLAYER_LEVEL = UnitLevel("player");
 		LFGMM_GLOBAL.PLAYER_CLASS = LFGMM_GLOBAL.CLASSES[select(2, UnitClass("player"))];
-		-- LFGMM_GLOBAL.PLAYER_SPEC = LFGMM_Utility_GetPlayerSpec();
 
 		-- Load
 		LFGMM_Load();
@@ -327,10 +326,6 @@ function LFGMM_Core_EventHandler(self, event, ...)
 	-- Return if not ready
 	elseif (not LFGMM_GLOBAL.READY) then
 		return;
-	
-	-- Update spec
-	-- elseif (event == "CHARACTER_POINTS_CHANGED") then
-		-- LFGMM_GLOBAL.PLAYER_SPEC = LFGMM_Utility_GetPlayerSpec();
 	
 	-- Update player level
 	elseif (event == "PLAYER_LEVEL_UP") then
@@ -356,6 +351,7 @@ function LFGMM_Core_EventHandler(self, event, ...)
 		if (LFGMM_GLOBAL.MESSAGES[player] ~= nil) then
 			LFGMM_GLOBAL.MESSAGES[player].PlayerLevel = level;
 			
+			LFGMM_ListTab_Refresh();
 			LFGMM_ListTab_MessageInfoWindow_Refresh();
 			LFGMM_PopupWindow_Refresh();
 		end
@@ -451,9 +447,12 @@ function LFGMM_Core_EventHandler(self, event, ...)
 					message = string.gsub(message, "/w[%W]+me", " ");
 				elseif (languageCode == "DE") then
 					message = string.gsub(message, "/w[%W]+mir", " ");
-					message = string.gsub(message, "/w[%W]+bei[%W]*interes[s]?e", " ");
+					message = string.gsub(message, "/w[%W]+bei", " ");
 				elseif (languageCode == "FR") then
 					message = string.gsub(message, "/w[%W]+moi", " ");
+					message = string.gsub(message, "/w[%W]+pour", " ");
+					message = string.gsub(message, "[%W]+w/moi", " ");
+					message = string.gsub(message, "[%W]+w/pour", " ");
 				elseif (languageCode == "ES") then
 					message = string.gsub(message, "/w[%W]+yo", " ");
 				end
@@ -591,97 +590,38 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			
 			-- Find type of message (LFG / LFM / UNKNOWN)
 			local typeMatch = nil;
-			if (string.find(message, "lfg"                                 ) ~= nil or
-				string.find(message, "lf[%W]*group"                        ) ~= nil or
-				string.find(message, "looking[%W]*for[%W]*group"           ) ~= nil or
-				string.find(message, "pri[e]?st[%W]*lf"                    ) ~= nil or
-				string.find(message, "warr[i]?[o]?[r]?[%W]*lf"             ) ~= nil or
-				string.find(message, "mage[%W]*lf"                         ) ~= nil or
-				string.find(message, "[w]?[a]?[r]?lock[%W]*lf"             ) ~= nil or
-				string.find(message, "shaman[%W]*lf"                       ) ~= nil or
-				string.find(message, "pala[d]?[i]?[n]?[%W]*lf"             ) ~= nil or
-				string.find(message, "hunt[e]?[r]?[%W]*lf"                 ) ~= nil or
-				string.find(message, "ro[u]?g[u]?e[%W]*lf"                 ) ~= nil or
-				string.find(message, "druid[%W]*lf"                        ) ~= nil or
-				string.find(message, "pri[e]?st[%W]*looking[%W]*for"       ) ~= nil or
-				string.find(message, "warr[i]?[o]?[r]?[%W]*looking[%W]*for") ~= nil or
-				string.find(message, "mage[%W]*looking[%W]*for"            ) ~= nil or
-				string.find(message, "[w]?[a]?[r]?lock[%W]*looking[%W]*for") ~= nil or
-				string.find(message, "shaman[%W]*looking[%W]*for"          ) ~= nil or
-				string.find(message, "pala[d]?[i]?[n]?[%W]*looking[%W]*for") ~= nil or
-				string.find(message, "hunt[e]?[r]?[%W]*looking[%W]*for"    ) ~= nil or
-				string.find(message, "ro[u]?g[u]?e[%W]*looking[%W]*for"    ) ~= nil or
-				string.find(message, "druid[%W]*looking[%W]*for"           ) ~= nil or
-				string.find(message, "dps[%W]*lf"                          ) ~= nil or
-				string.find(message, "tank[%W]*lf"                         ) ~= nil or
-				string.find(message, "heal[e]?[r]?[%W]*lf"                 ) ~= nil or
-				string.find(message, "dps[%W]*looking[%W]*for"             ) ~= nil or
-				string.find(message, "tank[%W]*looking[%W]*for"            ) ~= nil or
-				string.find(message, "heal[e]?[r]?[%W]*looking[%W]*for"    ) ~= nil)
-			then
-				typeMatch = "LFG";
+			for _,languageCode in ipairs(LFGMM_DB.SETTINGS.IdentifierLanguages) do
+				if (LFGMM_GLOBAL.MESSAGETYPE_IDENTIFIERS[languageCode] ~= nil) then
+					for _,identifierCollection in ipairs(LFGMM_GLOBAL.MESSAGETYPE_IDENTIFIERS[languageCode]) do
+						for _,identifier in ipairs(identifierCollection.Identifiers) do
+							if (string.find(message, identifier) ~= nil) then
+								typeMatch = identifierCollection.Type;
+							end
+						end
+						
+						if (typeMatch ~= nil) then
+							break;
+						end
+					end
+				end
 
-			elseif (string.find(message, "lf[%W]*[%d]+"                                          ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[%W]*m"                                    ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*heal"                         ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*dps"                          ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*tank"                         ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*dd"                           ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*caster"                       ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*mele[e]?"                     ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*range[d]?[r]?"                ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*heal"            ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*dps"             ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*tank"            ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*dd"              ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*caster"          ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*mele[e]?"        ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*range[d]?[r]?"   ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*pri[e]?st"                    ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*warr"                         ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*mage"                         ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*[w]?[a]?[r]?lock"             ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*shaman"                       ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*pala"                         ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*hunt"                         ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*ro[u]?g[u]?e"                 ) ~= nil or
-					string.find(message, "lf[%W]*[%d]*[a]?[x]?[%W]*druid"                        ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*pri[e]?st"       ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*warr"            ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*mage"            ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*[w]?[a]?[r]?lock") ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*shaman"          ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*pala"            ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*hunt"            ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*ro[u]?g[u]?e"    ) ~= nil or
-					string.find(message, "looking[%W]*for[%W]*[%d]*[a]?[x]?[%W]*druid"           ) ~= nil or
-					string.find(message, "need[%W]*[%d]+[%W]*more"                               ) ~= nil or
-					string.find(message, "need[%W]*one[%W]*more"                                 ) ~= nil or
-					string.find(message, "need[%W]*[%d]*[%W]*heal"                               ) ~= nil or
-					string.find(message, "need[%W]*[%d]*[%W]*dps"                                ) ~= nil or
-					string.find(message, "need[%W]*[%d]*[%W]*tank"                               ) ~= nil or
-					string.find(message, "need[%W]*[%d]*[%W]*dd"                                 ) ~= nil or
-					string.find(message, "need[%W]*[%d]*[%W]*caster"                             ) ~= nil or
-					string.find(message, "need[%W]*[%d]*[%W]*mele[e]?"                           ) ~= nil or
-					string.find(message, "need[%W]*[%d]*[%W]*range[d]?[r]?"                      ) ~= nil or
-					string.find(message, "last[%W]*spot"                                         ) ~= nil or 
-					string.find(message, "last[%W]*heal"                                         ) ~= nil or
-					string.find(message, "last[%W]*dps"                                          ) ~= nil or
-					string.find(message, "last[%W]*tank"                                         ) ~= nil)
-			then
-				typeMatch = "LFM";
+				if (typeMatch ~= nil) then
+					break;
+				end
+			end
 			
-			elseif (table.getn(dungeonMatches) > 0 and string.find(message, "wtb.-boost") ~= nil) then
-				typeMatch = "LFG";
-
-			elseif (table.getn(dungeonMatches) > 0 and string.find(message, "wts.-boost") ~= nil) then
-				typeMatch = "LFM";
-			
-			elseif (table.getn(dungeonMatches) > 0 and (string.find(message, "heal[i]?[n]?[g]?[%W]*service[s]?") ~= nil or string.find(message, "tank[i]?[n]?[g]?[%W]*service[s]?") ~= nil)) then
-				typeMatch = "LFG";
-			
-			else
-				typeMatch = "UNKNOWN";
+			if (typeMatch == nil) then
+				if (table.getn(dungeonMatches) > 0) then
+					if (string.find(message, "wts.-boost") ~= nil) then
+						typeMatch = "LFM";
+					elseif (string.find(message, "wtb.-boost") ~= nil) then
+						typeMatch = "LFG";
+					elseif (string.find(message, "heal[i]?[n]?[g]?[%W]*service[s]?") ~= nil or string.find(message, "tank[i]?[n]?[g]?[%W]*service[s]?") ~= nil) then
+						typeMatch = "LFG";
+					end
+				else
+					typeMatch = "UNKNOWN";
+				end
 			end
 
 			-- Ignore WTB and WTS messages
@@ -817,7 +757,6 @@ LFGMM_MainWindow:RegisterEvent("PLAYER_LEVEL_UP");
 LFGMM_MainWindow:RegisterEvent("GROUP_ROSTER_UPDATE");
 LFGMM_MainWindow:RegisterEvent("CHAT_MSG_SYSTEM");
 LFGMM_MainWindow:RegisterEvent("PARTY_INVITE_REQUEST");
--- LFGMM_MainWindow:RegisterEvent("CHARACTER_POINTS_CHANGED");
 LFGMM_MainWindow:SetScript("OnEvent", LFGMM_Core_EventHandler);
 
 -- Register slash commands
