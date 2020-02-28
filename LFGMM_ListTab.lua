@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.5.1
+	Version: 1.0.6
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -154,7 +154,12 @@ function LFGMM_ListTab_Refresh()
 			getglobal("LFGMM_ListTab_Entry" .. entryIndex .. "ClassIcon"):SetTexCoord(unpack(message.PlayerClass.IconCoordinates));
 		
 			-- Player
-			getglobal("LFGMM_ListTab_Entry" .. entryIndex .. "PlayerName"):SetText(message.PlayerClass.Color .. message.Player);
+			local playerLevel = "";
+			if (message.PlayerLevel ~= nil) then
+				playerLevel = " [" .. message.PlayerLevel .. "]";
+			end
+
+			getglobal("LFGMM_ListTab_Entry" .. entryIndex .. "PlayerName"):SetText(message.PlayerClass.Color .. message.Player .. playerLevel);
 
 			-- Message
 			local messageText = message.Message;

@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.5.1
+	Version: 1.0.6
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -852,7 +852,7 @@ LFGMM_GLOBAL = {
 			Abbreviation = "Gnomeregan",
 			Identifiers = {
 				EN = {
-					"g[e]?nom[e]?[r]?[e]?[a]?g[e]?[r]?an",
+					"g[e]?no[r]?m[e]?[r]?[e]?[a]?g[e]?[r]?an",
 					"g[e]?nome[r]?",
 				},
 				DE = {},
@@ -945,7 +945,6 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"zul[l]?[%W]*far[r]?ak[k]?",
-					"zul[l]?",
 					"zfk",
 					"zf",
 				},
@@ -1054,6 +1053,12 @@ LFGMM_GLOBAL = {
 					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?[a]?",
 				},
 				RU = {},
+			},
+			NotIdentifiers = {
+				EN = {
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+princes[s]?",
+					"ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+brd.-[%W]+princes[s]?",
+				}
 			},
 			ParentDungeon = 17,
 			Size = 5,
@@ -1623,6 +1628,8 @@ LFGMM_GLOBAL = {
 			NotIdentifiers = {
 				EN = {
 					"kill[i]?[n]?[g]?[%W]*[t]?[h]?[e]?[%W]*princes[s]?",
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?",
+					"brd.-[%W]+ma[r]?[u]?ra[u]?[d]?[ou]?[ou]?[n]?.-[%W]+princes[s]?",
 				},
 				DE = {
 					"kill[i]?[n]?[g]?[%W]*[d]?[a]?[s]?[%W]*prin[cz]es[s]?[i]?[n]?[n]?[e]?[n]?",
@@ -2023,11 +2030,11 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"d[i]?mn",
-					"d[i]?mnorth",
+					"d[i]?mnort[h]?",
 					"d[i]?m.-[%W]+n",
-					"d[i]?m.-[%W]+north",
+					"d[i]?m.-[%W]+nort[h]?",
 					"dire[%W]*maul.-[%W]+n",
-					"dire[%W]*maul.-[%W]+north",
+					"dire[%W]*maul.-[%W]+nort[h]?",
 				},
 				DE = {
 					-- Nord
@@ -2038,10 +2045,10 @@ LFGMM_GLOBAL = {
 					"dbnord",
 					"db.-[%W]+n",
 					"db.-[%W]+nord",
-					"db.-[%W]+north",
+					"db.-[%W]+nort[h]?",
 					"du[e]?sterbruch.-[%W]+n",
 					"du[e]?sterbruch.-[%W]+nord",
-					"du[e]?sterbruch.-[%W]+north",
+					"du[e]?sterbruch.-[%W]+nort[h]?",
 				},
 				FR = {
 					-- Nord
@@ -2050,13 +2057,13 @@ LFGMM_GLOBAL = {
 					"dire[%W]*maul.-[%W]+nord",
 					"htn",
 					"htnord",
-					"htnorth",
+					"htnort[h]?",
 					"ht.-[%W]+n",
 					"ht.-[%W]+nord",
-					"ht.-[%W]+north",
+					"ht.-[%W]+nort[h]?",
 					"hache[%W]*tripe[s]?.-[%W]+n",
 					"hache[%W]*tripe[s]?.-[%W]+nord",
-					"hache[%W]*tripe[s]?.-[%W]+north",
+					"hache[%W]*tripe[s]?.-[%W]+nort[h]?",
 				},
 				ES = {
 					-- Norte
@@ -2065,7 +2072,7 @@ LFGMM_GLOBAL = {
 					"dire[%W]*maul.-[%W]+norte",
 					"masacre.-[%W]+n",
 					"masacre.-[%W]+norte",
-					"masacre.-[%W]+north",
+					"masacre.-[%W]+nort[h]?",
 				},
 				RU = {},
 			},
@@ -2207,109 +2214,115 @@ LFGMM_GLOBAL = {
 			MinLevel = 60,
 			MaxLevel = 60,
 		},
-		-- {
-			-- Index = 46,
-			-- Name = "Blackwing Lair",
-			-- Abbreviation = "BWL",
-			-- Identifiers = {
-				-- EN = {
-					-- "blackwing[%W]*lair",
-					-- "bwl"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 40,
-			-- MinLevel = 60,
-			-- MaxLevel = 60,
-			-- Hide = true,
-		-- },
-		-- {
-			-- Index = 47,
-			-- Name = "Zul'Gurub",
-			-- Abbreviation = "ZG",
-			-- Identifiers = {
-				-- EN = {
-					-- "zul[%W]*g[u]?rub",
-					-- "zg"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 20,
-			-- MinLevel = 60,
-			-- MaxLevel = 60,
-			-- Hide = true,
-		-- },
-		-- {
-			-- Index = 48,
-			-- Name = "Ruins of Ahn'Qiraj",
-			-- Abbreviation = "AQ20",
-			-- Identifiers = {
-				-- EN = {
-					-- "ruin[s]?[%W]*[o]?[f]?[%W]*ahn[%W]*qiraj",
-					-- "ahn[%W]*qiraj[%W]*ruin[s]?",
-					-- "aq[%W]*ruin[s]?",
-					-- "aq[%W]*20",
-					-- "raq"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 20,
-			-- MinLevel = 60,
-			-- MaxLevel = 60,
-			-- Hide = true,
-		-- },
-		-- {
-			-- Index = 49,
-			-- Name = "Temple of Ahn'Qiraj",
-			-- Abbreviation = "AQ40",
-			-- Identifiers = {
-				-- EN = {
-					-- "temple[%W]*[o]?[f]?[%W]*ahn[%W]*qiraj",
-					-- "ahn[%W]*qiraj[%W]*temple",
-					-- "aq[%W]*temple",
-					-- "aq[%W]*40",
-					-- "taq"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 40,
-			-- MinLevel = 60,
-			-- MaxLevel = 60,
-			-- Hide = true,
-		-- },
-		-- {
-			-- Index = 50,
-			-- Name = "Naxxramas",
-			-- Abbreviation = "Naxx",
-			-- Identifiers = {
-				-- EN = {
-					-- "naxx[a]?ramas",
-					-- "naxx"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 40,
-			-- MinLevel = 60,
-			-- MaxLevel = 60,
-			-- Hide = true,
-		-- },
 		{
 			Index = 46,
+			Name = "Blackwing Lair",
+			Abbreviation = "BWL",
+			Identifiers = {
+				EN = {
+					"blackwing[%W]*lair",
+					"bwl",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			NotIdentifiers = {
+				EN = {
+					"bwl[%W]*at[t]?un[e]?ment",
+					"bwl[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
+				},
+			},
+			Size = 40,
+			MinLevel = 60,
+			MaxLevel = 60,
+			Hide = true,
+		},
+		{
+			Index = 47,
+			Name = "Zul'Gurub",
+			Abbreviation = "ZG",
+			Identifiers = {
+				EN = {
+					"zul[l]?[%W]*g[u]?rub",
+					"zg",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			Size = 20,
+			MinLevel = 60,
+			MaxLevel = 60,
+			Hide = true,
+		},
+		{
+			Index = 48,
+			Name = "Ruins of Ahn'Qiraj",
+			Abbreviation = "AQ20",
+			Identifiers = {
+				EN = {
+					"ruin[s]?[%W]*[o]?[f]?[%W]*ahn[%W]*qiraj",
+					"ahn[%W]*qiraj[%W]*ruin[s]?",
+					"aq[%W]*ruin[s]?",
+					"aq[%W]*20",
+					"raq",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			Size = 20,
+			MinLevel = 60,
+			MaxLevel = 60,
+			Hide = true,
+		},
+		{
+			Index = 49,
+			Name = "Temple of Ahn'Qiraj",
+			Abbreviation = "AQ40",
+			Identifiers = {
+				EN = {
+					"temple[%W]*[o]?[f]?[%W]*ahn[%W]*qiraj",
+					"ahn[%W]*qiraj[%W]*temple",
+					"aq[%W]*temple",
+					"aq[%W]*40",
+					"taq",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			Size = 40,
+			MinLevel = 60,
+			MaxLevel = 60,
+			Hide = true,
+		},
+		{
+			Index = 50,
+			Name = "Naxxramas",
+			Abbreviation = "Naxx",
+			Identifiers = {
+				EN = {
+					"naxx[a]?ramas",
+					"naxx",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			Size = 40,
+			MinLevel = 60,
+			MaxLevel = 60,
+			Hide = true,
+		},
+		{
+			Index = 51,
 			Name = "Warsong Gulch",
 			Abbreviation = "WSG",
 			Identifiers = {
@@ -2338,7 +2351,7 @@ LFGMM_GLOBAL = {
 			Pvp = true
 		},
 		{
-			Index = 47,
+			Index = 52,
 			Name = "Alterac Valley",
 			Abbreviation = "AV",
 			Identifiers = {
@@ -2366,25 +2379,25 @@ LFGMM_GLOBAL = {
 			MaxLevel = 60,
 			Pvp = true
 		},
-		-- {
-			-- Index = 53,
-			-- Name = "Arathi Basin",
-			-- Abbreviation = "AB",
-			-- Identifiers = {
-				-- EN = {
-					-- "arat[h]?i[%W]*basin",
-					-- "ab"
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- },
-			-- Size = 15,
-			-- MinLevel = 20,
-			-- MaxLevel = 60,
-			-- Pvp = true
-		-- },
+		{
+			Index = 53,
+			Name = "Arathi Basin",
+			Abbreviation = "AB",
+			Identifiers = {
+				EN = {
+					"arat[h]?i[%W]*basin",
+					"ab",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			},
+			Size = 15,
+			MinLevel = 20,
+			MaxLevel = 60,
+			Pvp = true
+		},
 	},
 	DUNGEONS_FALLBACK = {
 		{
@@ -2420,18 +2433,18 @@ LFGMM_GLOBAL = {
 				RU = {},
 			},
 		},
-		-- {
-			-- Dungeons = { 47, 48 },
-			-- Identifiers = {
-				-- EN = {
-					-- "aq",
-				-- },
-				-- DE = {},
-				-- FR = {},
-				-- ES = {},
-				-- RU = {},
-			-- }
-		-- },
+		{
+			Dungeons = { 48, 49 },
+			Identifiers = {
+				EN = {
+					"aq",
+				},
+				DE = {},
+				FR = {},
+				ES = {},
+				RU = {},
+			}
+		},
 		{
 			Dungeons = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43 },
 			Identifiers = {
@@ -2454,7 +2467,7 @@ LFGMM_GLOBAL = {
 			},
 		},
 		{
-			Dungeons = { 44, 45 },
+			Dungeons = { 44, 45, 46, 47, 48, 49, 50 },
 			Identifiers = {
 				EN = {
 					"any[%W]*raid[s]?",
@@ -2468,7 +2481,7 @@ LFGMM_GLOBAL = {
 			},
 		},
 		{
-			Dungeons = { 46, 47 },
+			Dungeons = { 51, 52, 53 },
 			Identifiers = {
 				EN = {
 					"pvp",
@@ -2482,4 +2495,3 @@ LFGMM_GLOBAL = {
 		}
 	}
 }
-
