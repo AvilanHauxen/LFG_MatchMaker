@@ -611,6 +611,8 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			end
 			
 			if (typeMatch == nil) then
+				typeMatch = "UNKNOWN";
+
 				if (table.getn(dungeonMatches) > 0) then
 					if (string.find(message, "wts.-boost") ~= nil) then
 						typeMatch = "LFM";
@@ -619,8 +621,6 @@ function LFGMM_Core_EventHandler(self, event, ...)
 					elseif (string.find(message, "heal[i]?[n]?[g]?[%W]*service[s]?") ~= nil or string.find(message, "tank[i]?[n]?[g]?[%W]*service[s]?") ~= nil) then
 						typeMatch = "LFG";
 					end
-				else
-					typeMatch = "UNKNOWN";
 				end
 			end
 
