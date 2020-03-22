@@ -200,9 +200,7 @@ function LFGMM_Core_GetGroupMembers()
 	
 	-- Raid
 	for index=1, 40 do
-		local unitId = "raid" .. index;
-		
-		local playerName = UnitName(unitId);
+		local playerName = UnitName("raid" .. index);
 		if (playerName ~= nil) then
 			table.insert(groupMembers, playerName);
 		end
@@ -214,9 +212,7 @@ function LFGMM_Core_GetGroupMembers()
 		table.insert(groupMembers, player);
 
 		for index=1, 4 do
-			local unitId = "party" .. index;
-
-			local playerName = UnitName(unitId);
+			local playerName = UnitName("party" .. index);
 			if (playerName ~= nil) then
 				table.insert(groupMembers, playerName);
 			end
@@ -334,7 +330,7 @@ function LFGMM_Core_EventHandler(self, event, ...)
 		LFGMM_GLOBAL.PLAYER_LEVEL = UnitLevel("player");
 		LFGMM_GLOBAL.PLAYER_CLASS = LFGMM_GLOBAL.CLASSES[select(2, UnitClass("player"))];
 
-		-- Get group info
+		-- Get group members
 		LFGMM_Core_GetGroupMembers();
 
 		-- Load

@@ -1094,7 +1094,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"atal[%W]*hak[k]?ar",
-					-- "sunk[t]?[e]?[n]?[%W]*temp[l]?e[l]?",
+					"sunk[t]?[e]?[n]?[%W]*temp[l]?e[l]?",
 					"sunk[t]?en",
 					"tempel",
 					"temple",
@@ -1103,12 +1103,10 @@ LFGMM_GLOBAL = {
 				DE = {
 					-- Der Tempel von Atal'Hakkar / Der versunkene Tempel
 					"[v]?[e]?[r]?sunken[e]?",
-					"tempel",
 				},
 				FR = {
 					-- Le Temple'd Atal'Hakkar / Le Temple englouti
 					"englouti",
-					-- "temple",
 					"templs",
 				},
 				ES = {
