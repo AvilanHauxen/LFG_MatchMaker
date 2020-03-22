@@ -66,10 +66,25 @@ end
 function LFGMM_Utility_ToggleCheckBoxEnabled(checkBox, enabled)
 	if (enabled) then
 		checkBox:Enable();
-		checkBox.label:SetFontObject("GameFontNormal")
 	else
 		checkBox:Disable();
-		checkBox.label:SetFontObject("GameFontHighlight")
+	end
+
+	LFGMM_Utility_ToggleEnabledColor(checkBox.label, enabled);
+end
+
+
+function LFGMM_Utility_ToggleEnabledColor(frameElement, enabled)
+	if (enabled) then
+		if (frameElement.enabledColor ~= nil) then
+			frameElement:SetTextColor(unpack(frameElement.enabledColor));
+		end
+	else
+		if (frameElement.enabledColor == nil) then
+			frameElement.enabledColor = { frameElement:GetTextColor() };
+		end
+	
+		frameElement:SetTextColor(0.5, 0.5, 0.5);
 	end
 end
 
@@ -220,7 +235,7 @@ end
 function LFGMM_Utility_GetAvailableDungeonsAndRaidsSorted()
 	local dungeonsList = {};
 	local raidsList = {};
-	local pvpList = {}
+	local pvpList = {};
 	for _,dungeon in ipairs(LFGMM_GLOBAL.DUNGEONS) do
 		if (dungeon.ParentDungeon == nil and LFGMM_Utility_IsDungeonAvailable(dungeon)) then
 			if (dungeon.Pvp) then
@@ -278,12 +293,12 @@ end
 
 function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator)
 	local dungeonNames = {};
-	local dungeonAbbreviations = {}
+	local dungeonAbbreviations = {};
 
 	local smDungeons = {};
 	local maraDungeons = {};
 	local brdDungeons = {};
-	local stratDungeons = {}
+	local stratDungeons = {};
 	local dmDungeons = {};
 	local otherDungeons1 = {};
 	local otherDungeons2 = {};
@@ -299,7 +314,7 @@ function LFGMM_Utility_GetDungeonMessageText(dungeons, separator, lastSeparator)
 
 	local isAnyDungeonsMatch = false;
 
-	if (LFGMM_Utility_ArrayContainsAll(allDungeonIndexes, LFGMM_GLOBAL.DUNGEONS_FALLBACK[3].Dungeons)) then
+	if (LFGMM_Utility_ArrayContainsAll(allDungeonIndexes, LFGMM_GLOBAL.DUNGEONS_FALLBACK[4].Dungeons)) then
 		table.insert(dungeonNames, "Any dungeon");
 		table.insert(dungeonAbbreviations, "Any dungeon");
 		isAnyDungeonsMatch = true;

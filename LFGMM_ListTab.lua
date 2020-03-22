@@ -33,6 +33,9 @@ function LFGMM_ListTab_Initialize()
 	LFGMM_Utility_InitializeDropDown(LFGMM_ListTab_MessageTypeDropDown, 135, LFGMM_ListTab_MessageTypeDropDown_OnInitialize);
 	LFGMM_ListTab_MessageTypeDropDown_UpdateText();
 
+	UIDropDownMenu_Initialize(LFGMM_ListTab_ContextMenuDropDown, LFGMM_ListTab_ContextMenuDropDown_OnInitialize, "MENU");
+	LFGMM_ListTab_ShowContextMenuButton:SetScript("OnClick", LFGMM_ListTab_ShowContextMenuButton_OnClick);
+
 	LFGMM_ListTab:EnableMouseWheel(true);
 	LFGMM_ListTab:SetScript("OnMouseWheel", LFGMM_ListTab_OnMouseWheel);
 	LFGMM_Utility_InitializeHiddenSlider(LFGMM_ListTab_ScrollBarSlider, LFGMM_ListTab_ScrollBarSlider_OnValueChanged);
@@ -41,6 +44,9 @@ function LFGMM_ListTab_Initialize()
 	LFGMM_ListTab_MessageInfoWindow_WhoButton:SetScript("OnClick", LFGMM_ListTab_MessageInfoWindow_WhoButton_OnClick);
 	LFGMM_ListTab_MessageInfoWindow_InviteButton:SetScript("OnClick", LFGMM_ListTab_MessageInfoWindow_InviteButton_OnClick);
 	LFGMM_ListTab_MessageInfoWindow_RequestInviteButton:SetScript("OnClick", LFGMM_ListTab_MessageInfoWindow_RequestInviteButton_OnClick);
+	
+	LFGMM_ListTab_ConfirmForgetAll_YesButton:SetScript("OnClick", LFGMM_ListTab_ConfirmForgetAll_YesButton_OnClick);
+	LFGMM_ListTab_ConfirmForgetAll_NoButton:SetScript("OnClick", LFGMM_ListTab_ConfirmForgetAll_NoButton_OnClick);
 end
 
 
@@ -72,6 +78,9 @@ function LFGMM_ListTab_Refresh()
 		return;
 	end
 
+	-- Get max message age
+	local maxMessageAge = time() - (60 * LFGMM_DB.SETTINGS.MaxMessageAge);
+
 	-- Filter messages
 	local filteredMessages = {};
 	for _,message in pairs(LFGMM_GLOBAL.MESSAGES) do
@@ -86,6 +95,9 @@ function LFGMM_ListTab_Refresh()
 
 		elseif (table.getn(message.Dungeons) == 0 and LFGMM_DB.LIST.ShowUnknownDungeons) then
 			skip = false;
+
+		elseif (message.Timestamp < maxMessageAge) then
+			skip = true;
 
 		else
 			local dungeonFilterMatched = false;
@@ -546,6 +558,79 @@ function LFGMM_ListTab_MessageTypeDropDown_UpdateText()
 end
 
 
+function LFGMM_ListTab_ShowContextMenuButton_OnClick()
+	ToggleDropDownMenu(1, nil, LFGMM_ListTab_ContextMenuDropDown, "LFGMM_ListTab_ShowContextMenuButton", 0, 0);
+end
+
+
+function LFGMM_ListTab_ContextMenuDropDown_OnInitialize(self, level)
+	local popupPlayer = (LFGMM_PopupWindow:IsVisible() and LFGMM_PopupWindow.Message ~= nil and LFGMM_PopupWindow.Message.Player) or nil;
+	local selectedPlayer = (LFGMM_ListTab_MessageInfoWindow.Message ~= nil and LFGMM_ListTab_MessageInfoWindow.Message.Player) or nil;
+
+	local forgetSelectedItem = UIDropDownMenu_CreateInfo();
+	forgetSelectedItem.notCheckable = true;
+	forgetSelectedItem.disabled = not selectedPlayer or selectedPlayer == popupPlayer;
+	forgetSelectedItem.text = "Forget selected message";
+	forgetSelectedItem.arg1 = "DEL_SELECTED";
+	forgetSelectedItem.func = LFGMM_ListTab_ContextMenuDropDown_Item_OnClick;
+	UIDropDownMenu_AddButton(forgetSelectedItem);
+
+	local separatorItem = UIDropDownMenu_CreateInfo();
+	separatorItem.isTitle = true;
+	separatorItem.notCheckable = true;
+	separatorItem.text = "";
+	UIDropDownMenu_AddButton(separatorItem);
+
+	local forgetAllItem = UIDropDownMenu_CreateInfo();
+	forgetAllItem.notCheckable = true;
+	forgetAllItem.text = "Forget all messages";
+	forgetAllItem.arg1 = "DEL_ALL";
+	forgetAllItem.func = LFGMM_ListTab_ContextMenuDropDown_Item_OnClick;
+	UIDropDownMenu_AddButton(forgetAllItem);
+end
+
+
+function LFGMM_ListTab_ContextMenuDropDown_Item_OnClick(self, operation)
+	local popupPlayer = (LFGMM_PopupWindow:IsVisible() and LFGMM_PopupWindow.Message ~= nil and LFGMM_PopupWindow.Message.Player) or nil;
+	local selectedPlayer = (LFGMM_ListTab_MessageInfoWindow.Message ~= nil and LFGMM_ListTab_MessageInfoWindow.Message.Player) or nil;
+
+	if (operation == "DEL_SELECTED" and selectedPlayer ~= nil and selectedPlayer ~= popupPlayer) then
+		LFGMM_GLOBAL.MESSAGES[selectedPlayer] = nil;
+		LFGMM_ListTab_MessageInfoWindow_Hide();
+		LFGMM_ListTab_Refresh();
+		
+	elseif (operation == "DEL_ALL") then
+		LFGMM_Core_SetGuiEnabled(false);
+		LFGMM_ListTab_MessageInfoWindow_Hide();
+		LFGMM_ListTab_ConfirmForgetAll:Show();
+	end
+end
+
+
+function LFGMM_ListTab_ConfirmForgetAll_YesButton_OnClick()
+	local popupPlayer = (LFGMM_PopupWindow:IsVisible() and LFGMM_PopupWindow.Message ~= nil and LFGMM_PopupWindow.Message.Player) or nil;
+
+	for player,_ in pairs(LFGMM_GLOBAL.MESSAGES) do
+		if (player == popupPlayer) then
+			-- Skip
+		else
+			LFGMM_GLOBAL.MESSAGES[player] = nil;
+		end
+	end
+
+	LFGMM_ListTab_ConfirmForgetAll:Hide();
+	LFGMM_ListTab_MessageInfoWindow_Hide();
+	LFGMM_ListTab_Refresh();
+	LFGMM_Core_SetGuiEnabled(true);
+end
+
+
+function LFGMM_ListTab_ConfirmForgetAll_NoButton_OnClick()
+	LFGMM_ListTab_ConfirmForgetAll:Hide();
+	LFGMM_Core_SetGuiEnabled(true);
+end
+
+
 function LFGMM_ListTab_ScrollBarSlider_OnValueChanged(self, value)
 	local newScrollIndex = math.floor(value);
 	if (LFGMM_GLOBAL.LIST_SCROLL_INDEX ~= newScrollIndex) then
@@ -573,6 +658,9 @@ end
 
 
 function LFGMM_ListTab_MessageInfoWindow_Show(message)
+	-- Close drop down
+	CloseDropDownMenus();
+	
 	if (LFGMM_ListTab_MessageInfoWindow.Message ~= nil and LFGMM_ListTab_MessageInfoWindow.Message.Player == message.Player) then
 		-- Hide
 		LFGMM_ListTab_MessageInfoWindow_Hide();
