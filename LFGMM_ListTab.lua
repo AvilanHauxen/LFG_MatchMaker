@@ -93,11 +93,11 @@ function LFGMM_ListTab_Refresh()
 		then
 			skip = true;
 
-		elseif (table.getn(message.Dungeons) == 0 and LFGMM_DB.LIST.ShowUnknownDungeons) then
-			skip = false;
-
 		elseif (message.Timestamp < maxMessageAge) then
 			skip = true;
+
+		elseif (table.getn(message.Dungeons) == 0 and LFGMM_DB.LIST.ShowUnknownDungeons) then
+			skip = false;
 
 		else
 			local dungeonFilterMatched = false;
