@@ -1,6 +1,6 @@
 #
 # LFG MatchMaker - Addon for World of Warcraft.
-# Version: 1.0.7
+# Version: 1.0.8
 # URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 # Copyright (C) 2019-2020 L.I.R.
 #
@@ -21,8 +21,8 @@
 #
 
 ## Title: LFG Match Maker
-## Interface: 11303
-## Version: 1.0.7
+## Interface: 11304
+## Version: 1.0.8
 ## Author: L.I.R.
 ## SavedVariablesPerCharacter: LFGMM_DB
 
