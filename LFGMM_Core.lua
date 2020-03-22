@@ -53,8 +53,6 @@ function LFGMM_Core_Initialize()
 	LFGMM_MainWindowTab4:SetScript("OnClick", function() PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB); LFGMM_SettingsTab_Show(); end);
 	
 	PanelTemplates_SetNumTabs(LFGMM_MainWindow, 4);
-
-	LFGMM_Core_GetGroupMembers();
 	
 	local groupSize = table.getn(LFGMM_GLOBAL.GROUP_MEMBERS);
 	if (groupSize > 1) then
@@ -80,14 +78,34 @@ function LFGMM_Core_MainWindow_ToggleShow()
 		LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
 		LFGMM_ListTab_MessageInfoWindow_Hide();
+		LFGMM_ListTab_ConfirmForgetAll:Hide();
 		LFGMM_MainWindow:Hide();
 	else
 		LFGMM_LfgTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
 		LFGMM_ListTab_MessageInfoWindow_Hide();
+		LFGMM_ListTab_ConfirmForgetAll:Hide();
 		LFGMM_MainWindow:Show(); 
 		LFGMM_Core_Refresh();
+		LFGMM_Core_SetGuiEnabled(true);
+	end
+end
+
+
+function LFGMM_Core_SetGuiEnabled(enabled)
+	if (enabled) then
+		LFGMM_DisableMainWindowOverlay:Hide();
+		LFGMM_MainWindowTab1:Enable();
+		LFGMM_MainWindowTab2:Enable();
+		LFGMM_MainWindowTab3:Enable();
+		LFGMM_MainWindowTab4:Enable();
+	else
+		LFGMM_DisableMainWindowOverlay:Show();
+		LFGMM_MainWindowTab1:Disable();
+		LFGMM_MainWindowTab2:Disable();
+		LFGMM_MainWindowTab3:Disable();
+		LFGMM_MainWindowTab4:Disable();
 	end
 end
 
@@ -178,11 +196,13 @@ end
 
 
 function LFGMM_Core_GetGroupMembers()
-	local groupMembers = {}
+	local groupMembers = {};
 	
 	-- Raid
 	for index=1, 40 do
-		local playerName = UnitName("raid" .. index);
+		local unitId = "raid" .. index;
+		
+		local playerName = UnitName(unitId);
 		if (playerName ~= nil) then
 			table.insert(groupMembers, playerName);
 		end
@@ -194,7 +214,9 @@ function LFGMM_Core_GetGroupMembers()
 		table.insert(groupMembers, player);
 
 		for index=1, 4 do
-			local playerName = UnitName("party" .. index);
+			local unitId = "party" .. index;
+
+			local playerName = UnitName(unitId);
 			if (playerName ~= nil) then
 				table.insert(groupMembers, playerName);
 			end
@@ -303,7 +325,6 @@ end
 -- EVENT HANDLER
 ------------------------------------------------------------------------------------------------------------------------
 
-local number = 0;
 
 function LFGMM_Core_EventHandler(self, event, ...)
 	-- Initialize
@@ -312,6 +333,9 @@ function LFGMM_Core_EventHandler(self, event, ...)
 		LFGMM_GLOBAL.PLAYER_NAME = UnitName("player");
 		LFGMM_GLOBAL.PLAYER_LEVEL = UnitLevel("player");
 		LFGMM_GLOBAL.PLAYER_CLASS = LFGMM_GLOBAL.CLASSES[select(2, UnitClass("player"))];
+
+		-- Get group info
+		LFGMM_Core_GetGroupMembers();
 
 		-- Load
 		LFGMM_Load();
@@ -355,7 +379,7 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			LFGMM_ListTab_MessageInfoWindow_Refresh();
 			LFGMM_PopupWindow_Refresh();
 		end
-		
+	
 	-- Update group members
 	elseif (event == "GROUP_ROSTER_UPDATE") then
 		LFGMM_Core_GetGroupMembers();
@@ -368,7 +392,7 @@ function LFGMM_Core_EventHandler(self, event, ...)
 		local groupSize = table.getn(LFGMM_GLOBAL.GROUP_MEMBERS);
 		
 		-- Abort LFG if group is joined
-		if (LFGMM_DB.SEARCH.LFG.Running) then
+		if (LFGMM_DB.SEARCH.LFG.Running and LFGMM_DB.SEARCH.LFG.AutoStop and LFGMM_GLOBAL.AUTOSTOP_AVAILABLE) then
 			if (groupSize > 1) then
 				LFGMM_DB.SEARCH.LFG.Running = false;
 				LFGMM_PopupWindow_Hide();
@@ -382,7 +406,7 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			end
 
 		-- Abort LFM if dungeon group size is reached
-		elseif (LFGMM_DB.SEARCH.LFM.Running) then
+		elseif (LFGMM_DB.SEARCH.LFM.Running and LFGMM_DB.SEARCH.LFM.AutoStop and LFGMM_GLOBAL.AUTOSTOP_AVAILABLE) then
 			local dungeonSize = LFGMM_GLOBAL.DUNGEONS[LFGMM_DB.SEARCH.LFM.Dungeon].Size;
 			if (groupSize >= dungeonSize) then
 				LFGMM_DB.SEARCH.LFM.Running = false;
@@ -583,7 +607,7 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			end
 			
 			-- "Any dungeon" match
-			local isAnyDungeonMatch = LFGMM_Utility_ArrayContainsAll(uniqueDungeonMatches:GetIndexList(), LFGMM_GLOBAL.DUNGEONS_FALLBACK[3].Dungeons);
+			local isAnyDungeonMatch = LFGMM_Utility_ArrayContainsAll(uniqueDungeonMatches:GetIndexList(), LFGMM_GLOBAL.DUNGEONS_FALLBACK[4].Dungeons);
 
 			-- Convert to indexed list
 			local dungeonMatches = uniqueDungeonMatches:GetDungeonList();

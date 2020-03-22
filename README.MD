@@ -53,7 +53,7 @@ There is also an "Unknown" filter for messages that could not be categorized.
 
 Annoucements will only be listed once per player, and will be updated with the most recent message posted by that player.
 
-When an announcement has not been re-announced for over 30 minutes, the announcement will expire and removed from the list.
+When an announcement has not been re-announced for over 30 minutes, the announcement will expire and be forgotten.
 
 
 ## Chat channel
@@ -74,4 +74,3 @@ Dungeons are primarly identified by english names, but support for localized dun
 Any assistance in making the identifiers as accurate as possible is appricated.
 
 If you notice a message that is incorrectly identified please let me know by creating an issue on GitHub.
-

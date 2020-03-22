@@ -190,7 +190,7 @@ function LFGMM_PopupWindow_Refresh()
 	local message = LFGMM_PopupWindow.Message;
 	
 	-- Class
-	LFGMM_PopupWindow_ClassIcon:SetTexCoord(unpack(LFGMM_PopupWindow.Message.PlayerClass.IconCoordinates));
+	LFGMM_PopupWindow_ClassIcon:SetTexCoord(unpack(message.PlayerClass.IconCoordinates));
 	LFGMM_PopupWindow_ClassText:SetText(message.PlayerClass.Color .. message.PlayerClass.LocalizedName);
 
 	-- Level
@@ -200,7 +200,7 @@ function LFGMM_PopupWindow_Refresh()
 	LFGMM_PopupWindow_PlayerText:SetText(message.PlayerClass.Color .. "[" .. message.Player .. "]:");
 	
 	-- Message
-	LFGMM_PopupWindow_MessageText:SetText(LFGMM_PopupWindow.Message.Message);
+	LFGMM_PopupWindow_MessageText:SetText(message.Message);
 
 	-- Window size
 	LFGMM_PopupWindow:SetHeight(LFGMM_PopupWindow_MessageText:GetHeight() + 115);

@@ -245,16 +245,6 @@
 
 							<Color a="1" r="0" g="1" b="0" />
 						</FontString>
-
-						<FontString name="LFGMM_LfgTab_InGroupText" hidden="true" inherits="GameFontHighlight" text="Already in group">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="CENTER">
-									<Offset x="0" y="65" />
-								</Anchor>
-							</Anchors>
-
-							<Color a="1" r="1" g="0" b="0" />
-						</FontString>
 						
 						<FontString name="LFGMM_LfgTab_MatchOnText" text="Match on:" inherits="GameFontNormal">
 							<Anchors>
@@ -267,7 +257,7 @@
 						<FontString name="LFGMM_LfgTab_BroadcastMessagePreview" hidden="true" inherits="GameFontHighlight">
 							<Anchors>
 								<Anchor point="CENTER" relativePoint="CENTER">
-									<Offset x="0" y="-122" />
+									<Offset x="0" y="-152" />
 								</Anchor>
 							</Anchors>
 						</FontString>
@@ -316,11 +306,19 @@
 							</Anchor>
 						</Anchors>
 					</CheckButton>
+
+					<CheckButton name="LFGMM_LfgTab_AutoStopCheckBox" inherits="ChatConfigCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="CENTER" relativePoint="CENTER">
+								<Offset x="-105" y="-65" />
+							</Anchor>
+						</Anchors>
+					</CheckButton>
 					
 					<CheckButton name="LFGMM_LfgTab_EnableBroadcastCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
 							<Anchor point="CENTER" relativePoint="CENTER">
-								<Offset x="-80" y="-65" />
+								<Offset x="-80" y="-95" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
@@ -328,7 +326,7 @@
 					<EditBox name="LFGMM_LfgTab_BroadcastMessageTemplateInputBox" hidden="true" autoFocus="false" letters="255" inherits="InputBoxTemplate">
 						<Anchors>
 							<Anchor point="CENTER" relativePoint="CENTER">
-								<Offset x="0" y="-95" />
+								<Offset x="0" y="-125" />
 							</Anchor>
 						</Anchors>
 
@@ -338,7 +336,7 @@
 					<Button name="LFGMM_LfgTab_BroadcastMessageInfoButton" hidden="true" text="?" inherits="UIPanelButtonTemplate">
 						<Anchors>
 							<Anchor point="CENTER" relativePoint="CENTER">
-								<Offset x="150" y="-95" />
+								<Offset x="150" y="-125" />
 							</Anchor>
 						</Anchors>
 
@@ -348,7 +346,7 @@
 					<Slider name="LFGMM_LfgTab_BroadcastMessagePreviewSlider" hidden="true" inherits="OptionsSliderTemplate">
 						<Anchors>
 							<Anchor point="CENTER" relativePoint="CENTER">
-								<Offset x="0" y="-145" />
+								<Offset x="0" y="-175" />
 							</Anchor>
 						</Anchors>
 
@@ -384,16 +382,6 @@
 							<Color a="1" r="0" g="1" b="0" />
 						</FontString>
 						
-						<FontString name="LFGMM_LfmTab_InFullGroupText" hidden="true" inherits="GameFontHighlight" text="Already in full group">
-							<Anchors>
-								<Anchor point="TOP" relativePoint="CENTER">
-									<Offset x="0" y="65" />
-								</Anchor>
-							</Anchors>
-
-							<Color a="1" r="1" g="0" b="0" />
-						</FontString>
-						
 						<FontString name="LFGMM_LfmTab_MatchOnText" text="Match on:" inherits="GameFontNormal">
 							<Anchors>
 								<Anchor point="CENTER" relativePoint="CENTER">
@@ -405,7 +393,7 @@
 						<FontString name="LFGMM_LfmTab_BroadcastMessagePreview" hidden="true" inherits="GameFontHighlight">
 							<Anchors>
 								<Anchor point="CENTER" relativePoint="CENTER">
-									<Offset x="0" y="-122" />
+									<Offset x="0" y="-152" />
 								</Anchor>
 							</Anchors>
 						</FontString>
@@ -455,10 +443,18 @@
 						</Anchors>
 					</CheckButton>
 					
+					<CheckButton name="LFGMM_LfmTab_AutoStopCheckBox" inherits="ChatConfigCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="CENTER" relativePoint="CENTER">
+								<Offset x="-100" y="-65" />
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					
 					<CheckButton name="LFGMM_LfmTab_EnableBroadcastCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
 							<Anchor point="CENTER" relativePoint="CENTER">
-								<Offset x="-80" y="-65" />
+								<Offset x="-80" y="-95" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
@@ -466,7 +462,7 @@
 					<EditBox name="LFGMM_LfmTab_BroadcastMessageTemplateInputBox" hidden="true" autoFocus="false" letters="255" inherits="InputBoxTemplate">
 						<Anchors>
 							<Anchor point="CENTER" relativePoint="CENTER">
-								<Offset x="0" y="-95" />
+								<Offset x="0" y="-125" />
 							</Anchor>
 						</Anchors>
 
@@ -476,7 +472,7 @@
 					<Button name="LFGMM_LfmTab_BroadcastMessageInfoButton" hidden="true" text="?" inherits="UIPanelButtonTemplate">
 						<Anchors>
 							<Anchor point="CENTER" relativePoint="CENTER">
-								<Offset x="150" y="-95" />
+								<Offset x="150" y="-125" />
 							</Anchor>
 						</Anchors>
 
@@ -486,7 +482,7 @@
 					<Slider name="LFGMM_LfmTab_BroadcastMessagePreviewSlider" hidden="true" inherits="OptionsSliderTemplate">
 						<Anchors>
 							<Anchor point="CENTER" relativePoint="CENTER">
-								<Offset x="0" y="-145" />
+								<Offset x="0" y="-175" />
 							</Anchor>
 						</Anchors>
 
@@ -518,6 +514,24 @@
 							</Anchor>
 						</Anchors>
 					</Frame>
+					
+					<Frame name="LFGMM_ListTab_ContextMenuDropDown" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+								<Offset x="155" y="-32" />
+							</Anchor>
+						</Anchors>
+					</Frame>
+					
+					<Button name="LFGMM_ListTab_ShowContextMenuButton" text="v" inherits="UIPanelButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+								<Offset x="-34" y="-32" />
+							</Anchor>
+						</Anchors>
+
+						<Size x="25" y="25" />
+					</Button>
 					
 					<Frame name="LFGMM_ListTab_Entry1" inherits="LFGMM_ListTab_EntryTemplate">
 						<Anchors>
@@ -621,7 +635,7 @@
 							</Anchors>
 						</FontString>
 
-						<FontString text="(Search only matches messages more recent than the maximum)" inherits="GameFontHighlightSmall">
+						<FontString text="(Search/List only match/show messages more recent than the maximum)" inherits="GameFontHighlightSmall">
 							<Anchors>
 								<Anchor point="CENTER" relativePoint="TOP">
 									<Offset x="0" y="-200" />
@@ -779,6 +793,16 @@
 					</Slider>
 				</Frames>
 			</Frame>
+
+			<!-- DISABLE MAIN WINDOW OVERLAY -->
+			<Frame name="LFGMM_DisableMainWindowOverlay" hidden="true" enableMouse="true" frameLevel="10">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset y="-20" />
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+			</Frame>
 			
 			<!-- TAB BUTTONS -->
 			<Button name="$parentTab1" id="1" text="LFG" inherits="CharacterFrameTabButtonTemplate">
@@ -816,7 +840,7 @@
 	</Frame>
 
 	<!-- LFG BROADCAST MESSAGE INFO WINDOW -->
-	<Frame name="LFGMM_LfgTab_BroadcastMessageInfoWindow" hidden="true" frameStrata="HIGH" parent="LFGMM_MainWindow" inherits="TooltipBorderedFrameTemplate">
+	<Frame name="LFGMM_LfgTab_BroadcastMessageInfoWindow" hidden="true" enableMouse="true" frameStrata="HIGH" parent="LFGMM_MainWindow" inherits="TooltipBorderedFrameTemplate">
 		<Anchors>
 			<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
 				<Offset x="10" y="-2" />
@@ -879,7 +903,7 @@
 	</Frame>
 
 	<!-- LFM BROADCAST MESSAGE INFO WINDOW -->
-	<Frame name="LFGMM_LfmTab_BroadcastMessageInfoWindow" hidden="true" frameStrata="HIGH" parent="LFGMM_MainWindow" inherits="TooltipBorderedFrameTemplate">
+	<Frame name="LFGMM_LfmTab_BroadcastMessageInfoWindow" hidden="true" enableMouse="true" frameStrata="HIGH" parent="LFGMM_MainWindow" inherits="TooltipBorderedFrameTemplate">
 		<Anchors>
 			<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
 				<Offset x="10" y="-2" />
@@ -926,7 +950,7 @@
 	</Frame>
 	
 	<!-- LIST GROUP INFO WINDOW -->
-	<Frame name="LFGMM_ListTab_MessageInfoWindow" hidden="true" frameStrata="HIGH" parent="LFGMM_MainWindow" inherits="TooltipBorderedFrameTemplate">
+	<Frame name="LFGMM_ListTab_MessageInfoWindow" hidden="true" enableMouse="true" frameStrata="HIGH" parent="LFGMM_MainWindow" inherits="TooltipBorderedFrameTemplate">
 		<Anchors>
 			<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
 				<Offset x="10" y="-2" />
@@ -1018,12 +1042,12 @@
 				<Layers>
 					<Layer level="OVERLAY">
 						<FontString name="LFGMM_ListTab_MessageInfoWindow_TimeText" inherits="GameFontNormalSmall">
-						<Anchors>
-							<Anchor point="TOP" relativePoint="TOP">
-								<Offset x="0" y="-9" />
-							</Anchor>
-						</Anchors>
-					</FontString>
+							<Anchors>
+								<Anchor point="TOP" relativePoint="TOP">
+									<Offset x="0" y="-9" />
+								</Anchor>
+							</Anchors>
+						</FontString>
 					</Layer>
 				</Layers>
 				
@@ -1072,8 +1096,69 @@
 		</Frames>
 	</Frame>
 	
+	<!-- LIST CONFIRM FORGET ALL WINDOW -->
+	<Frame name="LFGMM_ListTab_ConfirmForgetAll" hidden="true" enableMouse="true" movable="false" frameLevel="50" topLevel="true" parent="LFGMM_MainWindow">
+		<Anchors>
+			<Anchor point="CENTER" relativePoint="CENTER" />
+		</Anchors>
+		
+		<Size x="225" y="75" />
+		
+		<Backdrop bgFile="Interface\FriendsFrame\UI-Toast-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<EdgeSize val="28" />
+			<TileSize val="28" />
+			<BackgroundInsets left="5" right="5" top="5" bottom="5" />
+		</Backdrop>
+	
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="LFGMM_ListTab_ConfirmForgetAll_Header" file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset x="0" y="15" />
+						</Anchor>
+					</Anchors>
+
+					<Size x="330" y="64" />
+				</Texture>
+				
+				<FontString name="LFGMM_ListTab_ConfirmForgetAll_Title" text="Forget all messages?" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="LFGMM_ListTab_ConfirmForgetAll_Header">
+							<Offset x="0" y="11" />
+						</Anchor>
+					</Anchors>
+
+					<Color a="1" r="0" g="1" b="0" />
+				</FontString>
+			</Layer>
+		</Layers>
+		
+		<Frames>
+			<Button name="LFGMM_ListTab_ConfirmForgetAll_YesButton" text="Yes" inherits="UIPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="LEFT">
+						<Offset y="-5" x="20" />
+					</Anchor>
+				</Anchors>
+
+				<Size x="75" y="25" />
+			</Button>
+			
+			<Button name="LFGMM_ListTab_ConfirmForgetAll_NoButton" text="No" inherits="UIPanelButtonTemplate">
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="RIGHT">
+						<Offset y="-5" x="-20"/>
+					</Anchor>
+				</Anchors>
+
+				<Size x="75" y="25" />
+			</Button>
+		</Frames>
+	</Frame>
+	
 	<!-- REQUEST INVITE MESSAGE INFO WINDOW -->
-	<Frame name="LFGMM_SettingsTab_RequestInviteMessageInfoWindow" hidden="true" frameStrata="HIGH" parent="LFGMM_MainWindow" inherits="TooltipBorderedFrameTemplate">
+	<Frame name="LFGMM_SettingsTab_RequestInviteMessageInfoWindow" hidden="true" enableMouse="true" frameStrata="HIGH" parent="LFGMM_MainWindow" inherits="TooltipBorderedFrameTemplate">
 		<Anchors>
 			<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
 				<Offset x="10" y="-2" />
