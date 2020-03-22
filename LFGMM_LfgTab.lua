@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.7
+	Version: 1.0.8
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -36,6 +36,7 @@ function LFGMM_LfgTab_Initialize()
 	LFGMM_Utility_InitializeCheckbox(LFGMM_LfgTab_MatchLfgCheckBox,	"LFG", "Get notifications on LFG messages",	LFGMM_DB.SEARCH.LFG.MatchLfg, LFGMM_LfgTab_MatchLfgCheckBox_OnClick);
 	LFGMM_Utility_InitializeCheckbox(LFGMM_LfgTab_MatchLfmCheckBox,	"LFM", "Get notifications on LFM messages", true, LFGMM_LfgTab_MatchLfmCheckBox_OnClick);
 	LFGMM_Utility_InitializeCheckbox(LFGMM_LfgTab_MatchUnknownCheckBox, "Unknown", "Get notifications when dungeon matches, but LFG/LFM cannot be determined", LFGMM_DB.SEARCH.LFG.MatchUnknown, LFGMM_LfgTab_MatchUnknownCheckBox_OnClick);
+	LFGMM_Utility_InitializeCheckbox(LFGMM_LfgTab_AutoStopCheckBox, "Stop search when group is joined", "Automatically stop search when a group is joined", LFGMM_DB.SEARCH.LFG.AutoStop, LFGMM_LfgTab_AutoStopCheckBox_OnClick);
 	LFGMM_Utility_InitializeCheckbox(LFGMM_LfgTab_EnableBroadcastCheckBox, "Broadcast in LFG channel", "Periodically send LFG messages to LookingForGroup channel", LFGMM_DB.SEARCH.LFG.Broadcast, LFGMM_LfgTab_EnableBroadcastCheckBox_OnClick);
 
 	LFGMM_LfgTab_BroadcastMessageTemplateInputBox:SetScript("OnTextChanged", LFGMM_LfgTab_UpdateBroadcastMessage);
@@ -90,52 +91,52 @@ function LFGMM_LfgTab_Refresh()
 		LFGMM_LfgTab_BroadcastMessagePreviewSlider:Hide();
 		LFGMM_LfgTab_BroadcastMessageInfoWindow:Hide();
 	end
-
+	
 	local groupSize = table.getn(LFGMM_GLOBAL.GROUP_MEMBERS);
 	if (groupSize > 1) then
-		LFGMM_LfgTab_InGroupText:Show();
+		LFGMM_LfgTab_AutoStopCheckBox:SetChecked(false);
+	else
+		LFGMM_LfgTab_AutoStopCheckBox:SetChecked(LFGMM_DB.SEARCH.LFG.AutoStop);
+	end
 
+	if (LFGMM_DB.SEARCH.LFG.Running) then
+		UIDropDownMenu_DisableDropDown(LFGMM_LfgTab_DungeonsDropDown);
+		LFGMM_LfgTab_SearchActiveText:Show();
+		LFGMM_LfgTab_StartStopSearchButton:SetText("Stop searching");
+		LFGMM_LfgTab_BroadcastMessageTemplateInputBox:Disable();
+		LFGMM_Utility_ToggleEnabledColor(LFGMM_LfgTab_BroadcastMessageTemplateInputBox, false);
+		LFGMM_Utility_ToggleEnabledColor(LFGMM_LfgTab_BroadcastMessagePreview, false);
+		LFGMM_Utility_ToggleEnabledColor(LFGMM_LfgTab_MatchOnText, false);
+		LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchLfgCheckBox, false);
+		LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchLfmCheckBox, false);
+		LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchUnknownCheckBox, false);
+		LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_AutoStopCheckBox, false);
+		LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_EnableBroadcastCheckBox, false);
+		LFGMM_LfgTab_StartAnimateSearchingText();
+
+	else
 		UIDropDownMenu_EnableDropDown(LFGMM_LfgTab_DungeonsDropDown);
 		LFGMM_LfgTab_SearchActiveText:Hide();
-		LFGMM_LfgTab_StartStopSearchButton:Disable();
 		LFGMM_LfgTab_StartStopSearchButton:SetText("Start search");
-		LFGMM_LfgTab_MatchOnText:SetFontObject("GameFontNormal");
 		LFGMM_LfgTab_BroadcastMessageTemplateInputBox:Enable();
+		LFGMM_Utility_ToggleEnabledColor(LFGMM_LfgTab_BroadcastMessageTemplateInputBox, true);
+		LFGMM_Utility_ToggleEnabledColor(LFGMM_LfgTab_BroadcastMessagePreview, true);
+		LFGMM_Utility_ToggleEnabledColor(LFGMM_LfgTab_MatchOnText, true);
 		LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchLfgCheckBox, true);
 		LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchLfmCheckBox, true);
 		LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchUnknownCheckBox, true);
 		LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_EnableBroadcastCheckBox, true);
 
-	else
-		LFGMM_LfgTab_InGroupText:Hide();
-	
-		if (LFGMM_DB.SEARCH.LFG.Running) then
-			UIDropDownMenu_DisableDropDown(LFGMM_LfgTab_DungeonsDropDown);
-			LFGMM_LfgTab_SearchActiveText:Show();
-			LFGMM_LfgTab_StartStopSearchButton:SetText("Stop searching");
-			LFGMM_LfgTab_MatchOnText:SetFontObject("GameFontHighlight");
-			LFGMM_LfgTab_BroadcastMessageTemplateInputBox:Disable();
-			LFGMM_LfgTab_StartAnimateSearchingText();
-			LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchLfgCheckBox, false);
-			LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchLfmCheckBox, false);
-			LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchUnknownCheckBox, false);
-			LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_EnableBroadcastCheckBox, false);
+		if (groupSize > 1) then
+			LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_AutoStopCheckBox, false);
 		else
-			UIDropDownMenu_EnableDropDown(LFGMM_LfgTab_DungeonsDropDown);
-			LFGMM_LfgTab_SearchActiveText:Hide();
-			LFGMM_LfgTab_StartStopSearchButton:SetText("Start search");
-			LFGMM_LfgTab_MatchOnText:SetFontObject("GameFontNormal");
-			LFGMM_LfgTab_BroadcastMessageTemplateInputBox:Enable();
-			LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchLfgCheckBox, true);
-			LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchLfmCheckBox, true);
-			LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_MatchUnknownCheckBox, true);
-			LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_EnableBroadcastCheckBox, true);
+			LFGMM_Utility_ToggleCheckBoxEnabled(LFGMM_LfgTab_AutoStopCheckBox, true);
+		end
 
-			if (table.getn(LFGMM_DB.SEARCH.LFG.Dungeons) > 0) then
-				LFGMM_LfgTab_StartStopSearchButton:Enable();
-			else
-				LFGMM_LfgTab_StartStopSearchButton:Disable();
-			end
+		if (table.getn(LFGMM_DB.SEARCH.LFG.Dungeons) > 0) then
+			LFGMM_LfgTab_StartStopSearchButton:Enable();
+		else
+			LFGMM_LfgTab_StartStopSearchButton:Disable();
 		end
 	end
 end
@@ -450,6 +451,15 @@ function LFGMM_LfgTab_StartStopSearchButton_OnClick()
 		LFGMM_Core_RemoveUnavailableDungeonsFromSelections();
 		
 	else
+		-- Determine if autostop is available or not
+		local groupSize = table.getn(LFGMM_GLOBAL.GROUP_MEMBERS);
+		if (groupSize > 1) then
+			LFGMM_GLOBAL.AUTOSTOP_AVAILABLE = false;
+		else
+			LFGMM_GLOBAL.AUTOSTOP_AVAILABLE = true;
+		end
+	
+		-- Start search
 		LFGMM_DB.SEARCH.LFG.Running = true;
 		LFGMM_MainWindowTab2:Hide();
 
@@ -484,6 +494,11 @@ end
 
 function LFGMM_LfgTab_MatchUnknownCheckBox_OnClick()
 	LFGMM_DB.SEARCH.LFG.MatchUnknown = LFGMM_LfgTab_MatchUnknownCheckBox:GetChecked();
+end
+
+
+function LFGMM_LfgTab_AutoStopCheckBox_OnClick()
+	LFGMM_DB.SEARCH.LFG.AutoStop = LFGMM_LfgTab_AutoStopCheckBox:GetChecked();
 end
 
 

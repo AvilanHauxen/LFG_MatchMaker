@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.7
+	Version: 1.0.8
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -27,7 +27,7 @@
 
 
 function LFGMM_Load()
-	LFGMM_DB_VERSION = 2;
+	LFGMM_DB_VERSION = 3;
 	
 	-- Get locale language
 	local locale = GetLocale();
@@ -61,7 +61,7 @@ function LFGMM_Load()
 				IdentifierLanguages = { "EN" },
 			},
 			LIST = {
-				Dungeons = { },
+				Dungeons = {},
 				ShowUnknownDungeons = false,
 				MessageTypes = {
 					Unknown = false,
@@ -75,6 +75,7 @@ function LFGMM_Load()
 					Running = false,
 					MatchLfg = false,
 					MatchUnknown = true,
+					AutoStop = true,
 					Broadcast = false,
 					BroadcastMessage = "",
 					BroadcastMessageTemplate = "{L} {C} LFG {A}",
@@ -84,6 +85,7 @@ function LFGMM_Load()
 					Running = false,
 					MatchLfm = false,
 					MatchUnknown = true,
+					AutoStop = true,
 					Broadcast = false,
 					BroadcastMessage = "",
 					BroadcastMessageTemplate = "LF{N}M {D}",
@@ -101,14 +103,24 @@ function LFGMM_Load()
 		for _,dungeon in ipairs(LFGMM_GLOBAL.DUNGEONS) do
 			table.insert(LFGMM_DB.LIST.Dungeons, dungeon.Index);
 		end
-	
-	elseif (LFGMM_DB.VERSION <= 1) then
-		LFGMM_DB.VERSION = LFGMM_DB_VERSION;
-		LFGMM_DB.SETTINGS.IdentifierLanguages = { "EN" };
 
-		-- Add locale identifier language
-		if (locale ~= nil) then
-			table.insert(LFGMM_DB.SETTINGS.IdentifierLanguages, locale);
+	else
+		if (LFGMM_DB.VERSION <= 1) then
+			LFGMM_DB.SETTINGS.IdentifierLanguages = { "EN" };
+
+			-- Add locale identifier language
+			if (locale ~= nil) then
+				table.insert(LFGMM_DB.SETTINGS.IdentifierLanguages, locale);
+			end
+		end
+		
+		if (LFGMM_DB.VERSION <= 2) then
+			LFGMM_DB.SEARCH.LFG.AutoStop = true;
+			LFGMM_DB.SEARCH.LFM.AutoStop = true;
+		end
+		
+		if (LFGMM_DB.VERSION < LFGMM_DB_VERSION) then
+			LFGMM_DB.VERSION = LFGMM_DB_VERSION;
 		end
 	end
 	
@@ -122,16 +134,17 @@ end
 -- GLOBAL VARIABLES
 ------------------------------------------------------------------------------------------------------------------------
 
+
 LFGMM_GLOBAL = {
 	READY = false,
 	LIST_SCROLL_INDEX = 1,
 	SEARCH_LOCK = false,
 	BROADCAST_LOCK = false,
+	AUTOSTOP_AVAILABLE = true,
 	WHO_COOLDOWN = 0,
 	PLAYER_NAME = "",
 	PLAYER_LEVEL = 0,
 	PLAYER_CLASS = "",
-	PLAYER_SPEC = "",
 	LFG_CHANNEL_NAME = "LookingForGroup",
 	GROUP_MEMBERS = {},
 	MESSAGES = {},
@@ -307,6 +320,9 @@ LFGMM_GLOBAL = {
 					"last[%W]*tank",
 					"last[%W]*heal",
 					"last[%W]*spot",
+					"any[%W]*dps[%W]*for",
+					"any[%W]*tank[%W]*for",
+					"any[%W]*heal[e]?[r]?[%W]*for",
 				}
 			}
 		},
@@ -945,6 +961,7 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"zul[l]?[%W]*far[r]?ak[k]?",
+					"zul[l]?",
 					"zfk",
 					"zf",
 				},
@@ -952,6 +969,11 @@ LFGMM_GLOBAL = {
 				FR = {},
 				ES = {},
 				RU = {},
+			},
+			NotIdentifiers = {
+				EN = {
+					"zul[l]?[%W]*g[u]?rub",
+				}
 			},
 			Size = 5,
 			MinLevel = 44,
@@ -1073,18 +1095,18 @@ LFGMM_GLOBAL = {
 				EN = {
 					"atal[%W]*hak[k]?ar",
 					"sunk[t]?[e]?[n]?[%W]*temp[l]?e[l]?",
-					"sunken",
+					"sunk[t]?en",
+					"tempel",
+					"temple",
 					"st",
 				},
 				DE = {
 					-- Der Tempel von Atal'Hakkar / Der versunkene Tempel
 					"[v]?[e]?[r]?sunken[e]?",
-					"tempel",
 				},
 				FR = {
 					-- Le Temple'd Atal'Hakkar / Le Temple englouti
 					"englouti",
-					"temple",
 					"templs",
 				},
 				ES = {
@@ -1099,6 +1121,9 @@ LFGMM_GLOBAL = {
 					"[%d][%d][%W]*[%d][%d][%W]*st",
 					"am[%W]*st",
 					"pm[%W]*st",
+					"temple[%W]*[o]?[f]?[%W]*ahn[%W]*qiraj",
+					"ahn[%W]*qiraj[%W]*temple",
+					"aq[%W]*temple",
 				},
 			},
 			Size = 5,
@@ -1143,7 +1168,9 @@ LFGMM_GLOBAL = {
 			Identifiers = {
 				EN = {
 					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+quest[s]?",
+					"black[%W]*rock[%W]*dep[t]?[h]?s.-[%W]+questrun[s]?",
 					"brd.-[%W]+quest[s]?",
+					"brd.-[%W]+questrun[s]?",
 					"quest[s]?.-at[t]?un[e]?ment",
 					"quest[s]?.-arena",
 					"quest[s]?.-anger[f]?[g]?[o]?[r]?[g]?[e]?",
@@ -1727,6 +1754,7 @@ LFGMM_GLOBAL = {
 					"s[c]?[h]?ol[o]?[l]?[o]?man[c]?[s]?e",
 					"sc[h]?olo",
 					"s[c]?holo",
+					"scho",
 				},
 				DE = {},
 				FR = {},
@@ -2237,7 +2265,6 @@ LFGMM_GLOBAL = {
 			Size = 40,
 			MinLevel = 60,
 			MaxLevel = 60,
-			Hide = true,
 		},
 		{
 			Index = 47,
@@ -2256,7 +2283,6 @@ LFGMM_GLOBAL = {
 			Size = 20,
 			MinLevel = 60,
 			MaxLevel = 60,
-			Hide = true,
 		},
 		{
 			Index = 48,
@@ -2278,7 +2304,6 @@ LFGMM_GLOBAL = {
 			Size = 20,
 			MinLevel = 60,
 			MaxLevel = 60,
-			Hide = true,
 		},
 		{
 			Index = 49,
@@ -2300,7 +2325,6 @@ LFGMM_GLOBAL = {
 			Size = 40,
 			MinLevel = 60,
 			MaxLevel = 60,
-			Hide = true,
 		},
 		{
 			Index = 50,
@@ -2319,7 +2343,6 @@ LFGMM_GLOBAL = {
 			Size = 40,
 			MinLevel = 60,
 			MaxLevel = 60,
-			Hide = true,
 		},
 		{
 			Index = 51,
