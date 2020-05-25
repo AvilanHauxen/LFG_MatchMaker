@@ -339,8 +339,14 @@ function LFGMM_Core_EventHandler(self, event, ...)
 
 		-- Join LFG channel
 		C_Timer.After(5, function()
-			LFGMM_GLOBAL.LFG_CHANNEL_NAME = LFGMM_Utility_GetLfgChannelName();
+			LFGMM_GLOBAL.LFG_CHANNEL_NAME = LFGMM_Utility_GetLfgChannelName();			
 			JoinTemporaryChannel(LFGMM_GLOBAL.LFG_CHANNEL_NAME);
+			
+			if (LFGMM_DB.SETTINGS.LookInTrade) then
+			    LFGMM_GLOBAL.TRADE_CHANNEL_NAME = LFGMM_Utility_GetTradeChannelName();
+				JoinTemporaryChannel(LFGMM_GLOBAL.TRADE_CHANNEL_NAME);
+			end
+
 		end);
 		
 	-- Return if not ready
@@ -421,7 +427,8 @@ function LFGMM_Core_EventHandler(self, event, ...)
 	elseif (event == "CHAT_MSG_CHANNEL") then
 		local channelName = select(9, ...);
 
-		if (channelName == LFGMM_GLOBAL.LFG_CHANNEL_NAME) then
+		if (channelName == LFGMM_GLOBAL.LFG_CHANNEL_NAME) or 
+		   (channelName == LFGMM_GLOBAL.TRADE_CHANNEL_NAME and LFGMM_DB.SETTINGS.LookInTrade) then
 			local now = time();
 			local player = select(5, ...);
 			local playerGuid = select(12, ...);
