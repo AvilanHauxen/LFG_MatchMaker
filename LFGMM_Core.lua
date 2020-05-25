@@ -339,7 +339,7 @@ function LFGMM_Core_EventHandler(self, event, ...)
 
 		-- Join LFG channel
 		C_Timer.After(5, function()
-			LFGMM_GLOBAL.LFG_CHANNEL_NAME = LFGMM_Utility_GetLfgChannelName();			
+			LFGMM_GLOBAL.LFG_CHANNEL_NAME = LFGMM_Utility_GetLfgChannelName();
 			JoinTemporaryChannel(LFGMM_GLOBAL.LFG_CHANNEL_NAME);
 			
 			if (LFGMM_DB.SETTINGS.LookInTrade) then
