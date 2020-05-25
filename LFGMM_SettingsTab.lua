@@ -29,6 +29,7 @@
 function LFGMM_SettingsTab_Initialize()
 	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_ShowMinimapButtonCheckBox, "Show minimap button", "Show button to open window on the minimap", LFGMM_DB.SETTINGS.ShowMinimapButton, LFGMM_SettingsTab_ShowMinimapButtonCheckBox_OnClick);
 	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_ShowQuestLogButtonCheckBox, "Show questlog button", "Show button to open window attached to the questlog window", LFGMM_DB.SETTINGS.ShowQuestLogButton, LFGMM_SettingsTab_ShowQuestLogButtonCheckBox_OnClick);
+	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_LookInTradeCheckBox, "Check Trade Channel", "Also check the Trade channel for Groups", LFGMM_DB.SETTINGS.LookInTrade, LFGMM_SettingsTab_LookInTradeCheckBox_OnClick);
 
 	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_HideLowLevelCheckBox, "Hide low-level", "Hide low-level dungeons from dungeon selectors", LFGMM_DB.SETTINGS.HideLowLevel, LFGMM_SettingsTab_HideLowLevelCheckBox_OnClick);
 	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_HideHighLevelCheckBox, "Hide high-level", "Hide high-level dungeons from dungeon selectors", LFGMM_DB.SETTINGS.HideHighLevel, LFGMM_SettingsTab_HideHighLevelCheckBox_OnClick);
@@ -143,6 +144,10 @@ function LFGMM_SettingsTab_ShowQuestLogButtonCheckBox_OnClick()
 	else
 		LFGMM_QuestLog_Button_Frame:Hide();
 	end
+end
+
+function LFGMM_SettingsTab_LookInTradeCheckBox_OnClick()
+    LFGMM_DB.SETTINGS.LookInTrade = LFGMM_SettingsTab_LookInTradeCheckBox:GetChecked();
 end
 
 
