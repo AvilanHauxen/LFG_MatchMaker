@@ -614,7 +614,7 @@
 						<FontString text="Identifier languages" inherits="GameFontNormal">
 							<Anchors>
 								<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-									<Offset x="-55" y="-110" />
+									<Offset x="-55" y="-120" />
 								</Anchor>
 							</Anchors>
 						</FontString>
@@ -701,6 +701,16 @@
 							</Anchor>
 						</Anchors>
 					</CheckButton>
+
+					<!-- dev -->
+					<CheckButton name="LFGMM_SettingsTab_LookInTradeCheckBox" inherits="ChatConfigCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="TOPRIGHT">
+								<Offset x="-170" y="-100" />
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<!-- dev -->
 					
 					<CheckButton name="LFGMM_SettingsTab_HideLowLevelCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
@@ -737,7 +747,7 @@
 					<Frame name="LFGMM_SettingsTab_IdentifierLanguagesDropDown" inherits="UIDropDownMenuTemplate">
 						<Anchors>
 							<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-								<Offset x="-18" y="-135" />
+								<Offset x="-18" y="-145" />
 							</Anchor>
 						</Anchors>
 					</Frame>

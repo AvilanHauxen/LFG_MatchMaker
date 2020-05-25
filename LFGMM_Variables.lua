@@ -53,6 +53,7 @@ function LFGMM_Load()
 				RequestInviteMessageTemplate = "Invite for group ({L} {C})",
 				ShowQuestLogButton = true,
 				ShowMinimapButton = true,
+				LookInTrade = false,
 				HideLowLevel = false,
 				HideHighLevel = false,
 				HidePvp = false,
