@@ -578,3 +578,21 @@ function LFGMM_Utility_GetLfgChannelName()
 	return lfgChannelName;
 end
 
+function LFGMM_Utility_GetTradeChannelName()
+	local lfgChannelName = "Trade";
+	
+	for _,channel in ipairs({ EnumerateServerChannels() }) do
+		if (
+			channel == "Trade" or 			
+			channel == "Handel" or
+			channel == "Comercio" or	
+			channel == "Comércio" or
+			channel == "Commerce"
+		) then
+			lfgChannelName = channel;
+			break;
+		end
+	end
+
+	return lfgChannelName;
+end
