@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.8
+	Version: 1.0.9
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -27,15 +27,16 @@
 
 
 function LFGMM_SettingsTab_Initialize()
-	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_ShowMinimapButtonCheckBox, "Show minimap button", "Show button to open window on the minimap", LFGMM_DB.SETTINGS.ShowMinimapButton, LFGMM_SettingsTab_ShowMinimapButtonCheckBox_OnClick);
-	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_ShowQuestLogButtonCheckBox, "Show questlog button", "Show button to open window attached to the questlog window", LFGMM_DB.SETTINGS.ShowQuestLogButton, LFGMM_SettingsTab_ShowQuestLogButtonCheckBox_OnClick);
-
+	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_ShowMinimapButtonCheckBox, "Show minimap button", "Show button to open LFG MatchMaker on the minimap", LFGMM_DB.SETTINGS.ShowMinimapButton, LFGMM_SettingsTab_ShowMinimapButtonCheckBox_OnClick);
+	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_ShowQuestLogButtonCheckBox, "Show questlog button", "Show button to open LFG MatchMaker attached to the questlog window", LFGMM_DB.SETTINGS.ShowQuestLogButton, LFGMM_SettingsTab_ShowQuestLogButtonCheckBox_OnClick);
 	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_HideLowLevelCheckBox, "Hide low-level", "Hide low-level dungeons from dungeon selectors", LFGMM_DB.SETTINGS.HideLowLevel, LFGMM_SettingsTab_HideLowLevelCheckBox_OnClick);
 	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_HideHighLevelCheckBox, "Hide high-level", "Hide high-level dungeons from dungeon selectors", LFGMM_DB.SETTINGS.HideHighLevel, LFGMM_SettingsTab_HideHighLevelCheckBox_OnClick);
 	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_HidePvpCheckBox, "Hide PvP", "Hide PvP from dungeon selectors", LFGMM_DB.SETTINGS.HidePvp, LFGMM_SettingsTab_HidePvpCheckBox_OnClick);
 	LFGMM_Utility_InitializeCheckbox(LFGMM_SettingsTab_HideRaidsCheckBox, "Hide raids", "Hide raids from dungeon selectors", LFGMM_DB.SETTINGS.HideRaids, LFGMM_SettingsTab_HideRaidsCheckBox_OnClick);
 
-	LFGMM_Utility_InitializeDropDown(LFGMM_SettingsTab_IdentifierLanguagesDropDown, 140, LFGMM_SettingsTab_IdentifierLanguagesDropDown_OnInitialize);
+	LFGMM_Utility_InitializeDropDown(LFGMM_SettingsTab_ChannelsDropDown, 130, LFGMM_SettingsTab_ChannelsDropDown_OnInitialize);
+	LFGMM_Utility_InitializeDropDown(LFGMM_SettingsTab_IdentifierLanguagesDropDown, 130, LFGMM_SettingsTab_IdentifierLanguagesDropDown_OnInitialize);
+	LFGMM_SettingsTab_InfoWindowLocationButton:SetScript("OnClick", LFGMM_SettingsTab_InfoWindowLocationButton_OnClick);
 
 	LFGMM_SettingsTab_MaxMessageAgeSlider:SetScript("OnValueChanged", LFGMM_SettingsTab_MaxMessageAgeSlider_OnValueChanged);
 	LFGMM_SettingsTab_MaxMessageAgeSlider:SetMinMaxValues(5, 30);
@@ -54,6 +55,7 @@ function LFGMM_SettingsTab_Initialize()
 	LFGMM_SettingsTab_RequestInviteMessageTemplateInputBox:SetScript("OnTextChanged", LFGMM_SettingsTab_UpdateRequestInviteMessage);
 	LFGMM_SettingsTab_RequestInviteMessageTemplateInputBox:SetText(LFGMM_DB.SETTINGS.RequestInviteMessageTemplate);
 
+	LFGMM_SettingsTab_ChannelsDropDownInfoButton:SetScript("OnClick", LFGMM_SettingsTab_ChannelsDropDownInfoButton_OnClick);
 	LFGMM_SettingsTab_RequestInviteMessageInfoButton:SetScript("OnClick", LFGMM_SettingsTab_RequestInviteMessageInfoButton_OnClick);
 
 	LFGMM_Utility_InitializeHiddenSlider(LFGMM_SettingsTab_RequestInviteMessagePreviewSlider, LFGMM_SettingsTab_RequestInviteMessagePreview_Refresh);
@@ -68,6 +70,7 @@ function LFGMM_SettingsTab_Show()
 	LFGMM_LfgTab_BroadcastMessageInfoWindow:Hide();
 	LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
 	LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
+	LFGMM_SettingsTab_ChannelsDropDownInfoWindow:Hide();
 	LFGMM_ListTab_MessageInfoWindow_Hide();
 	
 	LFGMM_LfgTab:Hide();
@@ -79,6 +82,66 @@ function LFGMM_SettingsTab_Show()
 	LFGMM_MainWindowTab2:SetPoint ("CENTER", "LFGMM_MainWindow", "BOTTOMLEFT",   135, -14);
 	LFGMM_MainWindowTab3:SetPoint ("CENTER", "LFGMM_MainWindow", "BOTTOMRIGHT", -140, -14);
 	LFGMM_MainWindowTab4:SetPoint ("CENTER", "LFGMM_MainWindow", "BOTTOMRIGHT",  -60, -17);
+end
+
+
+function LFGMM_SettingsTab_ChannelsDropDown_OnInitialize(self, level)
+	local lfgItem = UIDropDownMenu_CreateInfo();
+	lfgItem.keepShownOnClick = true;
+	lfgItem.isNotRadio = true;
+	lfgItem.text = LFGMM_GLOBAL.LFG_CHANNEL_NAME;
+	lfgItem.checked = true;
+	lfgItem.disabled = true;
+	UIDropDownMenu_AddButton(lfgItem, 1);
+	
+	local generalItem = UIDropDownMenu_CreateInfo();
+	generalItem.keepShownOnClick = true;
+	generalItem.isNotRadio = true;
+	generalItem.text = LFGMM_GLOBAL.GENERAL_CHANNEL_NAME;
+	generalItem.checked = LFGMM_DB.SETTINGS.UseGeneralChannel;
+	generalItem.func = function(self)
+		LFGMM_DB.SETTINGS.UseGeneralChannel = self.checked;
+
+		if (self.checked) then
+			LFGMM_Core_JoinChannels();
+		else
+			LFGMM_SettingsTab_ChannelsDropDown_UpdateText();
+		end
+	end
+	UIDropDownMenu_AddButton(generalItem, 1);
+	
+	local tradeItem = UIDropDownMenu_CreateInfo();
+	tradeItem.keepShownOnClick = true;
+	tradeItem.isNotRadio = true;
+	tradeItem.text = LFGMM_GLOBAL.TRADE_CHANNEL_NAME;
+	tradeItem.checked = LFGMM_DB.SETTINGS.UseTradeChannel;
+	tradeItem.func = function(self)
+		LFGMM_DB.SETTINGS.UseTradeChannel = self.checked;
+		
+		if (self.checked) then
+			LFGMM_Core_JoinChannels();
+		else
+			LFGMM_SettingsTab_ChannelsDropDown_UpdateText();
+		end
+	end
+	UIDropDownMenu_AddButton(tradeItem, 1);
+	
+	LFGMM_SettingsTab_ChannelsDropDown_UpdateText();
+end
+
+
+function LFGMM_SettingsTab_ChannelsDropDown_UpdateText()
+	local text = "LFG";
+	
+	if (LFGMM_DB.SETTINGS.UseGeneralChannel) then
+		text = text .. ", " .. LFGMM_GLOBAL.GENERAL_CHANNEL_NAME;
+	end
+
+	if (LFGMM_DB.SETTINGS.UseTradeChannel) then
+		text = text .. ", " .. LFGMM_GLOBAL.TRADE_CHANNEL_NAME;
+	end
+
+	UIDropDownMenu_SetText(LFGMM_SettingsTab_ChannelsDropDown, text);
 end
 
 
@@ -125,13 +188,11 @@ end
 
 
 function LFGMM_SettingsTab_ShowMinimapButtonCheckBox_OnClick()
-	LFGMM_DB.SETTINGS.ShowMinimapButton = LFGMM_SettingsTab_ShowMinimapButtonCheckBox:GetChecked();
+	local enabled = LFGMM_SettingsTab_ShowMinimapButtonCheckBox:GetChecked();
+	LFGMM_DB.SETTINGS.ShowMinimapButton = enabled;
+	LFGMM_DB.SETTINGS.MinimapLibDBSettings.hide = not enabled;
 
-	if (LFGMM_DB.SETTINGS.ShowMinimapButton) then
-		LFGMM_MinimapButton_Frame:Show();
-	else
-		LFGMM_MinimapButton_Frame:Hide();
-	end
+	LFGMM_MinimapButton_ToggleVisibility();
 end
 
 
@@ -142,6 +203,17 @@ function LFGMM_SettingsTab_ShowQuestLogButtonCheckBox_OnClick()
 		LFGMM_QuestLog_Button_Frame:Show();
 	else
 		LFGMM_QuestLog_Button_Frame:Hide();
+	end
+end
+
+
+function LFGMM_SettingsTab_InfoWindowLocationButton_OnClick()
+	if (LFGMM_DB.SETTINGS.InfoWindowLocation == "right") then
+		LFGMM_DB.SETTINGS.InfoWindowLocation = "left";
+		LFGMM_Core_SetInfoWindowLocations();
+	else
+		LFGMM_DB.SETTINGS.InfoWindowLocation = "right";
+		LFGMM_Core_SetInfoWindowLocations();
 	end
 end
 
@@ -199,7 +271,6 @@ function LFGMM_SettingsTab_UpdateRequestInviteMessage()
 	message = string.gsub(message, "{[Ll]}", LFGMM_GLOBAL.PLAYER_LEVEL);
 	message = string.gsub(message, "{[Cc]}", LFGMM_GLOBAL.PLAYER_CLASS.Name);
 	message = string.gsub(message, "{[Xx]}", LFGMM_GLOBAL.PLAYER_CLASS.LocalizedName);
-	message = string.gsub(message, "{.*}", "");
 	message = string.sub(message, 1, 255);
 
 	-- Store message
@@ -229,6 +300,18 @@ function LFGMM_SettingsTab_RequestInviteMessagePreview_Refresh()
 end
 
 
+function LFGMM_SettingsTab_ChannelsDropDownInfoButton_OnClick()
+	if (LFGMM_SettingsTab_ChannelsDropDownInfoWindow:IsVisible()) then
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:Hide();
+	else
+		LFGMM_LfgTab_BroadcastMessageInfoWindow:Hide();
+		LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
+		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:Show();
+	end
+end
+
+
 function LFGMM_SettingsTab_RequestInviteMessageInfoButton_OnClick()
 	if (LFGMM_SettingsTab_RequestInviteMessageInfoWindow:IsVisible()) then
 		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
@@ -236,6 +319,7 @@ function LFGMM_SettingsTab_RequestInviteMessageInfoButton_OnClick()
 		LFGMM_LfgTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Show();
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:Hide();
 	end
 end
 

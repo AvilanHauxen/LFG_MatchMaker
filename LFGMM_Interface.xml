@@ -1,6 +1,6 @@
 <!--
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.8
+	Version: 1.0.9
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -24,6 +24,12 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+
+	<!-- LIBRARIES -->
+	<Script file="Libs\LibStub\LibStub.lua"/>
+	<Script file="Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua"/>
+	<Script file="Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua"/>
+	<Script file="Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua"/>
 
 	<!-- LIST ENTRY TEMPLATE -->
 	<Frame name="LFGMM_ListTab_EntryTemplate" virtual="true" inherits="InsetFrameTemplate3">
@@ -89,71 +95,6 @@
 				<Scripts>
 					<OnClick>
 						LFGMM_ListTab_MessageInfoWindow_Show(self.Message);
-					</OnClick>
-				</Scripts>
-			</Button>
-		</Frames>
-	</Frame>
-			
-	<!-- MINIMAP BUTTON FRAME -->
-	<Frame name="LFGMM_MinimapButton_Frame" hidden="true" movable="true" parent="Minimap">
-		<Anchors>
-			<Anchor point="CENTER" relativePoint="CENTER">
-				<Offset x="0" y="0" />
-			</Anchor>
-		</Anchors>
-
-		<Size x="32" y="32" />
-	
-		<Frames>
-			<Button name="LFGMM_MinimapButton_Button" enableMouse="true">
-				<Anchors>
-					<Anchor point="TOPLEFT" />
-					<Anchor point="BOTTOMRIGHT" />
-				</Anchors>
-				
-				<Layers>
-					<Layer level="ARTWORK">
-						<Texture file="Interface\FriendsFrame\UI-Toast-Background">
-							<Size x="19" y="19" />
-
-							<Anchors>
-								<Anchor point="CENTER" />
-							</Anchors>
-						</Texture>
-					</Layer>
-								
-					<Layer level="OVERLAY">
-						<Texture file="Interface\CHARACTERFRAME\TotemBorder">
-							<Size x="32" y="32" />
-
-							<Anchors>
-								<Anchor point="CENTER" />
-							</Anchors>
-						</Texture>
-						
-						<Texture file="Interface\BUTTONS\UI-Checkbox-SwordCheck">
-							<Size x="24" y="24" />
-							
-							<Anchors>
-								<Anchor point="CENTER">
-									<Offset x="5" y="-5" />
-								</Anchor>
-							</Anchors>
-						</Texture>
-					</Layer>
-				</Layers>
-				
-				<Scripts>
-					<OnEnter>
-						GameTooltip:SetOwner(self, "ANCHOR_LEFT");
-						GameTooltip:SetText("LFG MatchMaker", 1, 1, 1);
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-					<OnClick>
-						LFGMM_Core_MainWindow_ToggleShow();
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -611,10 +552,56 @@
 
 				<Layers>
 					<Layer level="ARTWORK">
+						<Texture file="Interface\GossipFrame\BinderGossipIcon">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="TOPRIGHT" >
+									<Offset x="-190" y="-49" />
+								</Anchor>
+							</Anchors>
+
+							<Size x="16" y="16" />
+						</Texture>
+				
+						<FontString text="Channels" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="TOPRIGHT">
+									<Offset x="-170" y="-49" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						
+						<Texture file="Interface\GossipFrame\BinderGossipIcon">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="TOPRIGHT" >
+									<Offset x="-190" y="-99" />
+								</Anchor>
+							</Anchors>
+
+							<Size x="16" y="16" />
+						</Texture>
+				
 						<FontString text="Identifier languages" inherits="GameFontNormal">
 							<Anchors>
-								<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-									<Offset x="-55" y="-110" />
+								<Anchor point="LEFT" relativePoint="TOPRIGHT">
+									<Offset x="-170" y="-99" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+
+						<Texture file="Interface\GossipFrame\BinderGossipIcon">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="TOPRIGHT" >
+									<Offset x="-190" y="-149" />
+								</Anchor>
+							</Anchors>
+
+							<Size x="16" y="16" />
+						</Texture>
+						
+						<FontString text="Info window location" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="TOPRIGHT">
+									<Offset x="-170" y="-149" />
 								</Anchor>
 							</Anchors>
 						</FontString>
@@ -622,7 +609,7 @@
 						<FontString text="Max message age" inherits="GameFontNormal">
 							<Anchors>
 								<Anchor point="LEFT" relativePoint="TOPLEFT">
-									<Offset x="20" y="-180" />
+									<Offset x="20" y="-205" />
 								</Anchor>
 							</Anchors>
 						</FontString>
@@ -630,15 +617,15 @@
 						<FontString name="LFGMM_SettingsTab_MaxMessageAgeValue" inherits="GameFontHighlight">
 							<Anchors>
 								<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-									<Offset x="-20" y="-180" />
+									<Offset x="-20" y="-205" />
 								</Anchor>
 							</Anchors>
 						</FontString>
 
-						<FontString text="(Search/List only match/show messages more recent than the maximum)" inherits="GameFontHighlightSmall">
+						<FontString text="(Search &amp; List only match/show messages more recent than the maximum)" inherits="GameFontHighlightSmall">
 							<Anchors>
 								<Anchor point="CENTER" relativePoint="TOP">
-									<Offset x="0" y="-200" />
+									<Offset x="0" y="-225" />
 								</Anchor>
 							</Anchors>
 						</FontString>
@@ -646,7 +633,7 @@
 						<FontString text="Broadcast interval" inherits="GameFontNormal">
 							<Anchors>
 								<Anchor point="LEFT" relativePoint="TOPLEFT">
-									<Offset x="20" y="-240" />
+									<Offset x="20" y="-255" />
 								</Anchor>
 							</Anchors>
 						</FontString>
@@ -654,7 +641,7 @@
 						<FontString name="LFGMM_SettingsTab_BroadcastIntervalValue" inherits="GameFontHighlight">
 							<Anchors>
 								<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-									<Offset x="-20" y="-240" />
+									<Offset x="-20" y="-255" />
 								</Anchor>
 							</Anchors>
 						</FontString>
@@ -662,7 +649,7 @@
 						<FontString text="(Interval at which dialog for re-broadcast to LFG channel will be shown)" inherits="GameFontHighlightSmall">
 							<Anchors>
 								<Anchor point="CENTER" relativePoint="TOP">
-									<Offset x="0" y="-260" />
+									<Offset x="0" y="-275" />
 								</Anchor>
 							</Anchors>
 						</FontString>
@@ -670,15 +657,15 @@
 						<FontString text="Request invite message" inherits="GameFontNormal">
 							<Anchors>
 								<Anchor point="LEFT" relativePoint="TOPLEFT">
-									<Offset x="20" y="-300" />
+									<Offset x="20" y="-305" />
 								</Anchor>
 							</Anchors>
 						</FontString>
 						
 						<FontString name="LFGMM_SettingsTab_RequestInviteMessagePreview" inherits="GameFontHighlight">
 							<Anchors>
-								<Anchor point="CENTER" relativePoint="TOP">
-									<Offset x="0" y="-352" />
+								<Anchor point="CENTER" relativePoint="CENTER">
+									<Offset x="0" y="-152" />
 								</Anchor>
 							</Anchors>
 						</FontString>
@@ -688,16 +675,16 @@
 				<Frames>
 					<CheckButton name="LFGMM_SettingsTab_ShowMinimapButtonCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
-							<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-								<Offset x="-170" y="-50" />
+							<Anchor point="LEFT" relativePoint="TOPLEFT">
+								<Offset x="20" y="-50" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
 					
 					<CheckButton name="LFGMM_SettingsTab_ShowQuestLogButtonCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
-							<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-								<Offset x="-170" y="-75" />
+							<Anchor point="LEFT" relativePoint="TOPLEFT">
+								<Offset x="20" y="-75" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
@@ -705,7 +692,7 @@
 					<CheckButton name="LFGMM_SettingsTab_HideLowLevelCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
 							<Anchor point="LEFT" relativePoint="TOPLEFT">
-								<Offset x="20" y="-50" />
+								<Offset x="20" y="-100" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
@@ -713,7 +700,7 @@
 					<CheckButton name="LFGMM_SettingsTab_HideHighLevelCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
 							<Anchor point="LEFT" relativePoint="TOPLEFT">
-								<Offset x="20" y="-75" />
+								<Offset x="20" y="-125" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
@@ -721,7 +708,7 @@
 					<CheckButton name="LFGMM_SettingsTab_HidePvpCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
 							<Anchor point="LEFT" relativePoint="TOPLEFT">
-								<Offset x="20" y="-100" />
+								<Offset x="20" y="-150" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
@@ -729,23 +716,51 @@
 					<CheckButton name="LFGMM_SettingsTab_HideRaidsCheckBox" inherits="ChatConfigCheckButtonTemplate">
 						<Anchors>
 							<Anchor point="LEFT" relativePoint="TOPLEFT">
-								<Offset x="20" y="-125" />
+								<Offset x="20" y="-175" />
 							</Anchor>
 						</Anchors>
 					</CheckButton>
-					
-					<Frame name="LFGMM_SettingsTab_IdentifierLanguagesDropDown" inherits="UIDropDownMenuTemplate">
+
+					<Button name="LFGMM_SettingsTab_ChannelsDropDownInfoButton" text="?" inherits="UIPanelButtonTemplate">
 						<Anchors>
-							<Anchor point="RIGHT" relativePoint="TOPRIGHT">
-								<Offset x="-18" y="-135" />
+							<Anchor point="LEFT" relativePoint="TOPRIGHT">
+								<Offset x="-49" y="-49" />
+							</Anchor>
+						</Anchors>
+
+						<Size x="25" y="25" />
+					</Button>
+					
+					<Frame name="LFGMM_SettingsTab_ChannelsDropDown" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="TOPRIGHT">
+								<Offset x="-188" y="-75" />
 							</Anchor>
 						</Anchors>
 					</Frame>
+
+					<Frame name="LFGMM_SettingsTab_IdentifierLanguagesDropDown" inherits="UIDropDownMenuTemplate">
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="TOPRIGHT">
+								<Offset x="-188" y="-125" />
+							</Anchor>
+						</Anchors>
+					</Frame>
+
+					<Button name="LFGMM_SettingsTab_InfoWindowLocationButton" text="right >" inherits="UIPanelButtonTemplate">
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="TOPRIGHT">
+								<Offset x="-171" y="-172" />
+							</Anchor>
+						</Anchors>
+
+						<Size x="147" y="25" />
+					</Button>
 					
 					<Slider name="LFGMM_SettingsTab_MaxMessageAgeSlider" inherits="OptionsSliderTemplate">
 						<Anchors>
 							<Anchor point="CENTER" relativePoint="TOP">
-								<Offset x="20" y="-180" />
+								<Offset x="20" y="-205" />
 							</Anchor>
 						</Anchors>
 
@@ -755,7 +770,7 @@
 					<Slider name="LFGMM_SettingsTab_BroadcastIntervalSlider" inherits="OptionsSliderTemplate">
 						<Anchors>
 							<Anchor point="CENTER" relativePoint="TOP">
-								<Offset x="20" y="-240" />
+								<Offset x="20" y="-255" />
 							</Anchor>
 						</Anchors>
 
@@ -764,8 +779,8 @@
 					
 					<EditBox name="LFGMM_SettingsTab_RequestInviteMessageTemplateInputBox" autoFocus="false" letters="255" inherits="InputBoxTemplate">
 						<Anchors>
-							<Anchor point="CENTER" relativePoint="TOP">
-								<Offset x="0" y="-325" />
+							<Anchor point="CENTER" relativePoint="CENTER">
+								<Offset x="0" y="-125" />
 							</Anchor>
 						</Anchors>
 
@@ -774,8 +789,8 @@
 					
 					<Button name="LFGMM_SettingsTab_RequestInviteMessageInfoButton" text="?" inherits="UIPanelButtonTemplate">
 						<Anchors>
-							<Anchor point="CENTER" relativePoint="TOP">
-								<Offset x="150" y="-325" />
+							<Anchor point="CENTER" relativePoint="CENTER">
+								<Offset x="150" y="-125" />
 							</Anchor>
 						</Anchors>
 
@@ -784,8 +799,8 @@
 					
 					<Slider name="LFGMM_SettingsTab_RequestInviteMessagePreviewSlider" inherits="OptionsSliderTemplate">
 						<Anchors>
-							<Anchor point="CENTER" relativePoint="TOP">
-								<Offset x="0" y="-375" />
+							<Anchor point="CENTER" relativePoint="CENTER">
+								<Offset x="0" y="-175" />
 							</Anchor>
 						</Anchors>
 
@@ -1199,6 +1214,41 @@
 							<Offset x="0" y="20" />
 						</Anchor>
 					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+	
+	<!-- CHANNELS DROPDOWN INFO WINDOW -->
+	<Frame name="LFGMM_SettingsTab_ChannelsDropDownInfoWindow" hidden="true" enableMouse="true" frameStrata="HIGH" parent="LFGMM_MainWindow" inherits="TooltipBorderedFrameTemplate">
+		<Anchors>
+			<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+				<Offset x="10" y="-2" />
+			</Anchor>
+		</Anchors>
+
+		<Size x="240" y="105" />
+		
+		<Layers>
+			<Layer>
+				<FontString text="Additional channels" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+							<Offset x="15" y="-15" />
+						</Anchor>
+					</Anchors>
+
+					<Size x="210" />
+				</FontString>
+
+				<FontString text="Messages from additional channels will only be listed when both messagetype (LFG/LFM) and dungeon is matched. Partial matches will be ignored." inherits="GameFontHighlight" nonspacewrap="true">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+							<Offset x="15" y="-30" />
+						</Anchor>
+					</Anchors>
+					
+					<Size x="210" />
 				</FontString>
 			</Layer>
 		</Layers>
