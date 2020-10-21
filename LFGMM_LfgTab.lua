@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.8
+	Version: 1.0.9
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -58,6 +58,7 @@ function LFGMM_LfgTab_Show()
 	LFGMM_LfgTab_BroadcastMessageInfoWindow:Hide();
 	LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
 	LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
+	LFGMM_SettingsTab_ChannelsDropDownInfoWindow:Hide();
 	LFGMM_ListTab_MessageInfoWindow_Hide();
 
 	LFGMM_LfgTab:Show();
@@ -479,6 +480,7 @@ function LFGMM_LfgTab_StartStopSearchButton_OnClick()
 	
 	-- Refresh
 	LFGMM_LfgTab_Refresh();
+	LFGMM_MinimapButton_Refresh();
 end
 
 
@@ -535,7 +537,6 @@ function LFGMM_LfgTab_UpdateBroadcastMessage()
 	message = string.gsub(message, "{[Xx]}", LFGMM_GLOBAL.PLAYER_CLASS.LocalizedName);
 	message = string.gsub(message, "{[Dd]}", dungeonsText);
 	message = string.gsub(message, "{[Aa]}", abbreviationsText);
-	message = string.gsub(message, "{.*}", "");
 	message = string.sub(message, 1, 255);
 
 	-- Store broadcast message
@@ -608,6 +609,7 @@ function LFGMM_LfgTab_BroadcastMessageInfoButton_OnClick()
 		LFGMM_LfgTab_BroadcastMessageInfoWindow:Show();
 		LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:Hide();
 		LFGMM_ListTab_MessageInfoWindow:Hide();
 	end
 end

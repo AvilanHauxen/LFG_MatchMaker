@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.8
+	Version: 1.0.9
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -26,47 +26,65 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 
+local dbIcon, dbIconData;
+
 function LFGMM_MinimapButton_Initialize()
-	LFGMM_MinimapButton_Button:RegisterForDrag("LeftButton");
-	LFGMM_MinimapButton_Button:SetScript("OnDragStart", LFGMM_MinimapButton_Frame_OnDragStart);
-	LFGMM_MinimapButton_Button:SetScript("OnDragStop", LFGMM_MinimapButton_Frame_OnDragStop);
+	-- Initialize LibDB
+	dbIcon = LibStub("LibDBIcon-1.0");
+	dataBroker = LibStub("LibDataBroker-1.1");
+
+	-- Create minimap button config
+	dbIconData = dataBroker:NewDataObject(
+		"LFG MatchMaker",
+		{
+			type = "data source",
+			text = "LFG MatchMaker",
+			icon = "Interface\\BUTTONS\\UI-Checkbox-SwordCheck",
+			iconCoords = { -0.12, 0.68, -0.15, 0.65 },
+			iconR = 1,
+			iconG = 1,
+			iconB = 1,
+			OnClick = LFGMM_MinimapButton_Button_OnClick,
+			OnTooltipShow = function (tooltip)
+				tooltip:AddLine("LFG MatchMaker", 1, 1, 1);
+			end,
+		}
+	);
 	
-	LFGMM_MinimapButton_SetPosition(LFGMM_DB.SETTINGS.MinimapButtonPosition);
-	
-	if (LFGMM_DB.SETTINGS.ShowMinimapButton) then
-		LFGMM_MinimapButton_Frame:Show();
+	-- Add button
+	dbIcon:Register("LFG MatchMaker", dbIconData, LFGMM_DB.SETTINGS.MinimapLibDBSettings);
+
+	-- Toggle show
+	LFGMM_MinimapButton_ToggleVisibility();
+end
+
+
+function LFGMM_MinimapButton_Refresh()
+	if (LFGMM_DB.SEARCH.LFG.Running or LFGMM_DB.SEARCH.LFM.Running) then
+		dbIconData.iconR = 0.2;
+		dbIconData.iconG = 1;
+		dbIconData.iconB = 0.2;
+	else
+		dbIconData.iconR = 1;
+		dbIconData.iconG = 1;
+		dbIconData.iconB = 1;
 	end
 end
 
 
-function LFGMM_MinimapButton_Frame_OnDragStart()
-	LFGMM_MinimapButton_Frame:StartMoving();
-	LFGMM_MinimapButton_Frame:SetScript("OnUpdate", LFGMM_MinimapButton_SetNewPosition);
+function LFGMM_MinimapButton_ToggleVisibility()
+	if (LFGMM_DB.SETTINGS.ShowMinimapButton) then
+		dbIcon:Show("LFG MatchMaker");
+		
+		-- Fix overlapping icons display issue
+		dbIcon:GetMinimapButton("LFG MatchMaker"):SetFrameLevel(10);
+	else
+		dbIcon:Hide("LFG MatchMaker");
+	end
 end
 
 
-function LFGMM_MinimapButton_Frame_OnDragStop()
-	LFGMM_MinimapButton_Frame:StopMovingOrSizing();
-	LFGMM_MinimapButton_Frame:SetScript("OnUpdate", nil);
-	LFGMM_MinimapButton_SetNewPosition();
-end
-
-
-function LFGMM_MinimapButton_SetNewPosition()
-	local cursorXpos, cursorYpos = GetCursorPosition();
-	local minX = Minimap:GetLeft();
-	local minY = Minimap:GetBottom();
-	local targetPosX = minX - cursorXpos / Minimap:GetEffectiveScale() + 70;
-	local targetPosY = cursorYpos / Minimap:GetEffectiveScale() - minY - 70;
-	local buttonPosition = math.deg(math.atan2(targetPosY, targetPosX));
-
-	LFGMM_DB.SETTINGS.MinimapButtonPosition = buttonPosition;
-	LFGMM_MinimapButton_SetPosition(buttonPosition);
-end
-
-
-function LFGMM_MinimapButton_SetPosition(buttonPosition)
-	LFGMM_MinimapButton_Frame:ClearAllPoints();
-	LFGMM_MinimapButton_Frame:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 52 - (80 * cos(buttonPosition)), (80 * sin(buttonPosition)) - 52);
+function LFGMM_MinimapButton_Button_OnClick()
+	LFGMM_Core_MainWindow_ToggleShow();
 end
 

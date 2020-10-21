@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.8
+	Version: 1.0.9
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -27,7 +27,7 @@
 
 
 function LFGMM_Load()
-	LFGMM_DB_VERSION = 3;
+	LFGMM_DB_VERSION = 4;
 	
 	-- Get locale language
 	local locale = GetLocale();
@@ -49,6 +49,7 @@ function LFGMM_Load()
 				MessageTimeout = 30,
 				MaxMessageAge = 10,
 				BroadcastInterval = 2,
+				InfoWindowLocation = "right",
 				RequestInviteMessage = "",
 				RequestInviteMessageTemplate = "Invite for group ({L} {C})",
 				ShowQuestLogButton = true,
@@ -57,8 +58,10 @@ function LFGMM_Load()
 				HideHighLevel = false,
 				HidePvp = false,
 				HideRaids = false,
-				MinimapButtonPosition = -35,
+				MinimapLibDBSettings = {},
 				IdentifierLanguages = { "EN" },
+				UseTradeChannel = false,
+				UseGeneralChannel = false,
 			},
 			LIST = {
 				Dungeons = {},
@@ -119,6 +122,13 @@ function LFGMM_Load()
 			LFGMM_DB.SEARCH.LFM.AutoStop = true;
 		end
 		
+		if (LFGMM_DB.VERSION <= 3) then
+			LFGMM_DB.SETTINGS.MinimapLibDBSettings = {};
+			LFGMM_DB.SETTINGS.InfoWindowLocation = "right";
+			LFGMM_DB.SETTINGS.UseTradeChannel = false;
+			LFGMM_DB.SETTINGS.UseGeneralChannel = false;
+		end
+		
 		if (LFGMM_DB.VERSION < LFGMM_DB_VERSION) then
 			LFGMM_DB.VERSION = LFGMM_DB_VERSION;
 		end
@@ -146,6 +156,9 @@ LFGMM_GLOBAL = {
 	PLAYER_LEVEL = 0,
 	PLAYER_CLASS = "",
 	LFG_CHANNEL_NAME = "LookingForGroup",
+	GENERAL_CHANNEL_NAME = "General",
+	TRADE_CHANNEL_NAME = "Trade",
+	TRADE_CHANNEL_AVAILABLE = false,
 	GROUP_MEMBERS = {},
 	MESSAGES = {},
 	LANGUAGES = {
@@ -2221,9 +2234,11 @@ LFGMM_GLOBAL = {
 			NotIdentifiers = {
 				EN = {
 					"ony[i]?[x]?[iy]?[e]?[a]?[%W]*at[t]?un[e]?ment",
+					"ony[i]?[x]?[iy]?[e]?[a]?[%W]*at[t]?une",
 					"ony[i]?[x]?[iy]?[e]?[a]?[%W]*q[u]?[e]?[s]?[t]?[s]?",
 					"ony[i]?[x]?[iy]?[e]?[a]?[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
 					"onix[iy][e]?[a]?[%W]*at[t]?un[e]?ment",
+					"onix[iy][e]?[a]?[%W]*at[t]?une",
 					"onix[iy][e]?[a]?[%W]*q[u]?[e]?[s]?[t]?[s]?",
 					"onix[iy][e]?[a]?[%W]*pre[%W]*[q]?[u]?[e]?[s]?[t]?[s]?",
 				},

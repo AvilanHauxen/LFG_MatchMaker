@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.8
+	Version: 1.0.9
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -56,6 +56,7 @@ function LFGMM_ListTab_Show()
 	LFGMM_LfgTab_BroadcastMessageInfoWindow:Hide();
 	LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
 	LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
+	LFGMM_SettingsTab_ChannelsDropDownInfoWindow:Hide();
 	LFGMM_ListTab_MessageInfoWindow_Hide();
 
 	LFGMM_LfgTab:Hide();
@@ -672,7 +673,8 @@ function LFGMM_ListTab_MessageInfoWindow_Show(message)
 		LFGMM_LfgTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
-
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:Hide();
+		
 		-- Show and refresh
 		LFGMM_ListTab_MessageInfoWindow:Show();
 		LFGMM_ListTab_MessageInfoWindow_Refresh();

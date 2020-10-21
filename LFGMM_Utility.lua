@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.8
+	Version: 1.0.9
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -563,7 +563,7 @@ function LFGMM_Utility_GetLfgChannelName()
 	
 	for _,channel in ipairs({ EnumerateServerChannels() }) do
 		if (
-			channel == "LookingForGroup" or 
+			channel == "LookingForGroup" or
 			channel == "BuscarGrupo" or
 			channel == "ProcurandoGrupo" or
 			channel == "SucheNachGruppe" or
@@ -576,5 +576,46 @@ function LFGMM_Utility_GetLfgChannelName()
 	end
 
 	return lfgChannelName;
+end
+
+
+function LFGMM_Utility_GetGeneralChannelName()
+	local generalChannelName = "General";
+
+	for _,channel in ipairs({ EnumerateServerChannels() }) do
+		if (
+			channel == "General" or
+			channel == "Geral" or
+			channel == "Allgemein" or
+			channel == "Général"
+		) then
+			generalChannelName = channel;
+			break;
+		end
+	end
+
+	return generalChannelName;
+end
+
+
+function LFGMM_Utility_GetTradeChannelName()
+	local tradeChannelName = "Trade";
+	local isAvailable = false;
+
+	for _,channel in ipairs({ EnumerateServerChannels() }) do
+		if (
+			channel == "Trade" or
+			channel == "Comercio" or
+			channel == "Comércio" or
+			channel == "Handel" or
+			channel == "Commerce"
+		) then
+			tradeChannelName = channel;
+			isAvailable = true;
+			break;
+		end
+	end
+
+	return tradeChannelName, isAvailable;
 end
 

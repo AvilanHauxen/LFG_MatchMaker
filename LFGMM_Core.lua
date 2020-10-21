@@ -1,6 +1,6 @@
 --[[
 	LFG MatchMaker - Addon for World of Warcraft.
-	Version: 1.0.8
+	Version: 1.0.9
 	URL: https://github.com/AvilanHauxen/LFG_MatchMaker
 	Copyright (C) 2019-2020 L.I.R.
 
@@ -36,6 +36,8 @@ function LFGMM_Core_Initialize()
 	LFGMM_PopupWindow_Initialize();
 	LFGMM_MinimapButton_Initialize();
 	LFGMM_BroadcastWindow_Initialize();
+	
+	LFGMM_Core_SetInfoWindowLocations();
 
 	if (LFGMM_DB.SETTINGS.ShowQuestLogButton) then
 		LFGMM_QuestLog_Button_Frame:Show();
@@ -77,6 +79,7 @@ function LFGMM_Core_MainWindow_ToggleShow()
 		LFGMM_LfgTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:Hide();
 		LFGMM_ListTab_MessageInfoWindow_Hide();
 		LFGMM_ListTab_ConfirmForgetAll:Hide();
 		LFGMM_MainWindow:Hide();
@@ -84,6 +87,7 @@ function LFGMM_Core_MainWindow_ToggleShow()
 		LFGMM_LfgTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_LfmTab_BroadcastMessageInfoWindow:Hide();
 		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:Hide();
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:Hide();
 		LFGMM_ListTab_MessageInfoWindow_Hide();
 		LFGMM_ListTab_ConfirmForgetAll:Hide();
 		LFGMM_MainWindow:Show(); 
@@ -106,6 +110,45 @@ function LFGMM_Core_SetGuiEnabled(enabled)
 		LFGMM_MainWindowTab2:Disable();
 		LFGMM_MainWindowTab3:Disable();
 		LFGMM_MainWindowTab4:Disable();
+	end
+end
+
+
+function LFGMM_Core_SetInfoWindowLocations()
+	if (LFGMM_DB.SETTINGS.InfoWindowLocation == "right") then
+		LFGMM_SettingsTab_InfoWindowLocationButton:SetText("right >");
+
+		LFGMM_LfgTab_BroadcastMessageInfoWindow:ClearAllPoints();
+		LFGMM_LfgTab_BroadcastMessageInfoWindow:SetPoint("BOTTOMLEFT", "LFGMM_MainWindow", "BOTTOMRIGHT", 10, -2);
+
+		LFGMM_LfmTab_BroadcastMessageInfoWindow:ClearAllPoints();
+		LFGMM_LfmTab_BroadcastMessageInfoWindow:SetPoint("BOTTOMLEFT", "LFGMM_MainWindow", "BOTTOMRIGHT", 10, -2);
+
+		LFGMM_ListTab_MessageInfoWindow:ClearAllPoints();
+		LFGMM_ListTab_MessageInfoWindow:SetPoint("BOTTOMLEFT", "LFGMM_MainWindow", "BOTTOMRIGHT", 10, -2);
+
+		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:ClearAllPoints();
+		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:SetPoint("BOTTOMLEFT", "LFGMM_MainWindow", "BOTTOMRIGHT", 10, -2);
+
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:ClearAllPoints();
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:SetPoint("BOTTOMLEFT", "LFGMM_MainWindow", "BOTTOMRIGHT", 10, -2);
+	else
+		LFGMM_SettingsTab_InfoWindowLocationButton:SetText("< left");
+
+		LFGMM_LfgTab_BroadcastMessageInfoWindow:ClearAllPoints();
+		LFGMM_LfgTab_BroadcastMessageInfoWindow:SetPoint("BOTTOMRIGHT", "LFGMM_MainWindow", "BOTTOMLEFT", -10, -2);
+
+		LFGMM_LfmTab_BroadcastMessageInfoWindow:ClearAllPoints();
+		LFGMM_LfmTab_BroadcastMessageInfoWindow:SetPoint("BOTTOMRIGHT", "LFGMM_MainWindow", "BOTTOMLEFT", -10, -2);
+
+		LFGMM_ListTab_MessageInfoWindow:ClearAllPoints();
+		LFGMM_ListTab_MessageInfoWindow:SetPoint("BOTTOMRIGHT", "LFGMM_MainWindow", "BOTTOMLEFT", -10, -2);
+
+		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:ClearAllPoints();
+		LFGMM_SettingsTab_RequestInviteMessageInfoWindow:SetPoint("BOTTOMRIGHT", "LFGMM_MainWindow", "BOTTOMLEFT", -10, -2);
+
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:ClearAllPoints();
+		LFGMM_SettingsTab_ChannelsDropDownInfoWindow:SetPoint("BOTTOMRIGHT", "LFGMM_MainWindow", "BOTTOMLEFT", -10, -2);
 	end
 end
 
@@ -317,6 +360,24 @@ function LFGMM_Core_FindSearchMatch()
 end
 
 
+function LFGMM_Core_JoinChannels()
+	LFGMM_GLOBAL.LFG_CHANNEL_NAME = LFGMM_Utility_GetLfgChannelName();
+	JoinTemporaryChannel(LFGMM_GLOBAL.LFG_CHANNEL_NAME);
+	
+	LFGMM_GLOBAL.GENERAL_CHANNEL_NAME = LFGMM_Utility_GetGeneralChannelName();
+	if (LFGMM_DB.SETTINGS.UseGeneralChannel) then
+		JoinTemporaryChannel(LFGMM_GLOBAL.GENERAL_CHANNEL_NAME);
+	end
+
+	LFGMM_GLOBAL.TRADE_CHANNEL_NAME, LFGMM_GLOBAL.TRADE_CHANNEL_AVAILABLE = LFGMM_Utility_GetTradeChannelName();
+	if (LFGMM_DB.SETTINGS.UseTradeChannel and LFGMM_GLOBAL.TRADE_CHANNEL_AVAILABLE) then
+		JoinTemporaryChannel(LFGMM_GLOBAL.TRADE_CHANNEL_NAME);
+	end
+	
+	LFGMM_SettingsTab_ChannelsDropDown_UpdateText();
+end
+
+
 ------------------------------------------------------------------------------------------------------------------------
 -- EVENT HANDLER
 ------------------------------------------------------------------------------------------------------------------------
@@ -337,15 +398,20 @@ function LFGMM_Core_EventHandler(self, event, ...)
 		LFGMM_Load();
 		LFGMM_Core_Initialize();
 
-		-- Join LFG channel
+		-- Join channels
 		C_Timer.After(5, function()
-			LFGMM_GLOBAL.LFG_CHANNEL_NAME = LFGMM_Utility_GetLfgChannelName();
-			JoinTemporaryChannel(LFGMM_GLOBAL.LFG_CHANNEL_NAME);
+			LFGMM_Core_JoinChannels();
 		end);
 		
 	-- Return if not ready
 	elseif (not LFGMM_GLOBAL.READY) then
 		return;
+	
+	-- Zone changed (join channels)
+	elseif (event == "ZONE_CHANGED_NEW_AREA") then
+		C_Timer.After(5, function()
+			LFGMM_Core_JoinChannels();
+		end);
 	
 	-- Update player level
 	elseif (event == "PLAYER_LEVEL_UP") then
@@ -399,6 +465,8 @@ function LFGMM_Core_EventHandler(self, event, ...)
 				
 				LFGMM_Core_Refresh();
 				LFGMM_Core_RemoveUnavailableDungeonsFromSelections();
+				
+				LFGMM_MinimapButton_Refresh();
 			end
 
 		-- Abort LFM if dungeon group size is reached
@@ -414,6 +482,8 @@ function LFGMM_Core_EventHandler(self, event, ...)
 
 				LFGMM_Core_Refresh();
 				LFGMM_Core_RemoveUnavailableDungeonsFromSelections();
+				
+				LFGMM_MinimapButton_Refresh();
 			end
 		end
 
@@ -421,18 +491,24 @@ function LFGMM_Core_EventHandler(self, event, ...)
 	elseif (event == "CHAT_MSG_CHANNEL") then
 		local channelName = select(9, ...);
 
-		if (channelName == LFGMM_GLOBAL.LFG_CHANNEL_NAME) then
+		local isGeneralChannel = string.find(channelName, "^" .. LFGMM_GLOBAL.GENERAL_CHANNEL_NAME);
+		local isTradeChannel = string.find(channelName, "^" .. LFGMM_GLOBAL.TRADE_CHANNEL_NAME);
+
+		if (channelName == LFGMM_GLOBAL.LFG_CHANNEL_NAME or
+			(isGeneralChannel and LFGMM_DB.SETTINGS.UseGeneralChannel) or
+			(isTradeChannel and LFGMM_DB.SETTINGS.UseTradeChannel))
+		then
 			local now = time();
 			local player = select(5, ...);
 			local playerGuid = select(12, ...);
 			local messageOrg = select(1, ...);
 			local message = string.lower(messageOrg);
-	
+
 			-- Ignore own messages
 			if (player == LFGMM_GLOBAL.PLAYER_NAME) then
 				return;
 			end
-
+			
 			-- Replace special characters in message to simplify pattern requirements
 			message = string.gsub(message, "á", "a");
 			message = string.gsub(message, "à", "a");
@@ -461,10 +537,14 @@ function LFGMM_Core_EventHandler(self, event, ...)
 			message = string.gsub(message, "œ", "oe");
 			message = string.gsub(message, "ç", "c");
 
-			-- Remove "/w me" from message before parsing to avoid false positive match for DM - West
+			-- Remove item links to prevent false positive matches from item names
+			message = string.gsub(message, "%phitem[%d:]+%ph%[.-%]", "");
+
+			-- Remove "/w me" and "/w inv" from message before parsing to avoid false positive match for DM - West
 			for _,languageCode in ipairs(LFGMM_DB.SETTINGS.IdentifierLanguages) do
 				if (languageCode == "EN") then
 					message = string.gsub(message, "/w[%W]+me", " ");
+					message = string.gsub(message, "/w[%W]+inv", " ");
 				elseif (languageCode == "DE") then
 					message = string.gsub(message, "/w[%W]+mir", " ");
 					message = string.gsub(message, "/w[%W]+bei", " ");
@@ -644,8 +724,13 @@ function LFGMM_Core_EventHandler(self, event, ...)
 				end
 			end
 
-			-- Ignore WTB and WTS messages
 			if (typeMatch == "UNKNOWN" and table.getn(dungeonMatches) == 0) then
+				-- Ignore general and trade messages without dungeon and type match
+				if (isGeneralChannel or isTradeChannel) then
+					return;
+				end
+
+				-- Ignore WTB and WTS messages
 				if (string.find(message, "wtb") ~= nil or string.find(message, "wts") ~= nil) then
 					return;
 				end
@@ -772,6 +857,7 @@ end
 
 -- Register events
 LFGMM_MainWindow:RegisterEvent("PLAYER_ENTERING_WORLD");
+LFGMM_MainWindow:RegisterEvent("ZONE_CHANGED_NEW_AREA");
 LFGMM_MainWindow:RegisterEvent("CHAT_MSG_CHANNEL");
 LFGMM_MainWindow:RegisterEvent("PLAYER_LEVEL_UP");
 LFGMM_MainWindow:RegisterEvent("GROUP_ROSTER_UPDATE");
